@@ -2,7 +2,7 @@
     session_start();
     $dbuser = user;
     $dbhost = localhost;
-    $dbpwd = 1488;
+    $dbpwd = d8YAEwatyCB7JNB2;
     $dbnm = library;
     connectToDb();
 ?>
