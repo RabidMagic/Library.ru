@@ -6,20 +6,17 @@
 
 /*-----Общие стили для всех страниц-----*/
 /*Минимальный размер страницы*/
-#temp {
-    background-image: url(/img/main_background.jpg);
-    //color: white;
-}
 #container {
     margin: 0 auto;
-    min-width: 1100px;
-    max-width: 1980px;
+    width: 2000px;
 }
 /*Фон страницы*/
 body {
     background-image: url(/img/background.jpg);
     background-size: cover;
     margin: 0;
+    height: 1510px;
+    //width: 1000px;
 }
 /*Заголовок*/
 header {
@@ -36,21 +33,22 @@ header {
 }
 /*Погреб*/
 footer {
-    max-height: 100px;
     height: 100px;
     font-size: 30px;
     font-family: fantasy;
     color: green;
     text-align: center;
-    padding-top: 60px;
+    //padding-top: 60px;
     clear: both;
 }
 /*Основной лист*/
 #main {
+    width: 1500px;
     height: 1100px;
     border-radius: 20px;
     background-image: url(/img/main_background.jpg);
-    margin: 0 20px 0 50px;
+    background-size: cover;
+    margin: 0 auto;
     padding: 30px 40px 30px 40px;
 }
 /*Таинственная псевдораспорка. Прячется в тени и носит шляпу.*/ 
@@ -60,12 +58,14 @@ footer {
     display: block;
     clear: both;
 }
+/*Авторизация/регистрация в header.php*/
 #reg_auth {
-    float: right;
+    position: fixed;
+    float: left;
     width: 200px;
     background-color: yellow;
     padding-top: 0px;
-    margin-right: 50px;
+    //margin-right: 50px;
 }
 /*--------------------------------------*/
 
@@ -91,7 +91,7 @@ footer {
 /*Положение кнопок*/
 #topmenu {
     height: 60px;
-    margin-left: 100px;
+    margin-left: 250px;
     position: absolute;
     width: 1000px;
 }
@@ -107,26 +107,30 @@ a {
 /*--------------------------------------------*/
 
 /*---------------Главная страница-------------*/
+h2 {
+    text-align: center;
+    display: inline-block;
+    margin-top: 100px;
+    margin-left: 40%;
+}
 .news {
     border: 5px darkseagreen solid;
     height: 300px;
     margin-bottom: 30px;
 }
 
-.news div img {
+.news img {
     margin: 15px 0 0 30px;
     width: 185px;
     height: 250px;
-}
-
-.news div {
-    display: inline-table;
+    float: left;
 }
 
 .description {
-    position: absolute;
-    margin: 5px 400px 5px 30px;
-    float: right;
+    //position: absolute;
+    margin-left: 90px;
+    float: left;
+    //border: 5px darkseagreen solid;
 }
 
 .description h1 {
@@ -140,20 +144,53 @@ a {
 }
 
 .description p {
-    display: block;
-    position: absolute;
-    width: 900px;
+    display: inline-block;
+    //position: absolute;
+    width: 500px;
 }
 
 .links {
     text-decoration: underline;
     color: blue;
 }
+
+#main > h1 {
+    text-align: center;
+    font-size: 50px;
+    margin-top: 0;
+}
+
+.user-date {
+    float: right;
+    margin-top: 250px;
+    margin-right: 20px;
+}
 /*--------------------------------------------*/
 
 /*--------------------Каталог-----------------*/
-
-/*Навигационное меню "Жанры"(пока не подключено)*/
+/*Блок, содержащий картинку, название и автора книги. Краткая инфа*/
+.catalog-content {
+    float: left;
+    border: 5px darkseagreen solid;
+    margin-left: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+/*Картинка внутри краткой инфы о книге*/
+.catalog-content img {
+    width: 185px;
+    height: 250px;
+    
+}
+/*Блоки внутри артикля*/
+.catalog-span {
+    height: 1100px;
+    float: left;
+}
+.catalog-links {
+    
+}
+/*Навигационное меню "Жанры"*/
 #navmenu {
     background-image: url(/img/navmenuli.jpg);
     background-size: cover;
@@ -161,7 +198,7 @@ a {
     float: left;
     border-radius: 10px;
     font-family: cursive;
-    position: fixed;
+    //position: fixed;
 }
 /*Заголовок "Жанров"*/
 #navmenu h1 {
@@ -178,39 +215,9 @@ a {
 #navmenu ul li {
     padding-top: 7px;
 }
-/*Блоки внутри артикля*/
-.catalog-span {
-    display: block;
-    width: 20%;
-    height: 100%;
-    text-align: center;
-    float: left;
-    font-family: arial;
-    margin: 0;
-}
-/*Артикль*/
-#catalog {
-    height: 1100px;
-    border-radius: 20px;
-    background-image: url(/img/main_background.jpg);
-    margin: 0 20px 0 50px;
-}
-/*Блоки с жанрами и авторами*/
-.catalog-span > div {
-    height: 500px;
-    margin-top: 50px;
-}
-
 /*----------------Регистрация-----------------*/
-
-/*Основная страница*/
-#reg_page {
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    background-image: url(/img/main_background.jpg);
-    background-size: cover;
-    //background-repeat: no-repeat;
-    height: 500px;
-    max-height: 1980px;
+/*------------*/
+form > h1 {
+    text-align: center;
+    font-size: 30px;
 }
