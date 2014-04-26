@@ -136,17 +136,19 @@ h2 {
 .description h1 {
     font-size: 40px;
     font-family: monospace;
+    margin-top: 10px;
 }
 
 .description h3 {
     font-family: cursive;
     font-size: 20px;
+    margin-top: 0;
 }
 
 .description p {
     display: inline-block;
     //position: absolute;
-    width: 500px;
+    width: 700px;
 }
 
 .links {
@@ -175,6 +177,10 @@ h2 {
     margin-left: 50px;
     margin-bottom: 50px;
     text-align: center;
+   // background-image: url(/img/001.jpg);
+    background-size: contain;
+    width: 320px;
+    height: 413px;
 }
 /*Картинка внутри краткой инфы о книге*/
 .catalog-content img {

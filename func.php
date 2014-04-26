@@ -88,50 +88,13 @@ function checkBirthDate($birthdate)
         $messages[] = "Год рождения не может быть больше текущего года";
         return FALSE;
     }
-    //Дальше идёт старая запись выбора даты из списка
-    /*$day = array();
-    $month = array();
-    $year = array(); 
-    ?><select name="day"><?php
-    for ($i = 1; $i < 32; $i++)
-    {
-        $day[] = $i;
-    }
-    foreach ($day as $d)
-    {
-        print "<option>$d</option>\n";
-    }
-    ?></select>
-    <select name="month"><?php
-    for ($i = 1; $i < 13; $i++)
-    {
-        $month[] = $i;
-    }
-    foreach ($month as $m)
-    {
-        print "<option>$m</option>\n";
-    }
-    ?></select>
-    <select name="year"><?php
-    $y = intval(date('Y'));
-    $i = $y - 10;
-    //$c = intval($y - 3);
-    for ($i; $i > $y - 71; $i--)
-    {
-        $year[] = $i;
-    }
-    foreach ($year as $yr)
-    {
-        print "<option>$yr</option>\n";
-    }
-    ?></select><?php*/
 }
 //Проверка введённой информации
 //$field_descr - описание поля, которое будет выводиться при ошибках;
 //$field_data - передаваемая для проверки переменная;
 //$field_type - тип поля. Типы описаны в массиве $data_types внутри функции;
 //$min_length и $max_length - минимальные и максимальные возможные длины полей;
-//$field_required - ...;
+//$field_required - проверка на обязательность;
 function field_validator($field_descr, $field_data, $field_type, $min_length="", $max_length="", $field_required=1) 
 {
     global $messages;
@@ -162,7 +125,7 @@ function field_validator($field_descr, $field_data, $field_type, $min_length="",
     }
     if (!$field_ok)
     {
-        $messages[] = "Пожалуйста введите нормальный $field_descr.";
+        $messages[] = "Пожалуйста введите нормальное значение $field_descr.";
         return;
     }
     if ($field_ok && ($min_length > 0))   
@@ -202,7 +165,7 @@ function showNews()
         do
         {
             print "<div class='news'>
-                    <img src='img/book.jpg' alt='картинка'>
+                    <img src='uploads/".$fetch['img']."' alt='картинка'>
                     <div class='description'>
                         <h1>".$fetch['book_name']."</h1>
                         <h3>".$fetch['author']."</h3>
@@ -215,3 +178,51 @@ function showNews()
         while ($fetch = mysql_fetch_array($result));
     } else print "<h2>Здесь пока нет новостей</h2>";
 }
+//Вывод жанров из БД
+function outputGenres()
+{
+    global $link;
+    $query = "SELECT genre FROM genres";
+    $result = mysql_query($query, $link);
+    $a = mysql_num_rows($result);
+    if (mysql_num_rows($result) > 0)
+    {
+        while ($fetch = mysql_fetch_row($result))
+        {
+            foreach ($fetch as $f)
+            {
+                print "<option>$f</option>\n";
+            }
+        }
+    }
+}
+//Проверка файла и загрузка его на сервер
+//$name - имя поля в форме(обязательно указывать в одинарных кавычках!);
+//$type - MIME-тип для проверки(string-тип);
+//$size - орграничение на размер файла;
+//$uploaddir - директория для хранения файла;
+function uploadFile($name, $type, $size, $uploaddir)
+{
+    global $messages, $uploadfile;
+    if (!($_FILES[$name]['type'] == $type))
+    {
+        $messages[] = "Неверное расширение файла";
+    }
+    if ($_FILES[$name]['size'] > $size)
+    {
+        $messages[] = "Недопустимый размер файла";
+    }
+    if (empty($messages))
+    {
+        $rand = rand();
+        $rand1 = rand(); 
+        $uploadfile = $rand . md5(basename($_FILES[$name]['name'])) . $rand1;
+        if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploaddir . $uploadfile))
+        {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+}
+?>

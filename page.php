@@ -22,9 +22,9 @@ include_once 'connect.php';
                 $id = mysql_real_escape_string($id);
                 $result = mysql_query("SELECT * FROM upload_books WHERE id = '$id'");
                 $fetch = mysql_fetch_array($result);
-                if (mysql_num_rows($result) > 0)
+                if (mysql_num_rows($result) === 1)
                 {
-                    print "<img src='img/book.jpg' alt='картинка'>
+                    print "<img src='uploads/".$fetch['img']."' alt='картинка'>
                     <div>
                         <h1>".$fetch['book_name']."</h1>
                         <h3>".$fetch['author']."</h3>

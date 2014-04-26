@@ -30,11 +30,11 @@ include_once 'connect.php';
                     $fetch = mysql_fetch_array($result);
                     do
                     {
-                        print "<div class='catalog-content'>
-                                <img src='img/book.jpg' alt='картинка'>
-                                <p><a class='catalog-links' href='page.php?id=".$fetch['id']."'>".$fetch['book_name']."</a></p>
+                        print "<a class='catalog-links' href='page.php?id=".$fetch['id']."'><div class='catalog-content'>
+                                <img src='uploads/".$fetch['img']."' alt='картинка'>
+                                <p>".$fetch['book_name']."</p>
                                 <p>".$fetch['author']."</p>
-                              </div>";
+                              </div></a>";
                     }
                     while ($fetch = mysql_fetch_array($result));
                 } else print "<h1>Выберите категорию</h1>";
