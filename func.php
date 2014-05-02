@@ -1,14 +1,12 @@
 <?php
 //Подключение к БД
-function connectToDb()
-{
+function connectToDb() {
     global $link, $dbhost, $dbnm, $dbpwd, $dbuser;
     $link = mysql_connect($dbhost, $dbuser, $dbpwd);
     mysql_select_db($dbnm, $link);
 }
 //Создание нового пользователя
-function newUser($login, $password, $gender, $birthdate, $email)
-{
+function newUser($login, $password, $gender, $birthdate, $email) {
     global $link;
     $group = user;
     $password = md5(md5($password));
@@ -17,8 +15,7 @@ function newUser($login, $password, $gender, $birthdate, $email)
     return TRUE;
 }
 //проверка состояния сессии
-function checkLogIn($stat)
-{
+function checkLogIn($stat) {
     switch($stat)
     {
         case "yes":
@@ -37,16 +34,14 @@ function checkLogIn($stat)
     return TRUE;
 }
 //Процесс логина
-function reMemberSess($login, $password)
-{
+function reMemberSess($login, $password) {
     $_SESSION['login'] = $login;
     $_SESSION['password'] = $password;
     $_SESSION['stat_log'] = TRUE;
     return TRUE;
 }
 //Процесс логаута
-function clearSess()
-{
+function clearSess() {
     unset($_SESSION['login']);
     unset($_SESSION['password']);
     unset($_SESSION['stat_log']);
@@ -54,8 +49,7 @@ function clearSess()
     return TRUE;
 }
 //Проверка пользователя по БД
-function checkUser($login, $password)
-{
+function checkUser($login, $password) {
     global $link, $fetch;
     $password = md5(md5($password));
     $query = "SELECT login, password FROM users WHERE login='$login' && password='$password'";
@@ -68,8 +62,7 @@ function checkUser($login, $password)
     return TRUE;
 }
 //Проверка даты
-function checkBirthDate($birthdate)
-{
+function checkBirthDate($birthdate) {
     global $messages;
     $ex = explode("-", $birthdate);
     $month = $ex[0];
@@ -95,8 +88,7 @@ function checkBirthDate($birthdate)
 //$field_type - тип поля. Типы описаны в массиве $data_types внутри функции;
 //$min_length и $max_length - минимальные и максимальные возможные длины полей;
 //$field_required - проверка на обязательность;
-function field_validator($field_descr, $field_data, $field_type, $min_length="", $max_length="", $field_required=1) 
-{
+function field_validator($field_descr, $field_data, $field_type, $min_length="", $max_length="", $field_required=1)  {
     global $messages;
     if(!$field_data && !$field_required){ return; }
     $field_ok=false;
@@ -146,8 +138,7 @@ function field_validator($field_descr, $field_data, $field_type, $min_length="",
     }
 }
 //Отображение ошибок
-function displayErr($messages)
-{
+function displayErr($messages) {
     print "<ul>\n";
     foreach ($messages as $msg)
     {
@@ -156,31 +147,49 @@ function displayErr($messages)
     print "</ul>";
 }
 //Вывод новостей из БД
-function showNews()
-{
-    $result = mysql_query("SELECT * FROM upload_books ORDER BY id DESC LIMIT 0,3");
-    if (mysql_num_rows($result) > 0)
+//1 - вывод книг из базы;
+//2 - вывод новостей;
+function showNews($case) {
+    switch ($case)
     {
-        $fetch = mysql_fetch_array($result);
-        do
-        {
-            print "<div class='news'>
-                    <img src='uploads/".$fetch['img']."' alt='картинка'>
-                    <div class='description'>
-                        <h1>".$fetch['book_name']."</h1>
-                        <h3>".$fetch['author']."</h3>
-                        <p>".$fetch['description']."   "."<a class='links' href='page.php?id=".$fetch['id']."'>Подробнее</a></p>
-                    </div>
-                    <div class='user-date'><p>Добавил: <b>".$fetch['login']."</b> Дата: <b>".$fetch['date']."</b></p></div>
-                    <div class='clearfix'></div>
-                </div>";
-        }
-        while ($fetch = mysql_fetch_array($result));
-    } else print "<h2>Здесь пока нет новостей</h2>";
+        case '1':
+            $result = mysql_query("SELECT * FROM upload_books ORDER BY id DESC LIMIT 0,3");
+            if (mysql_num_rows($result) > 0)
+            {
+                $fetch = mysql_fetch_array($result);
+                do
+                {
+                    print "<div class='newble'>
+                            <img src='uploads/".$fetch['img']."' alt='картинка'>
+                            <div class='description'>
+                                <h1>".$fetch['book_name']."</h1>
+                                <h3>".$fetch['author']."</h3>
+                            </div>
+                            <div class='clearfix'></div>
+                        </div>";
+                }
+                while ($fetch = mysql_fetch_array($result));
+            } else print "<h2>Здесь пока нет новостей</h2>";
+            break;
+        case '2':
+            $result = mysql_query("SELECT * FROM news ORDER BY id DESC LIMIT 0,3");
+            if (mysql_num_rows($result) > 0)
+            {
+                $fetch = mysql_fetch_array($result);
+                do
+                {
+                    print "<div class='news'>
+                                <h1>".$fetch['header']."</h1>
+                                <p>".$fetch['desc']."</p>
+                           </div>";
+                }
+                while ($fetch = mysql_fetch_array($result));
+            }
+            break;
+    }
 }
 //Вывод жанров из БД
-function outputGenres()
-{
+function outputGenres() {
     global $link;
     $query = "SELECT genre FROM genres";
     $result = mysql_query($query, $link);
@@ -201,8 +210,7 @@ function outputGenres()
 //$type - MIME-тип для проверки(string-тип);
 //$size - орграничение на размер файла;
 //$uploaddir - директория для хранения файла;
-function uploadFile($name, $type, $size, $uploaddir)
-{
+function uploadFile($name, $type, $size, $uploaddir) {
     global $messages, $uploadfile;
     if (!($_FILES[$name]['type'] == $type))
     {
@@ -224,5 +232,13 @@ function uploadFile($name, $type, $size, $uploaddir)
             return FALSE;
         }
     }
+}
+//Вывод отзыва
+function getReview() {
+    
+}
+//Ввод отзыва в базу
+function inputReview() {
+    
 }
 ?>

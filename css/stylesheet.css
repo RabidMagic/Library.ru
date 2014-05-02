@@ -8,7 +8,7 @@
 /*Минимальный размер страницы*/
 #container {
     margin: 0 auto;
-    width: 2000px;
+    min-width: 1200px;
 }
 /*Фон страницы*/
 body {
@@ -43,7 +43,7 @@ footer {
 }
 /*Основной лист*/
 #main {
-    width: 1500px;
+    max-width: 1500px;
     height: 1100px;
     border-radius: 20px;
     background-image: url(/img/main_background.jpg);
@@ -107,41 +107,46 @@ a {
 /*--------------------------------------------*/
 
 /*---------------Главная страница-------------*/
-h2 {
-    text-align: center;
-    display: inline-block;
-    margin-top: 100px;
-    margin-left: 40%;
-}
-.news {
-    border: 5px darkseagreen solid;
-    height: 300px;
-    margin-bottom: 30px;
+#about {
+    width: 70%;
+    float: left;
+    border: 1px darkseagreen solid;
 }
 
-.news img {
-    margin: 15px 0 0 30px;
-    width: 185px;
-    height: 250px;
-    float: left;
+#newblebox {
+    width: 300px;
+    float: right;
+    width: 240px;
+    padding: 10px auto;
+}
+
+.newble {
+    border: 5px darkseagreen solid;
+    margin-bottom: 30px;
+    height: 300px;
+}
+
+.newble img {
+    width: 150px;
+    height: 200px;
+    margin-top: 15px;
+    margin-left: 40px;
 }
 
 .description {
-    //position: absolute;
-    margin-left: 90px;
-    float: left;
-    //border: 5px darkseagreen solid;
+    text-align: center;
 }
 
 .description h1 {
-    font-size: 40px;
+    font-size: 25px;
     font-family: monospace;
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .description h3 {
     font-family: cursive;
-    font-size: 20px;
+    font-size: 15px;
     margin-top: 0;
 }
 
@@ -166,6 +171,18 @@ h2 {
     float: right;
     margin-top: 250px;
     margin-right: 20px;
+}
+
+#newsbox {
+    width: 70%;
+    float: left;
+    border: 1px darkseagreen solid;
+}
+
+.news {
+    border: 5px darkseagreen solid;
+    margin-bottom: 30px;
+    height: 300px;    
 }
 /*--------------------------------------------*/
 
@@ -200,8 +217,7 @@ h2 {
 #navmenu {
     background-image: url(/img/navmenuli.jpg);
     background-size: cover;
-    width: 200px;
-    float: left;
+    width: 150px;
     border-radius: 10px;
     font-family: cursive;
     //position: fixed;
@@ -221,9 +237,20 @@ h2 {
 #navmenu ul li {
     padding-top: 7px;
 }
+/*--------------------------------------------*/
+
 /*----------------Регистрация-----------------*/
-/*------------*/
+/*Заголовок*/
 form > h1 {
     text-align: center;
     font-size: 30px;
 }
+/*--------------------------------------------*/
+
+/*----------------Гостевая книга-----------------*/
+/**/
+.gb-output {
+    height: 70%;
+    background-color: red;
+}
+/*-----------------------------------------------*/
