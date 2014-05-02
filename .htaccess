@@ -2,7 +2,7 @@ AddDefaultCharset utf-8
 <IfModule dir_module>
     DirectoryIndex index.php
 </IfModule>
-<Files ~ "^(header|footer|connect|nav|mainmenu|func)\.php$">
+<Files ~ "^(addbook|header|footer|connect|nav|mainmenu|func)\.php$">
 	Order Deny,Allow
 	Deny from all
 </Files>

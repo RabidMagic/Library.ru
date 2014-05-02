@@ -155,7 +155,7 @@ function displayErr($messages)
     }
     print "</ul>";
 }
-//Вывод обновлений из БД
+//Вывод новостей из БД
 function showNews()
 {
     $result = mysql_query("SELECT * FROM upload_books ORDER BY id DESC LIMIT 0,3");
@@ -164,13 +164,15 @@ function showNews()
         $fetch = mysql_fetch_array($result);
         do
         {
-            print "<div class='newble'>
+            print "<div class='news'>
                     <img src='uploads/".$fetch['img']."' alt='картинка'>
                     <div class='description'>
                         <h1>".$fetch['book_name']."</h1>
                         <h3>".$fetch['author']."</h3>
+                        <p>".$fetch['description']."   "."<a class='links' href='page.php?id=".$fetch['id']."'>Подробнее</a></p>
                     </div>
-
+                    <div class='user-date'><p>Добавил: <b>".$fetch['login']."</b> Дата: <b>".$fetch['date']."</b></p></div>
+                    <div class='clearfix'></div>
                 </div>";
         }
         while ($fetch = mysql_fetch_array($result));

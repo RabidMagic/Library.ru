@@ -16,22 +16,10 @@ include_once 'connect.php';
         <section id="container">
             <?php include 'header.php'; ?>
             <article id="main">
-                <div id="about">
-                    <h1>О нас</h1>
-                    <p>Некая бесполезная информация о разработчиках сайта.</p>
-                </div>
-                
-                <div id="newblebox">
-                    <h1>Обновление</h1>
-                    <?php
-                        showNews();
-                    ?>
-                </div>
-                
-                <div id="newsbox">
-                    <h1></h1>
-                    <p></p>
-                </div>
+                <h1>Новости</h1>
+                <?php
+                showNews();
+                ?>   
             </article>
             <?php include 'footer.php'; ?>
         </section>  

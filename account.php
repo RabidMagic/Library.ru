@@ -22,6 +22,9 @@ if (isset($_POST['logout']))
     <body>
         <section id="container">
             <article id="main">
+                <?php
+                include_once 'addbook.php';
+                ?>
                 <form action="" method="post">
                     <input type="submit" name="logout" value="Выйти">
                 </form>
