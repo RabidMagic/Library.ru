@@ -8,7 +8,7 @@
 /*Минимальный размер страницы*/
 #container {
     margin: 0 auto;
-    width: 2000px;
+    min-width: 1200px;
 }
 /*Фон страницы*/
 body {
@@ -43,7 +43,7 @@ footer {
 }
 /*Основной лист*/
 #main {
-    width: 1500px;
+    max-width: 1500px;
     height: 1100px;
     border-radius: 20px;
     background-image: url(/img/main_background.jpg);
@@ -78,7 +78,7 @@ footer {
 /*Кнопки в покое*/
 .button {
     background: url(/img/tap.jpg);    
-    width: 200px;
+    width: 210px;
     text-align: center;
     height: 40px;
     font-family: cursive;
@@ -91,8 +91,7 @@ footer {
 /*Положение кнопок*/
 #topmenu {
     height: 60px;
-    margin-left: 250px;
-    position: absolute;
+    margin: 0 auto;
     width: 1000px;
 }
 /*Лучше не трогать*/
@@ -107,48 +106,60 @@ a {
 /*--------------------------------------------*/
 
 /*---------------Главная страница-------------*/
-h2 {
-    text-align: center;
-    display: inline-block;
-    margin-top: 100px;
-    margin-left: 40%;
+/*Колонка о нас*/
+#about {
+    width: 70%;
+    float: left;
+    border: 1px darkseagreen solid;
 }
+/*Колонка обновлений книг*/
+#newblebox {
+    width: 300px;
+    float: right;
+    width: 240px;
+    padding: 10px auto;
+}
+/*Книги*/
+.newble {
+    border: 5px darkseagreen solid;
+    margin-bottom: 30px;
+    height: 300px;
+}
+/*Картинка книги*/
+.newble img {
+    width: 150px;
+    height: 200px;
+    margin-top: 15px;
+    margin-left: 40px;
+}
+/*Колонка новостей*/
+#newsbox {
+    width: 70%;
+    float: left;
+    border: 1px darkseagreen solid;
+}
+/*Новости*/
 .news {
     border: 5px darkseagreen solid;
-    height: 300px;
     margin-bottom: 30px;
+    height: 300px;    
 }
-
-.news img {
-    margin: 15px 0 0 30px;
-    width: 185px;
-    height: 250px;
-    float: left;
-}
-
+/*Описание*/
 .description {
-    //position: absolute;
-    margin-left: 90px;
-    float: left;
-    //border: 5px darkseagreen solid;
+    text-align: center;
 }
-
+/*Название книги*/
 .description h1 {
-    font-size: 40px;
+    font-size: 25px;
     font-family: monospace;
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
-
+/*Автор*/
 .description h3 {
     font-family: cursive;
-    font-size: 20px;
+    font-size: 15px;
     margin-top: 0;
-}
-
-.description p {
-    display: inline-block;
-    //position: absolute;
-    width: 700px;
 }
 
 .links {
@@ -160,12 +171,6 @@ h2 {
     text-align: center;
     font-size: 50px;
     margin-top: 0;
-}
-
-.user-date {
-    float: right;
-    margin-top: 250px;
-    margin-right: 20px;
 }
 /*--------------------------------------------*/
 
