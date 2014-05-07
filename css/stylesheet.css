@@ -60,12 +60,10 @@ footer {
 }
 /*Авторизация/регистрация в header.php*/
 #reg_auth {
-    position: fixed;
     float: left;
     width: 200px;
     background-color: yellow;
     padding-top: 0px;
-    //margin-right: 50px;
 }
 /*--------------------------------------*/
 
@@ -205,8 +203,7 @@ a {
 #navmenu {
     background-image: url(/img/navmenuli.jpg);
     background-size: cover;
-    width: 200px;
-    float: left;
+    width: 150px;
     border-radius: 10px;
     font-family: cursive;
     //position: fixed;
@@ -226,9 +223,30 @@ a {
 #navmenu ul li {
     padding-top: 7px;
 }
+/*--------------------------------------------*/
+
 /*----------------Регистрация-----------------*/
-/*------------*/
+/*Заголовок*/
 form > h1 {
     text-align: center;
     font-size: 30px;
 }
+/*--------------------------------------------*/
+
+/*----------------Гостевая книга-----------------*/
+/*Вывод*/
+.gb-output {
+    //height: 70%;
+    //background-color: red;
+}
+/*Ввод*/
+#gb-review {
+    
+}
+/*Поле ввода*/
+.gb-input-size {
+    resize: none;
+    width: 100%;
+    height: 100px;
+}
+/*-----------------------------------------------*/

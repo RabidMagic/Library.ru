@@ -18,19 +18,18 @@ include_once 'connect.php';
             <article id="main">
                 <div id="about">
                     <h1>О нас</h1>
-                    <p>Некая бесполезная информация о разработчиках сайта.</p>
+                    <p>Что-то бесполезное</p>
                 </div>
-                
                 <div id="newblebox">
-                    <h1>Обновление</h1>
+                    <h1>Обновления</h1>
                     <?php
-                        showNews();
+                    showNews('1');
                     ?>
                 </div>
-                
                 <div id="newsbox">
-                    <h1></h1>
-                    <p></p>
+                    <?php
+                    showNews('2');
+                    ?>
                 </div>
             </article>
             <?php include 'footer.php'; ?>

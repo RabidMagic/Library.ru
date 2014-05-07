@@ -14,7 +14,7 @@ include_once 'connect.php';
 </head>
 <body>
     <section id="container">
-        <?php 
+        <?php
         include 'header.php';
         include 'nav.php'; 
         ?>
@@ -37,7 +37,7 @@ include_once 'connect.php';
                               </div></a>";
                     }
                     while ($fetch = mysql_fetch_array($result));
-                } else print "<h1>Выберите категорию</h1>";
+                } else print "<h1>В данной категории пока ничего нет</h1>";
             } else print "<h1>Выберите категорию</h1>";
             ?>
         </article>

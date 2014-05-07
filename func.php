@@ -1,14 +1,12 @@
 <?php
 //Подключение к БД
-function connectToDb()
-{
+function connectToDb() {
     global $link, $dbhost, $dbnm, $dbpwd, $dbuser;
     $link = mysql_connect($dbhost, $dbuser, $dbpwd);
     mysql_select_db($dbnm, $link);
 }
 //Создание нового пользователя
-function newUser($login, $password, $gender, $birthdate, $email)
-{
+function newUser($login, $password, $gender, $birthdate, $email) {
     global $link;
     $group = user;
     $password = md5(md5($password));
@@ -17,36 +15,22 @@ function newUser($login, $password, $gender, $birthdate, $email)
     return TRUE;
 }
 //проверка состояния сессии
-function checkLogIn($stat)
-{
-    switch($stat)
+function checkLogIn() {
+    if (!isset($_SESSION['stat_log']))
     {
-        case "yes":
-            if (!isset($_SESSION['stat_log']))
-            {
-                header("Location: login.php");
-            }
-            break;
-        case "no":
-            if (isset($_SESSION['login']) && $_SESSION['stat_log'] === TRUE)
-            {
-                header("Location: account.php");
-            }
-            break;
+        header("Location: login.php");
     }
     return TRUE;
 }
 //Процесс логина
-function reMemberSess($login, $password)
-{
+function reMemberSess($login, $password) {
     $_SESSION['login'] = $login;
     $_SESSION['password'] = $password;
     $_SESSION['stat_log'] = TRUE;
     return TRUE;
 }
 //Процесс логаута
-function clearSess()
-{
+function clearSess() {
     unset($_SESSION['login']);
     unset($_SESSION['password']);
     unset($_SESSION['stat_log']);
@@ -54,8 +38,7 @@ function clearSess()
     return TRUE;
 }
 //Проверка пользователя по БД
-function checkUser($login, $password)
-{
+function checkUser($login, $password) {
     global $link, $fetch;
     $password = md5(md5($password));
     $query = "SELECT login, password FROM users WHERE login='$login' && password='$password'";
@@ -67,9 +50,8 @@ function checkUser($login, $password)
     }
     return TRUE;
 }
-//Проверка даты
-function checkBirthDate($birthdate)
-{
+//Проверка даты рождения
+function checkBirthDate($birthdate) {
     global $messages;
     $ex = explode("-", $birthdate);
     $month = $ex[0];
@@ -95,8 +77,7 @@ function checkBirthDate($birthdate)
 //$field_type - тип поля. Типы описаны в массиве $data_types внутри функции;
 //$min_length и $max_length - минимальные и максимальные возможные длины полей;
 //$field_required - проверка на обязательность;
-function field_validator($field_descr, $field_data, $field_type, $min_length="", $max_length="", $field_required=1) 
-{
+function field_validator($field_descr, $field_data, $field_type, $min_length="", $max_length="", $field_required=1)  {
     global $messages;
     if(!$field_data && !$field_required){ return; }
     $field_ok=false;
@@ -146,8 +127,7 @@ function field_validator($field_descr, $field_data, $field_type, $min_length="",
     }
 }
 //Отображение ошибок
-function displayErr($messages)
-{
+function displayErr($messages) {
     print "<ul>\n";
     foreach ($messages as $msg)
     {
@@ -155,30 +135,50 @@ function displayErr($messages)
     }
     print "</ul>";
 }
-//Вывод обновлений из БД
-function showNews()
-{
-    $result = mysql_query("SELECT * FROM upload_books ORDER BY id DESC LIMIT 0,3");
-    if (mysql_num_rows($result) > 0)
+//Вывод новостей из БД
+//1 - вывод книг из базы;
+//2 - вывод новостей;
+function showNews($case) {
+    switch ($case)
     {
-        $fetch = mysql_fetch_array($result);
-        do
-        {
-            print "<div class='newble'>
-                    <img src='uploads/".$fetch['img']."' alt='картинка'>
-                    <div class='description'>
-                        <h1>".$fetch['book_name']."</h1>
-                        <h3>".$fetch['author']."</h3>
-                    </div>
-
-                </div>";
-        }
-        while ($fetch = mysql_fetch_array($result));
-    } else print "<h2>Здесь пока нет новостей</h2>";
+        case '1':
+            $result = mysql_query("SELECT * FROM upload_books ORDER BY id DESC LIMIT 0,3");
+            if (mysql_num_rows($result) > 0)
+            {
+                $fetch = mysql_fetch_array($result);
+                do
+                {
+                    print "<div class='newble'>
+                            <a href='page.php?id=".$fetch['id']."'><img src='uploads/".$fetch['img']."' alt='картинка'>
+                            <div class='description'>
+                                <h1>".$fetch['book_name']."</h1>
+                                <h3>".$fetch['author']."</h3>
+                            </div>
+                            <div class='clearfix'></div></a>
+                        </div>";
+                }
+                while ($fetch = mysql_fetch_array($result));
+            } else print "<h2>Здесь пока нет новостей</h2>";
+            break;
+        case '2':
+            $result = mysql_query("SELECT * FROM news ORDER BY id DESC LIMIT 0,3");
+            if (mysql_num_rows($result) > 0)
+            {
+                $fetch = mysql_fetch_array($result);
+                do
+                {
+                    print "<div class='news'>
+                                <h1>".$fetch['header']."</h1>
+                                <p>".$fetch['desc']."</p>
+                           </div>";
+                }
+                while ($fetch = mysql_fetch_array($result));
+            }
+            break;
+    }
 }
 //Вывод жанров из БД
-function outputGenres()
-{
+function outputGenres() {
     global $link;
     $query = "SELECT genre FROM genres";
     $result = mysql_query($query, $link);
@@ -199,8 +199,7 @@ function outputGenres()
 //$type - MIME-тип для проверки(string-тип);
 //$size - орграничение на размер файла;
 //$uploaddir - директория для хранения файла;
-function uploadFile($name, $type, $size, $uploaddir)
-{
+function uploadFile($name, $type, $size, $uploaddir) {
     global $messages, $uploadfile;
     if (!($_FILES[$name]['type'] == $type))
     {
@@ -221,6 +220,69 @@ function uploadFile($name, $type, $size, $uploaddir)
         } else {
             return FALSE;
         }
+    }
+}
+//Вывод отзыва
+//$num - количество выводимых страниц;
+function getReview($num) {
+    global $link;
+    @$page = $_GET['page'];
+    if(empty($page) or $page < 0) $page = 1;
+    $start = $page * $num - $num;
+    $query = "SELECT * FROM review ORDER BY id DESC LIMIT $start,$num";
+    $result = mysql_query($query, $link);
+    if (mysql_num_rows($result) > 0)
+    {
+        $fetch = mysql_fetch_array($result);
+        do
+        {
+            print "<div>
+                    Имя: ".$fetch['name']." Дата: ".$fetch['date']."
+                    <p>".$fetch['rev']."</p>
+                   </div>";
+        } 
+        while ($fetch = mysql_fetch_array($result));       
+    } else print "Пока здесь нет отзывов, но Вы можете быть первым";
+}
+//Ввод отзыва в базу
+function inputReview($name, $date, $review) {
+    global $link;
+    $query = "INSERT INTO review (name, rev, date) VALUES ('$name', '$review', '$date')";
+    $result = mysql_query($query, $link);
+    return TRUE;
+}
+//Кнопки для пролистывания
+//$table - таблица, к которой делается запрос;
+//$num - количество выводимых страниц;
+function getPageButtons($table,$num) {
+    global $link;
+    @$page = $_GET['page'];
+    if(empty($page) or $page < 0) $page = 1;
+    $result_gpb = mysql_query("SELECT COUNT(*) FROM $table", $link);
+    $fetch_gpb = mysql_fetch_array($result_gpb);
+    $posts = $fetch_gpb[0];
+    $total = (($posts - 1) / $num) + 1;
+    $total = intval($total);
+    if (empty($page) || $page < 0) $page = 1;
+    if ($page > $total) $page = $total;
+    if ($page != 1) $pervpage = '<a href=?page=1>Первая</a> | <a href=?page='. ($page - 1) .'>Предыдущая</a> | ';
+    if ($page != $total) $nextpage = ' | <a href=?page='. ($page + 1) .'>Следующая</a> | <a href=?page=' .$total. '>Последняя</a>';
+    if ($page - 5 > 0) $page5left = ' <a href=?page='. ($page - 5) .'>'. ($page - 5) .'</a> | ';
+    if ($page - 4 > 0) $page4left = ' <a href=?page='. ($page - 4) .'>'. ($page - 4) .'</a> | ';
+    if ($page - 3 > 0) $page3left = ' <a href=?page='. ($page - 3) .'>'. ($page - 3) .'</a> | ';
+    if ($page - 2 > 0) $page2left = ' <a href=?page='. ($page - 2) .'>'. ($page - 2) .'</a> | ';
+    if ($page - 1 > 0) $page1left = '<a href=?page='. ($page - 1) .'>'. ($page - 1) .'</a> | ';
+    if ($page + 5 <= $total) $page5right = ' | <a href=?page='. ($page + 5) .'>'. ($page + 5) .'</a>';
+    if ($page + 4 <= $total) $page4right = ' | <a href=?page='. ($page + 4) .'>'. ($page + 4) .'</a>';
+    if ($page + 3 <= $total) $page3right = ' | <a href=?page='. ($page + 3) .'>'. ($page + 3) .'</a>';
+    if ($page + 2 <= $total) $page2right = ' | <a href=?page='. ($page + 2) .'>'. ($page + 2) .'</a>';
+    if ($page + 1 <= $total) $page1right = ' | <a href=?page='. ($page + 1) .'>'. ($page + 1) .'</a>';
+    if ($total > 1)
+    {
+        $content.= "<div class='pstrnav'>";
+        $content.=  $pervpage.$page5left.$page4left.$page3left.$page2left.$page1left.'<b>'.$page.'</b>'.$page1right.$page2right.$page3right.$page4right.$page5right.$nextpage;
+        $content.=  "</div>";
+        echo $content;
     }
 }
 ?>

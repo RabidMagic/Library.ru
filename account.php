@@ -2,7 +2,7 @@
 session_start(); 
 include_once 'func.php';
 include_once 'connect.php';
-checkLogIn("yes");
+checkLogIn();
 if (isset($_POST['logout']))
 {
     if (clearSess())
@@ -22,6 +22,9 @@ if (isset($_POST['logout']))
     <body>
         <section id="container">
             <article id="main">
+                <?php
+                include_once 'addbook.php';
+                ?>
                 <form action="" method="post">
                     <input type="submit" name="logout" value="Выйти">
                 </form>
