@@ -29,6 +29,7 @@ if (isset($_POST['logout']))
                     <input type="submit" name="logout" value="Выйти">
                 </form>
                 <a href='index.php'>Главная</a><br>
+                <?php include_once 'fav.php'; //вывод избранных книг пользователя ?>
             </article>
         </section>
         <?php include 'footer.php' ?> 

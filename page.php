@@ -25,13 +25,28 @@ include_once 'connect.php';
                 if (mysql_num_rows($result) === 1)
                 {
                     print "<img src='uploads/".$fetch['img']."' alt='картинка'>
-                    <div>
-                        <h1>".$fetch['book_name']."</h1>
-                        <h3>".$fetch['author']."</h3>
-                        <p>".$fetch['description']."</p>
-                    </div>
-                    <div class='user-date-page'><p>Добавил: <b>".$fetch['login']."</b> Дата: <b>".$fetch['date']."</b></p></div>
-                    <div class='clearfix'></div>";
+                           <div>
+                            <h1>".$fetch['book_name']."</h1>
+                            <h3>".$fetch['author']."</h3>
+                            <p>".$fetch['description']."</p>"
+                            ?>
+                            <?php 
+                            if (isset($_SESSION['login']))
+                            {
+                                if (checkBookFav() == TRUE)
+                                {
+                                    print "<form action='add-fav.php' method='post'>
+                                            <input type='hidden' value='$id' name='page_id'>
+                                            <input type='hidden' value='".$fetch['id']."' name='book_id'>
+                                            <input type='submit' value='Добавить в Избранное'>
+                                           </form>";
+                                }
+                            }
+                            ?>
+                            <?php
+                    print "</div>
+                           <div class='user-date-page'><p>Добавил: <b>".$fetch['login']."</b> Дата: <b>".$fetch['date']."</b></p></div>
+                           <div class='clearfix'></div>";                 
                 } else print "Искомой книги найдено не было";
                 ?>
             </article>

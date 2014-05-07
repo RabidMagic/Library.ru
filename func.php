@@ -285,4 +285,14 @@ function getPageButtons($table,$num) {
         echo $content;
     }
 }
+//Проверка нахождения книги в Избранном
+function checkBookFav() {
+    global $link;
+    $query = "SELECT * FROM favourites WHERE book_id='".$_GET['id']."' && login='".$_SESSION['login']."'";
+    $result = mysql_query($query, $link);
+    if (mysql_num_rows($result) == 0)
+    {
+        return TRUE;
+    } else return FALSE;
+}
 ?>
