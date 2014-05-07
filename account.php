@@ -2,7 +2,7 @@
 session_start(); 
 include_once 'func.php';
 include_once 'connect.php';
-checkLogIn("yes");
+checkLogIn();
 if (isset($_POST['logout']))
 {
     if (clearSess())

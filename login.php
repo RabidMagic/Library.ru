@@ -2,7 +2,6 @@
 session_start();
 include_once 'func.php';
 include_once 'connect.php';
-checkLogIn("no");
 if (isset($_POST['submit']))
 {
     $_POST['login'] = htmlspecialchars($_POST['login']);
@@ -36,8 +35,6 @@ if (isset($_POST['submit']))
             <article id="main">
                 <h1>Требуется авторизация!</h1>
                 <?php
-                print $fetch['login'];
-                print $fetch['password'];
                 if (!empty($messages))
                 {
                     displayErr($messages);
