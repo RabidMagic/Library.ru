@@ -106,6 +106,7 @@ if (isset($_POST['reg']))
                     </table>
                     <input type='submit' value='Зарегистрироваться' name='reg'>
                 </form>
+                <a href="index.php"><button>На главную</button></a>
             </article>
         </section>    
     </body>

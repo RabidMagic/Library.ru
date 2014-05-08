@@ -5,7 +5,6 @@ include_once 'func.php';
 include_once 'connect.php';
 if (isset($_POST['submit']))
 {
-    $messages = array();
     if (empty($_POST['book']))
     {
         $messages[] = "Вы не указали название книги";
@@ -37,8 +36,14 @@ if (isset($_POST['submit']))
             {
                 $login = $_SESSION['login'];
                 $book = mysql_real_escape_string($book);
+                $book = trim($book);
+                $book = htmlspecialchars($book);
                 $author = mysql_real_escape_string($author);
+                $author = trim($author);
+                $author = htmlspecialchars($author);
                 $desc = mysql_real_escape_string($desc);
+                $desc = trim($desc);
+                $desc = htmlspecialchars($desc);
                 $date = date("d - m - Y");
                 $query = "INSERT INTO upload_books SET book_name = '$book', author = '$author', description = '$desc', genre = '$genre', login = '$login', date = '$date', img = '$uploadfile'";
                 $result = mysql_query($query, $link);
@@ -55,8 +60,7 @@ if (isset($_POST['submit']))
         <?php
         if (!empty($messages))
         {
-            displayErr($messages);
-            
+            displayErr($messages);    
         }
         ?>
         <tr>
