@@ -14,7 +14,7 @@ if (mysql_num_rows($result) > 0)
                 <form action='fav-book-del.php' method='post'>
                     <input type='hidden' value='$login' name='fav-login'>
                     <input type='hidden' value='".$fetch['id']."' name='fav-b-id'>
-                    <input type='submit' name='fav-del' value='Удалить'>
+                    <input type='submit' value='Удалить'>
                 </form>
                </div>";
     } while ($fetch = mysql_fetch_array($result));

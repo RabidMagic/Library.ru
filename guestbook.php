@@ -5,32 +5,34 @@ include_once 'func.php';
 include_once 'connect.php';
 if (isset($_POST['submit']))
 {
-    //$messages = array();
     if (empty($_POST['review']))
     {
         $messages[] = "Вы не ввели отзыв";
     }
-    if (empty($_SESSION['login']) && empty($_POST['name']))
+    if (empty($_SESSION['login']) && empty($_POST['login']))
     {
-        $messages[] = "Вы не указали имя";
-    }
-    if (isset($_POST['name']))
+        $messages[] = "Не указан логин";
+    } else if (isset($_POST['login']))
     {
-        $name = $_POST['name'];
-    } else $name = $_SESSION['login'];
+        if (checkName($_POST['login']) == TRUE)
+        {
+            $login = $_POST['login'];
+        } else $messages[] = "Такой логин уже есть";
+    } else $login = $_SESSION['login'];
     if (empty($messages))
     {
         $review = $_POST['review'];
         $review = mysql_real_escape_string($review);
         $review = htmlspecialchars($review);
+        $name = trim($name);
         $name = mysql_real_escape_string($name);
         $name = htmlspecialchars($name);
         $date = date("d-m-Y");
-        if (inputReview($name, $date, $review) == TRUE)
+        if (inputReview($name, $date, $review, review) == TRUE)
         {
-            $messages[] = "Отзыв был успешно добавлен";
+            //$messages[] = "Отзыв был успешно добавлен";
             header("Location: guestbook.php");
-        }
+        } else $messages[] = "Такой логин уже есть";
     }
 }
 ?>
@@ -49,8 +51,8 @@ if (isset($_POST['submit']))
             <article id="main">
                 <div class="gb-output">
                     <?php
-                    getReview(10);
-                    getPageButtons(review,10);
+                    getReview(10,review);
+                    getPageButtons(review,10,$id);
                     ?>
                 </div>
                 <div class="gb-input">
@@ -61,8 +63,8 @@ if (isset($_POST['submit']))
                     }
                     ?>
                     <form action="" method="post">
-                        <?php (isset($_SESSION['login']) ? print "Ваше имя: ".$_SESSION['login'] : print "Ваше имя: <input type='text' name='name'>") ?>
-                        <textarea class="gb-input-size" name="review" id="gb-review"></textarea>
+                        <?php (isset($_SESSION['login']) ? print "Ваше имя: ".$_SESSION['login'] : print "Ваше имя: <input type='text' name='login'>") ?>
+                        <textarea class="gb-input-textarea" name="review"></textarea>
                         <input class="gb-buttons" type="reset" value="Сбросить">
                         <input class="gb-buttons" type="submit" name="submit" value="Отправить отзыв">
                     </form>";
