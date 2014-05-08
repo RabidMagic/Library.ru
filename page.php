@@ -6,15 +6,9 @@ $id = $_GET['id'];
 $id = mysql_real_escape_string($id);
 if (isset($_POST['page-com-input']))
 {
-    if (empty($_SESSION['login']) && empty($_POST['login']))
+    if (empty($_SESSION['login']))
     {
         $messages[] = "Не указан логин";
-    } else if (isset($_POST['login']))
-    {
-        if (checkName($_POST['login']) == TRUE)
-        {
-            $login = $_POST['login'];
-        } else $messages[] = "Такой логин уже есть";
     } else $login = $_SESSION['login'];
     if (empty($_POST['page-content']))
     {
@@ -82,18 +76,20 @@ if (isset($_POST['page-com-input']))
                             if (!empty($messages)) { displayErr($messages); }
                             getComment(5, $fetch['id']);
                             getPageButtons(book_comments, 5, $id);
-                     print "</div>
-                            <div class='page-comments-input'>
-                                <form action='' method='post'>
-                                    Ваш логин:"?><?php (isset($_SESSION['login']) ? print $_SESSION['login'] : print '<input type="text" name="login">');?>
-                                    <?php
-                                    print "<textarea class='page-comments-input-textarea' name='page-content'></textarea>
-                                    <input type='hidden' name='page-b-id' value='".$fetch['id']."'>
-                                    <input type='reset' value='Сбросить'>
-                                    <input type='submit' name='page-com-input' value='Отправить'>
-                                </form>
-                            </div>
-                            <div class='clearfix'></div>";
+                    if ($_SESSION['stat_log'] == TRUE) 
+                    {
+                        print "</div>
+                               <div class='page-comments-input'>
+                                   <form action='' method='post'>
+                                        Ваш логин:".$_SESSION['login']."                
+                                        <textarea class='page-comments-input-textarea' name='page-content'></textarea>
+                                        <input type='hidden' name='page-b-id' value='".$fetch['id']."'>
+                                        <input type='reset' value='Сбросить'>
+                                        <input type='submit' name='page-com-input' value='Отправить'>
+                                   </form>
+                               </div>";
+                    } else print "Авторизируйтесь, чтобы оставлять комментарии";
+                        print "<div class='clearfix'></div>";
                 } else print "Искомой книги найдено не было";
                 ?>
             </article>
