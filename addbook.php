@@ -23,14 +23,24 @@ if (isset($_POST['submit']))
     }
     if (empty($messages))
     {
+        mb_internal_encoding("UTF-8");
         $_POST['author-sname'] = securityCheck($_POST['author-sname']);
         $_POST['author-fname'] = securityCheck($_POST['author-fname']);
-        $array = array($_POST['author-sname'], $_POST['author-fname']);
+        $sname = $_POST['author-sname'];
+        $sname = strval($sname);
+        $sname = mb_ucfirst($sname);
+        $fname = $_POST['author-fname'];
+        $fname = strval($fname);
+        $fname = mb_ucfirst($fname);
+        $array = array($sname, $fname);
+        $author = implode(" ", $array);     
         $book = $_POST['book'];
         $book = securityCheck($book);
-        $author = implode(" ", $array);
+        $book = mb_ucfirst($book);
         $desc = $_POST['desc'];
         $desc = securityCheck($desc);
+        $desc = strval($desc);
+        $desc = mb_ucfirst($desc);
         $genre = $_POST['genre'];
         $query = "SELECT * FROM upload_books WHERE book_name = '$book' && author = '$author' && genre = '$genre'";
         $result = mysql_query($query, $link);
@@ -40,7 +50,6 @@ if (isset($_POST['submit']))
             if (uploadFile('img', 'image/jpeg', 2097152, "uploads/") === TRUE)
             {
                 $login = $_SESSION['login'];
-<<<<<<< HEAD
                 $book = mysql_real_escape_string($book);
                 $book = trim($book);
                 $book = htmlspecialchars($book);
@@ -50,12 +59,11 @@ if (isset($_POST['submit']))
                 $desc = mysql_real_escape_string($desc);
                 $desc = trim($desc);
                 $desc = htmlspecialchars($desc);
-=======
->>>>>>> search
                 $date = date("d - m - Y");
                 $query = "INSERT INTO upload_books SET book_name = '$book', author = '$author', description = '$desc', genre = '$genre', login = '$login', date = '$date', img = '$uploadfile'";
                 $result = mysql_query($query, $link);
                 $messages[] = "Книга была успешно добавлена";
+                //header("Location: account.php");
             } else $messages[] = "Не удалось загрузить файл";
         } else $messages[] = "Такая книга уже есть";
     }
@@ -68,11 +76,7 @@ if (isset($_POST['submit']))
         <?php
         if (!empty($messages))
         {
-<<<<<<< HEAD
-            displayErr($messages);    
-=======
-            displayErr($messages);   
->>>>>>> search
+            displayErr($messages);
         }
         ?>
         <tr>

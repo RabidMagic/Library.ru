@@ -2,7 +2,6 @@
 session_start();
 include_once 'func.php';
 include_once 'connect.php';
-$referer = $_SERVER['HTTP_REFERER'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,7 +34,7 @@ $referer = $_SERVER['HTTP_REFERER'];
                             <td><input type="password" name="password"></td>
                         </tr>
                     </table>
-       <?php print "<input type='hidden' name='auth-hid-ref' value='$referer'>" ?>
+       <?php print "<input type='hidden' name='auth-hid-ref'>" ?>
                     <input type="submit" value="Войти">
                 </form>
                 <a href="registration.php">Регистрация</a><br>
