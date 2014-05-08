@@ -2,7 +2,6 @@
 session_start();
 include_once 'func.php';
 include_once 'connect.php';
-$referer = $_POST['auth-hid-ref'];
 $_POST['login'] = htmlspecialchars($_POST['login']);
 $_POST['password'] = htmlspecialchars($_POST['password']);
 field_validator("'Логин'", $_POST['login'], "alphanumeric", 4, 32);
@@ -19,5 +18,5 @@ if (empty($messages))
         $messages[] = "Ошибка при подключении";
         $_SESSION['messages'] = $messages;
         header("Location: auth.php");
-    } else header("Location: $referer");
+    } else header("Location: index.php");
 } else    header ("Location: auth.php");
