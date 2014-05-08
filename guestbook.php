@@ -1,5 +1,4 @@
 <?php
-//Пока не доделано
 session_start();
 include_once 'func.php';
 include_once 'connect.php';
@@ -22,16 +21,20 @@ if (isset($_POST['submit']))
     if (empty($messages))
     {
         $review = $_POST['review'];
+<<<<<<< HEAD
         $review = mysql_real_escape_string($review);
         $review = htmlspecialchars($review);
         $review = trim($review);
         $name = trim($name);
         $name = mysql_real_escape_string($name);
         $name = htmlspecialchars($name);
+=======
+        $review = securityCheck($review);
+        $name = securityCheck($name);
+>>>>>>> search
         $date = date("d-m-Y");
         if (inputReview($name, $date, $review, review) == TRUE)
         {
-            //$messages[] = "Отзыв был успешно добавлен";
             header("Location: guestbook.php");
         } else $messages[] = "Такой логин уже есть";
     }
