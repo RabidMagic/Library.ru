@@ -12,5 +12,9 @@
         <div class="clearfix"></div>
     </div>
     <div id="logo">Библиотека</div>
+    <form class="header-search" action="search.php" method="post">
+        <input type="search" name="search" placeholder="Поиск">
+        <button type="submit">Найти</button>
+    </form>    
     <?php include 'mainmenu.php' ?>
 </header>

@@ -18,5 +18,9 @@ if (empty($messages))
         $messages[] = "Ошибка при подключении";
         $_SESSION['messages'] = $messages;
         header("Location: auth.php");
-    } else header("Location: index.php");
+    } else {
+        $referer = $_SESSION['referer'];
+        header("Location: $referer");
+        unset($_SESSION['count']);
+    }
 } else    header ("Location: auth.php");
