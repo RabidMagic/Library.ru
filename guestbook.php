@@ -16,14 +16,15 @@ if (isset($_POST['submit']))
     {
         if (checkName($_POST['login']) == TRUE)
         {
-            $login = $_POST['login'];
+            $name = $_POST['login'];
         } else $messages[] = "Такой логин уже есть";
-    } else $login = $_SESSION['login'];
+    } else $name = $_SESSION['login'];
     if (empty($messages))
     {
         $review = $_POST['review'];
         $review = mysql_real_escape_string($review);
         $review = htmlspecialchars($review);
+        $review = trim($review);
         $name = trim($name);
         $name = mysql_real_escape_string($name);
         $name = htmlspecialchars($name);
