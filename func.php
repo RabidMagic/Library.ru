@@ -35,7 +35,7 @@ function newUser($login, $password, $gender, $birthdate, $email) {
 function checkLogIn() {
     if (!isset($_SESSION['stat_log']))
     {
-        header("Location: login.php");
+        header("Location: auth.php");
     }
     return TRUE;
 }
@@ -66,27 +66,6 @@ function checkUser($login, $password) {
         return $fetch;
     }
     return TRUE;
-}
-//Проверка даты рождения
-function checkBirthDate($birthdate) {
-    global $messages;
-    $ex = explode("-", $birthdate);
-    $month = $ex[0];
-    $day = $ex[1];
-    $year = $ex[2];
-    if (date("Y") > $year)
-    {
-        if (checkdate($month, $day, $year))
-        {
-            return TRUE;
-        } else {
-            $messages[] = "Введённая Вами дата некорректна";
-            return FALSE;
-        }
-    } else {
-        $messages[] = "Год рождения не может быть больше текущего года";
-        return FALSE;
-    }
 }
 //Проверка введённой информации
 //$field_descr - описание поля, которое будет выводиться при ошибках;
@@ -340,5 +319,50 @@ function inputComment($login, $date, $content, $book_id, $table) {
     $result = mysql_query($query, $link);
     return TRUE;
 }
-
+//
+function setBirthdate() {
+    global $miny,$maxy,$y,$date;
+    echo "<select name='reg-b-day'>";
+    for ($d = 1; $d < 32; $d++)
+    {
+        echo "<option>".(strlen($d)==1 ? '0'.$d : $d)."</option>";
+    }
+    echo "</select>
+           <select name='reg-b-month'>";
+    for ($m = 1; $m < 13; $m++)
+    {
+        echo "<option>".(strlen($m)==1 ? '0'.$m : $m)."</option>";
+    }
+    echo "</select>";
+    $date = date("Y");
+    $miny = $date - 80;
+    $maxy = $date - 10;
+    echo "<select name='reg-b-year'>";
+    for ($miny; $miny <= $maxy; $miny++)
+    {
+        echo "<option>$miny</option>";
+    }
+    echo "</select>";
+}
+//Проверка даты рождения
+function checkBirthDate($birthdate) {
+    global $messages;
+    $ex = explode("-", $birthdate);
+    $month = $ex[0];
+    $day = $ex[1];
+    $year = $ex[2];
+    if (date("Y") > $year)
+    {
+        if (checkdate($month, $day, $year))
+        {
+            return TRUE;
+        } else {
+            $messages[] = "Введённая Вами дата некорректна";
+            return FALSE;
+        }
+    } else {
+        $messages[] = "Год рождения не может быть больше текущего года";
+        return FALSE;
+    }
+}
 ?>
