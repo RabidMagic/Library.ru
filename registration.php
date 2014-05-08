@@ -23,10 +23,13 @@ if (isset($_POST['reg']))
     {
         $messages[] = "Вы не выбрали пол";
     }
-    if (empty($_POST['birthdate']))
+    if (!empty($_POST['reg-b-month']) && !empty($_POST['reg-b-day']) && !empty($_POST['reg-b-year']))
     {
-        $messages[] = "Вы не ввели дату рождения";
-    }
+        if (!checkdate($_POST['reg-b-month'], $_POST['reg-b-day'], $_POST['reg-b-year']))
+        {
+            $messages[] = "Введена некорректная дата";
+        }
+    } else $messages[] = "Вы не ввели дату рождения";
     if (isset($_POST['email']))
     {
         $email = mysql_real_escape_string($_POST['email']);
@@ -44,7 +47,9 @@ if (isset($_POST['reg']))
     }
     if (empty($messages))
     {
-        newUser($_POST['login'], $_POST['password'], $_POST['gender'], $_POST['birthdate'], $_POST['email']);
+        $birthdate = array($_POST['reg-b-day'], $_POST['reg-b-month'], $_POST['reg-b-year']);
+        $birthdate = implode("-", $birthdate);
+        newUser($_POST['login'], $_POST['password'], $_POST['gender'], $birthdate, $_POST['email']);
         reMemberSess($_POST['login'], $_POST['password']);
         header("Location: index.php");
     }    
@@ -84,7 +89,7 @@ if (isset($_POST['reg']))
                         </tr>
                         <tr>
                             <td>Ваша дата рождения:</td>
-                            <td><input type="text" name="birthdate" placeholder="ММ-ДД-ГГГГ"></td>
+                            <td><?php setBirthdate(); ?></td>
                         </tr>
                         <tr>
                             <td>Ваш пол:</td>

@@ -1,4 +1,21 @@
 <?php
+//Проверка имени на занятость
+function checkName($login) {
+    global $link, $messages;
+    $check = preg_match('/^[a-zA-Z0-9]+$/', $login);
+    if (!$check)
+    {
+        $messages[] = "Введите верный логин";
+    }
+    $login = mysql_real_escape_string($login);
+    $login = htmlspecialchars($login);
+    $query = "SELECT login FROM users WHERE login='$login'";
+    $result = mysql_query($query, $link);
+    if (mysql_num_rows($result) > 0)
+    {
+        return FALSE;
+    } else return TRUE;
+}
 //Подключение к БД
 function connectToDb() {
     global $link, $dbhost, $dbnm, $dbpwd, $dbuser;
@@ -18,7 +35,7 @@ function newUser($login, $password, $gender, $birthdate, $email) {
 function checkLogIn() {
     if (!isset($_SESSION['stat_log']))
     {
-        header("Location: login.php");
+        header("Location: auth.php");
     }
     return TRUE;
 }
@@ -49,27 +66,6 @@ function checkUser($login, $password) {
         return $fetch;
     }
     return TRUE;
-}
-//Проверка даты рождения
-function checkBirthDate($birthdate) {
-    global $messages;
-    $ex = explode("-", $birthdate);
-    $month = $ex[0];
-    $day = $ex[1];
-    $year = $ex[2];
-    if (date("Y") > $year)
-    {
-        if (checkdate($month, $day, $year))
-        {
-            return TRUE;
-        } else {
-            $messages[] = "Введённая Вами дата некорректна";
-            return FALSE;
-        }
-    } else {
-        $messages[] = "Год рождения не может быть больше текущего года";
-        return FALSE;
-    }
 }
 //Проверка введённой информации
 //$field_descr - описание поля, которое будет выводиться при ошибках;
@@ -222,14 +218,14 @@ function uploadFile($name, $type, $size, $uploaddir) {
         }
     }
 }
-//Вывод отзыва
+//Вывод комментария с постраничностью
 //$num - количество выводимых страниц;
-function getReview($num) {
+function getReview($num, $table) {
     global $link;
     @$page = $_GET['page'];
     if(empty($page) or $page < 0) $page = 1;
     $start = $page * $num - $num;
-    $query = "SELECT * FROM review ORDER BY id DESC LIMIT $start,$num";
+    $query = "SELECT * FROM $table ORDER BY id DESC LIMIT $start,$num";
     $result = mysql_query($query, $link);
     if (mysql_num_rows($result) > 0)
     {
@@ -237,24 +233,24 @@ function getReview($num) {
         do
         {
             print "<div>
-                    Имя: ".$fetch['name']." Дата: ".$fetch['date']."
-                    <p>".$fetch['rev']."</p>
+                    Имя: ".$fetch['login']." Дата: ".$fetch['date']."
+                    <p>".$fetch['content']."</p>
                    </div>";
         } 
         while ($fetch = mysql_fetch_array($result));       
     } else print "Пока здесь нет отзывов, но Вы можете быть первым";
 }
 //Ввод отзыва в базу
-function inputReview($name, $date, $review) {
+function inputReview($login, $date, $content, $table) {
     global $link;
-    $query = "INSERT INTO review (name, rev, date) VALUES ('$name', '$review', '$date')";
+    $query = "INSERT INTO $table (login, content, date) VALUES ('$login', '$content', '$date')";
     $result = mysql_query($query, $link);
     return TRUE;
 }
 //Кнопки для пролистывания
 //$table - таблица, к которой делается запрос;
 //$num - количество выводимых страниц;
-function getPageButtons($table,$num) {
+function getPageButtons($table,$num, $id) {
     global $link;
     @$page = $_GET['page'];
     if(empty($page) or $page < 0) $page = 1;
@@ -265,24 +261,108 @@ function getPageButtons($table,$num) {
     $total = intval($total);
     if (empty($page) || $page < 0) $page = 1;
     if ($page > $total) $page = $total;
-    if ($page != 1) $pervpage = '<a href=?page=1>Первая</a> | <a href=?page='. ($page - 1) .'>Предыдущая</a> | ';
-    if ($page != $total) $nextpage = ' | <a href=?page='. ($page + 1) .'>Следующая</a> | <a href=?page=' .$total. '>Последняя</a>';
-    if ($page - 5 > 0) $page5left = ' <a href=?page='. ($page - 5) .'>'. ($page - 5) .'</a> | ';
-    if ($page - 4 > 0) $page4left = ' <a href=?page='. ($page - 4) .'>'. ($page - 4) .'</a> | ';
-    if ($page - 3 > 0) $page3left = ' <a href=?page='. ($page - 3) .'>'. ($page - 3) .'</a> | ';
-    if ($page - 2 > 0) $page2left = ' <a href=?page='. ($page - 2) .'>'. ($page - 2) .'</a> | ';
-    if ($page - 1 > 0) $page1left = '<a href=?page='. ($page - 1) .'>'. ($page - 1) .'</a> | ';
-    if ($page + 5 <= $total) $page5right = ' | <a href=?page='. ($page + 5) .'>'. ($page + 5) .'</a>';
-    if ($page + 4 <= $total) $page4right = ' | <a href=?page='. ($page + 4) .'>'. ($page + 4) .'</a>';
-    if ($page + 3 <= $total) $page3right = ' | <a href=?page='. ($page + 3) .'>'. ($page + 3) .'</a>';
-    if ($page + 2 <= $total) $page2right = ' | <a href=?page='. ($page + 2) .'>'. ($page + 2) .'</a>';
-    if ($page + 1 <= $total) $page1right = ' | <a href=?page='. ($page + 1) .'>'. ($page + 1) .'</a>';
+    if ($page != 1) $pervpage = '<a href=?id='.$id.'&page=1>Первая</a> | <a href=?id='.$id.'&page='. ($page - 1) .'>Предыдущая</a> | ';
+    if ($page != $total) $nextpage = ' | <a href=?id='.$id.'&page='. ($page + 1) .'>Следующая</a> | <a href=?id='.$id.'&page=' .$total. '>Последняя</a>';
+    if ($page - 5 > 0) $page5left = ' <a href=?id='.$id.'&page='. ($page - 5) .'>'. ($page - 5) .'</a> | ';
+    if ($page - 4 > 0) $page4left = ' <a href=?id='.$id.'&page='. ($page - 4) .'>'. ($page - 4) .'</a> | ';
+    if ($page - 3 > 0) $page3left = ' <a href=?id='.$id.'&page='. ($page - 3) .'>'. ($page - 3) .'</a> | ';
+    if ($page - 2 > 0) $page2left = ' <a href=?id='.$id.'&page='. ($page - 2) .'>'. ($page - 2) .'</a> | ';
+    if ($page - 1 > 0) $page1left = '<a href=?id='.$id.'&page='. ($page - 1) .'>'. ($page - 1) .'</a> | ';
+    if ($page + 5 <= $total) $page5right = ' | <a href=?id='.$id.'&page='. ($page + 5) .'>'. ($page + 5) .'</a>';
+    if ($page + 4 <= $total) $page4right = ' | <a href=?id='.$id.'&page='. ($page + 4) .'>'. ($page + 4) .'</a>';
+    if ($page + 3 <= $total) $page3right = ' | <a href=?id='.$id.'&page='. ($page + 3) .'>'. ($page + 3) .'</a>';
+    if ($page + 2 <= $total) $page2right = ' | <a href=?id='.$id.'&page='. ($page + 2) .'>'. ($page + 2) .'</a>';
+    if ($page + 1 <= $total) $page1right = ' | <a href=?id='.$id.'&page='. ($page + 1) .'>'. ($page + 1) .'</a>';
     if ($total > 1)
     {
         $content.= "<div class='pstrnav'>";
         $content.=  $pervpage.$page5left.$page4left.$page3left.$page2left.$page1left.'<b>'.$page.'</b>'.$page1right.$page2right.$page3right.$page4right.$page5right.$nextpage;
         $content.=  "</div>";
         echo $content;
+    }
+}
+//Проверка нахождения книги в Избранном
+function checkBookFav() {
+    global $link;
+    $query = "SELECT * FROM favourites WHERE book_id='".$_GET['id']."' && login='".$_SESSION['login']."'";
+    $result = mysql_query($query, $link);
+    if (mysql_num_rows($result) == 0)
+    {
+        return TRUE;
+    } else return FALSE;
+}
+//Получение комментария из базы
+function getComment($num, $book_id) {
+    global $link;
+    @$page = $_GET['page'];
+    if(empty($page) or $page < 0) $page = 1;
+    $start = $page * $num - $num;
+    $query = "SELECT * FROM book_comments WHERE book_comments.book_id=$book_id ORDER BY id DESC LIMIT $start,$num";
+    $result = mysql_query($query, $link);
+    if (mysql_num_rows($result) > 0)
+    {
+        $fetch = mysql_fetch_array($result);
+        do
+        {
+            print "<div>
+                    Имя: ".$fetch['login']." Дата: ".$fetch['date']."
+                    <p>".$fetch['content']."</p>
+                   </div>";
+        } 
+        while ($fetch = mysql_fetch_array($result));       
+    } else print "Пока здесь нет отзывов, но Вы можете быть первым";
+}
+//Отправка комментария в базу
+function inputComment($login, $date, $content, $book_id, $table) {
+    global $link;
+    $query = "INSERT INTO $table (login, content, date, book_id) VALUES ('$login', '$content', '$date', '$book_id')";
+    $result = mysql_query($query, $link);
+    return TRUE;
+}
+//
+function setBirthdate() {
+    global $miny,$maxy,$y,$date;
+    echo "<select name='reg-b-day'>";
+    for ($d = 1; $d < 32; $d++)
+    {
+        echo "<option>".(strlen($d)==1 ? '0'.$d : $d)."</option>";
+    }
+    echo "</select>
+           <select name='reg-b-month'>";
+    for ($m = 1; $m < 13; $m++)
+    {
+        echo "<option>".(strlen($m)==1 ? '0'.$m : $m)."</option>";
+    }
+    echo "</select>";
+    $date = date("Y");
+    $miny = $date - 80;
+    $maxy = $date - 10;
+    echo "<select name='reg-b-year'>";
+    for ($miny; $miny <= $maxy; $miny++)
+    {
+        echo "<option>$miny</option>";
+    }
+    echo "</select>";
+}
+//Проверка даты рождения
+function checkBirthDate($birthdate) {
+    global $messages;
+    $ex = explode("-", $birthdate);
+    $month = $ex[0];
+    $day = $ex[1];
+    $year = $ex[2];
+    if (date("Y") > $year)
+    {
+        if (checkdate($month, $day, $year))
+        {
+            return TRUE;
+        } else {
+            $messages[] = "Введённая Вами дата некорректна";
+            return FALSE;
+        }
+    } else {
+        $messages[] = "Год рождения не может быть больше текущего года";
+        return FALSE;
     }
 }
 ?>
