@@ -2,6 +2,11 @@
 session_start();
 include_once 'func.php';
 include_once 'connect.php';
+$_SESSION['count']++;
+if ($_SESSION['count'] == 1)
+{
+    $_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
+}
 ?>
 <!DOCTYPE html>
 <html>
