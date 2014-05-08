@@ -9,7 +9,7 @@ if (isset($_POST['reg']))
     field_validator("'Пароль'", $_POST["password"], "string", 4, 16);
     field_validator("'Подтверждение пароля'", $_POST["password2"], "string", 4, 16);
     field_validator("e-mail", $_POST['email'], "email");
-    $login = mysql_real_escape_string($_POST['login']);
+    $login = securityCheck($login);
     $result = mysql_query("SELECT login FROM users WHERE login = '$login'", $link);
     if (mysql_num_rows($result) != 0)
     {
@@ -32,7 +32,7 @@ if (isset($_POST['reg']))
     } else $messages[] = "Вы не ввели дату рождения";
     if (isset($_POST['email']))
     {
-        $email = mysql_real_escape_string($_POST['email']);
+        $email = securityCheck($email);
         $result = mysql_query("SELECT email FROM users WHERE email = '$email'", $link);
         if (mysql_num_rows($result) != 0)
         {

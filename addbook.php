@@ -10,7 +10,7 @@ if (isset($_POST['submit']))
     {
         $messages[] = "Вы не указали название книги";
     }
-    if (empty($_POST['author']))
+    if (empty($_POST['author-fname']) && empty($_POST['author-sname']))
     {
         $messages[] = "Вы не указали автора";
     }
@@ -24,9 +24,14 @@ if (isset($_POST['submit']))
     }
     if (empty($messages))
     {
+        $_POST['author-sname'] = securityCheck($_POST['author-sname']);
+        $_POST['author-fname'] = securityCheck($_POST['author-fname']);
+        $array = array($_POST['author-sname'], $_POST['author-fname']);
         $book = $_POST['book'];
-        $author = $_POST['author'];
+        $book = securityCheck($book);
+        $author = implode(" ", $array);
         $desc = $_POST['desc'];
+        $desc = securityCheck($desc);
         $genre = $_POST['genre'];
         $query = "SELECT * FROM upload_books WHERE book_name = '$book' && author = '$author' && genre = '$genre'";
         $result = mysql_query($query, $link);
@@ -36,9 +41,6 @@ if (isset($_POST['submit']))
             if (uploadFile('img', 'image/jpeg', 2097152, "uploads/") === TRUE)
             {
                 $login = $_SESSION['login'];
-                $book = mysql_real_escape_string($book);
-                $author = mysql_real_escape_string($author);
-                $desc = mysql_real_escape_string($desc);
                 $date = date("d - m - Y");
                 $query = "INSERT INTO upload_books SET book_name = '$book', author = '$author', description = '$desc', genre = '$genre', login = '$login', date = '$date', img = '$uploadfile'";
                 $result = mysql_query($query, $link);
@@ -55,8 +57,7 @@ if (isset($_POST['submit']))
         <?php
         if (!empty($messages))
         {
-            displayErr($messages);
-            
+            displayErr($messages);   
         }
         ?>
         <tr>
@@ -65,7 +66,7 @@ if (isset($_POST['submit']))
         </tr>
         <tr>
             <td>Автор:</td>
-            <td><input type="text" name="author"></td>
+            <td><input type="text" placeholder="Имя" name="author-fname"><input type="text" placeholder="Фамилия" name="author-sname"></td>
         </tr>
         <tr>
             <td>Краткое описание: </td>

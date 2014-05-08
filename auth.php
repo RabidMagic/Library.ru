@@ -3,7 +3,6 @@ session_start();
 include_once 'func.php';
 include_once 'connect.php';
 $referer = $_SERVER['HTTP_REFERER'];
-var_dump($referer);
 ?>
 <!DOCTYPE html>
 <html>

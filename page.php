@@ -23,10 +23,8 @@ if (isset($_POST['page-com-input']))
     if (empty($messages))
     {
         $content = $_POST['page-content'];
-        $content = mysql_real_escape_string($content);
-        $content = htmlspecialchars($content);
-        $login = mysql_real_escape_string($login);
-        $login = htmlspecialchars($login);
+        $content = securityCheck($content);
+        $login = securityCheck($login);
         $date = date("d-m-Y");
         if (inputComment($login, $date, $content, $_POST['page-b-id'], book_comments) == TRUE)
         {
