@@ -40,7 +40,6 @@ if (isset($_POST['submit']))
             if (uploadFile('img', 'image/jpeg', 2097152, "uploads/") === TRUE)
             {
                 $login = $_SESSION['login'];
-<<<<<<< HEAD
                 $book = mysql_real_escape_string($book);
                 $book = trim($book);
                 $book = htmlspecialchars($book);
@@ -50,8 +49,6 @@ if (isset($_POST['submit']))
                 $desc = mysql_real_escape_string($desc);
                 $desc = trim($desc);
                 $desc = htmlspecialchars($desc);
-=======
->>>>>>> search
                 $date = date("d - m - Y");
                 $query = "INSERT INTO upload_books SET book_name = '$book', author = '$author', description = '$desc', genre = '$genre', login = '$login', date = '$date', img = '$uploadfile'";
                 $result = mysql_query($query, $link);
@@ -68,11 +65,7 @@ if (isset($_POST['submit']))
         <?php
         if (!empty($messages))
         {
-<<<<<<< HEAD
-            displayErr($messages);    
-=======
-            displayErr($messages);   
->>>>>>> search
+            displayErr($messages);
         }
         ?>
         <tr>
