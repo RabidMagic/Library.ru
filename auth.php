@@ -34,7 +34,6 @@ include_once 'connect.php';
                             <td><input type="password" name="password"></td>
                         </tr>
                     </table>
-       <?php print "<input type='hidden' name='auth-hid-ref'>" ?>
                     <input type="submit" value="Войти">
                 </form>
                 <a href="registration.php">Регистрация</a><br>
