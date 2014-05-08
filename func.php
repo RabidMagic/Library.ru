@@ -365,4 +365,11 @@ function checkBirthDate($birthdate) {
         return FALSE;
     }
 }
+//Удаление всего лишнего
+function securityCheck($var) {
+    $var = mysql_real_escape_string($var);
+    $var = trim($var);
+    $var = htmlspecialchars($var);
+    return $var;
+}
 ?>
