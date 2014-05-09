@@ -20,7 +20,9 @@ if (empty($messages))
         header("Location: auth.php");
     } else {
         $referer = $_SESSION['referer'];
-        header("Location: $referer");
+        unset($_SESSION['referer']);
         unset($_SESSION['count']);
+        if ($referer == NULL) { $referer = 'index.php'; }
+        header("Location: $referer");
     }
 } else    header ("Location: auth.php");

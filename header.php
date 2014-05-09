@@ -1,6 +1,7 @@
 <header>
     <div id="reg_auth">
         <?php
+        unset($_SESSION['count']);
         if (isset($_SESSION['login']) && $_SESSION['stat_log'] === TRUE) 
         {
             print "Вы вошли как ".$_SESSION['login'];
@@ -12,7 +13,7 @@
         <div class="clearfix"></div>
     </div>
     <div id="logo">Библиотека</div>
-    <form class="header-search" action="search.php" method="post">
+    <form class="header-search" action="results.php" method="post">
         <input type="search" name="search" placeholder="Поиск">
         <button type="submit">Найти</button>
     </form>    

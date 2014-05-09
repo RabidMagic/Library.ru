@@ -26,9 +26,9 @@ if (isset($_POST['logout']))
                 include_once 'addbook.php';
                 ?>
                 <form action="" method="post">
-                    <input type="submit" name="logout" value="Выйти">
+                    <input type="submit" value="Выйти" name="logout">
                 </form>
-                <a href='index.php'>Главная</a><br>
+                <a href='index.php'><button>Главная</button></a><br>
                 <?php include_once 'fav.php'; //вывод избранных книг пользователя ?>
             </article>
         </section>
