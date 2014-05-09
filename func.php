@@ -312,6 +312,26 @@ function getComment($num, $book_id) {
         while ($fetch = mysql_fetch_array($result));       
     } else print "Пока здесь нет отзывов, но Вы можете быть первым";
 }
+//Получение результатов поиска
+function getSearchResults($num) {
+    global $link;
+    @$page = $_GET['page'];
+    if(empty($page) or $page < 0) $page = 1;
+    $start = $page * $num - $num;
+    $query = "SELECT * FROM upload_books WHERE author LIKE '%$search%' || description LIKE '%$search%'";
+    $query .= " || book_name LIKE '%$search%' LIMIT $start, $num";
+    $result = mysql_query($query, $link);
+    if (mysql_num_rows($result) > 0)
+    {
+        $fetch = mysql_fetch_array($result);
+        do
+        {
+            print "<div>
+                    ".$fetch['book_name'].$fetch['id'].$fetch['author'].$fetch['description']."
+                   </div>";
+        } while ($fetch = mysql_fetch_array($result));
+    }
+}
 //Отправка комментария в базу
 function inputComment($login, $date, $content, $book_id, $table) {
     global $link;
@@ -367,7 +387,7 @@ function checkBirthDate($birthdate) {
 }
 //Удаление всего лишнего
 function securityCheck($var) {
-    $var = mysql_real_escape_string($var);
+    //$var = mysql_real_escape_string($var);
     $var = trim($var);
     $var = htmlspecialchars($var);
     return $var;
