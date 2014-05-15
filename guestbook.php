@@ -1,7 +1,8 @@
 <?php
+require_once 'func.php';
+require_once 'connect.php';
+require_once 'classes.php';
 session_start();
-include_once 'func.php';
-include_once 'connect.php';
 if (isset($_POST['submit']))
 {
     if (empty($_POST['review']))
@@ -21,16 +22,11 @@ if (isset($_POST['submit']))
     if (empty($messages))
     {
         $review = $_POST['review'];
-        $review = mysql_real_escape_string($review);
-        $review = htmlspecialchars($review);
-        $review = trim($review);
-        $name = trim($name);
-        $name = mysql_real_escape_string($name);
-        $name = htmlspecialchars($name);
         $review = securityCheck($review);
         $name = securityCheck($name);
         $date = date("d-m-Y");
-        if (inputReview($name, $date, $review, review) == TRUE)
+        $query = "INSERT INTO кумшуц (login, content, date) VALUES ('$name', '$review', '$date')";
+        if (Input($query) == TRUE)
         {
             header("Location: guestbook.php");
         } else $messages[] = "Такой логин уже есть";
@@ -48,12 +44,17 @@ if (isset($_POST['submit']))
     </head>
     <body>
         <section id="container">
-            <?php include_once 'header.php'; ?>
+            <?php require_once 'header.php'; ?>
             <article id="main">
                 <div class="gb-output">
                     <?php
-                    getReview(10,review);
-                    getPageButtons(review,10,$id);
+                    $num = 3; //<--- для смены кол-ва выводимых комментариев изменять это
+                    $query = "SELECT * FROM review ORDER BY id DESC";
+                    $get_review = new GetResults($num, $query, $mdb2);
+                    $get_review->getReview();
+                    $query = "SELECT * FROM review";
+                    $get_gb_pb = new PageButtons($num, $query, $mdb2);
+                    $get_gb_pb->getGBPageButtons();
                     ?>
                 </div>
                 <div class="gb-input">
@@ -71,7 +72,7 @@ if (isset($_POST['submit']))
                     </form>";
                 </div>             
             </article>
-            <?php include_once 'footer.php'; ?>
+            <?php require_once 'footer.php'; ?>
         </section>
     </body>
 </html>

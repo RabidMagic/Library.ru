@@ -1,7 +1,7 @@
 <?php
+require_once 'func.php';
+require_once 'connect.php';
 session_start();
-include_once 'func.php';
-include_once 'connect.php';
 $_SESSION['count']++;
 if ($_SESSION['count'] == 1)
 {
@@ -45,6 +45,6 @@ if ($_SESSION['count'] == 1)
                 <a href='index.php'>Главная</a><br>
             </article>
         </section>
-        <?php include 'footer.php' ?> 
+        <?php require_once 'footer.php' ?> 
     </body>
 </html>

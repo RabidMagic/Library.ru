@@ -3,18 +3,14 @@
         <h1>Жанры</h1>
             <ul>
                 <?php
-                include 'connect.php';
-                $result = mysql_query("SELECT * FROM genres ORDER BY genre ASC");
-                if (mysql_num_rows($result) > 0)
+                require_once 'connect.php';
+                $result = $mdb2->query("SELECT * FROM genres ORDER BY genre ASC");
+                if ($result->numRows() > 0)
                 {
-                    $fetch = mysql_fetch_array($result);
-                    $genre = $fetch['genre'];
-                    $genre = mysql_real_escape_string($genre);
-                    do
+                    while ($row = $result->fetchRow())
                     {
-                        echo "<a href='catalog.php?genre=".$fetch['genre']."'><li>".$fetch['genre']."</li></a>";
+                        print "<a href='catalog.php?genre=".$row['genre']."'><li>".$row['genre']."</li></a>";
                     }
-                    while ($fetch = mysql_fetch_array($result));
                 } else die("Ошибка");
                 ?>
             </ul>

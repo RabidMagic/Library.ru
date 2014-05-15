@@ -1,22 +1,21 @@
 <?php
-$login = $_SESSION['login'];
-$query = "SELECT * FROM favourites,upload_books WHERE favourites.book_id=upload_books.id && favourites.login='$login' ORDER BY favourites.book_id DESC";
-$result = mysql_query($query, $link);
-if (mysql_num_rows($result) > 0)
+//$login = $_SESSION['login'];
+$query = "SELECT * FROM favourites,upload_books WHERE favourites.book_id=upload_books.id && favourites.login='".$_SESSION['login']."' ORDER BY favourites.book_id DESC";
+$result = $mdb2->query($query);
+if ($result->numRows() > 0)
 {
-    $fetch = mysql_fetch_array($result);
-    do
+    while ($row = $result->fetchRow())
     {
         print "<div>
-                <a href='page.php?id=".$fetch['id']."'><img src='uploads/".$fetch['img']."' alt='картинка'>
-                <h1>".$fetch['author']."</h1>
-                <h3>".$fetch['book_name']."</h3></a>
+                <a href='page.php?id=".$row['id']."'><img src='uploads/".$row['img']."' alt='картинка'>
+                <h1>".$row['author']."</h1>
+                <h3>".$row['book_name']."</h3></a>
                 <form action='fav-book-del.php' method='post'>
-                    <input type='hidden' value='$login' name='fav-login'>
-                    <input type='hidden' value='".$fetch['id']."' name='fav-b-id'>
+                    <input type='hidden' value='".$_SESSION['login']."' name='fav-login'>
+                    <input type='hidden' value='".$row['id']."' name='fav-b-id'>
                     <input type='submit' value='Удалить'>
                 </form>
                </div>";
-    } while ($fetch = mysql_fetch_array($result));
+    }
 }
 ?>

@@ -1,7 +1,8 @@
 <?php
+require_once 'func.php';
+require_once 'connect.php';
+require_once 'classes.php';
 session_start();
-include_once 'func.php';
-include_once 'connect.php';
 if (isset($_POST['reg']))
 {
     $messages = array();
@@ -9,9 +10,7 @@ if (isset($_POST['reg']))
     field_validator("'Пароль'", $_POST["password"], "string", 4, 16);
     field_validator("'Подтверждение пароля'", $_POST["password2"], "string", 4, 16);
     field_validator("e-mail", $_POST['email'], "email");
-    $login = securityCheck($login);
-    $result = mysql_query("SELECT login FROM users WHERE login = '$login'", $link);
-    if (mysql_num_rows($result) != 0)
+    if (!checkName($_POST['login']))
     {
         $messages[] = "Такой логин уже есть";
     }
@@ -30,17 +29,14 @@ if (isset($_POST['reg']))
             $messages[] = "Введена некорректная дата";
         }
     } else $messages[] = "Вы не ввели дату рождения";
-    if (isset($_POST['email']))
+    if (!empty($_POST['email']))
     {
-        $email = securityCheck($email);
-        $result = mysql_query("SELECT email FROM users WHERE email = '$email'", $link);
-        if (mysql_num_rows($result) != 0)
+        $result = $mdb2->query("SELECT email FROM users WHERE email = '".$_POST['email']."'");
+        if ($result->numRows() != 0)
         {
             $messages[] = "Этот e-mail уже занят";
         }
-    } else {
-        $messages[] = "Вы не ввели e-mail";
-    }
+    } else $messages[] = "Вы не ввели e-mail";
     if ($_POST['checkbot'] == 'yes')
     {
         $messages[] = "Проверка показала, что вы робот :)";
@@ -50,7 +46,7 @@ if (isset($_POST['reg']))
         $birthdate = array($_POST['reg-b-day'], $_POST['reg-b-month'], $_POST['reg-b-year']);
         $birthdate = implode("-", $birthdate);
         newUser($_POST['login'], $_POST['password'], $_POST['gender'], $birthdate, $_POST['email']);
-        reMemberSess($_POST['login'], $_POST['password']);
+        setSession($_POST['login'], $_POST['password']);
         header("Location: index.php");
     }    
 }

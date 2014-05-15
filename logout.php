@@ -1,8 +1,7 @@
 <?php
 session_start();
-include_once 'func.php';
-if (clearSess() == TRUE)
+require_once 'func.php';
+if (flushSession() == TRUE)
 {
-    $referer = $_SERVER['HTTP_REFERER'];
-    header("Location: $referer");
+    header("Location: ".$_SERVER['HTTP_REFERER']);
 }
