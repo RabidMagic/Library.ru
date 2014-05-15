@@ -3,7 +3,7 @@ require_once 'func.php';
 require_once 'connect.php';
 require_once 'classes.php';
 session_start(); 
-$_GET['id'] = mysql_real_escape_string($_GET['id']);
+$_GET['id'] = securityCheck($_GET['id']);
 if (isset($_POST['page-com-input']))
 {
     if (empty($_SESSION['login']))
@@ -43,42 +43,40 @@ if (isset($_POST['page-com-input']))
             <?php require_once 'nav.php'; ?>
             <article id="main">
                 <?php
-                $result = mysql_query("SELECT * FROM upload_books WHERE id = '".$_GET['id']."'");
-                $fetch = mysql_fetch_array($result);
-                if (mysql_num_rows($result) === 1)
+                $result = $mdb2->query("SELECT * FROM upload_books WHERE id = '".$_GET['id']."'");
+                if ($result->numRows() == 1)
                 {
-                    print "<img src='uploads/".$fetch['img']."' alt='картинка'>
+                    $row = $result->fetchRow();
+                    print "<img src='uploads/".$row['img']."' alt='картинка'>
                            <div>
-                            <h1>".$fetch['book_name']."</h1>
-                            <h3>".$fetch['author']."</h3>
-                            <p>".$fetch['description']."</p>
-                            <div class='user-date-page'><p>Добавил: <b>".$fetch['login']."</b> Дата: <b>".$fetch['date']."</b></p></div>";
-                            ?>
-                            <?php 
-                            if (isset($_SESSION['login']))
-                            {
-                                if (checkBookFav() == TRUE)
-                                {
-                                    print "<form action='fav-book-add.php' method='post'>
-                                            <input type='hidden' value='".$_GET['id']."' name='book_id'>
-                                            <input type='submit' value='Добавить в Избранное'>
-                                           </form>";
-                                } else print "<form action='fav-book-del.php' method='post'>
-                                                <input type='hidden' value='".$_SESSION['login']."' name='fav-login'>
-                                                <input type='hidden' value='".$_GET['id']."' name='fav-b-id'>
-                                                <input type='submit' value='Удалить'>
-                                              </form>";
-                            }
-                    print "</div>
-                           <div class='page-comments-output'>";
-                            if (!empty($messages)) { displayErr($messages); }
-                            $num = 3; //<--- для смены кол-ва выводимых комментариев изменять это
-                            $query = "SELECT * FROM book_comments WHERE book_id=".$_GET['id']." ORDER BY id DESC";
-                            $page_review = new GetResults($num, $query, $mdb2);
-                            $page_review->getReview();
-                            $query = "SELECT * FROM book_comments WHERE book_id ='".$_GET['id']."'";
-                            $page_pb = new PageButtons($num, $query, $mdb2);
-                            $page_pb->getBookPageButtons();
+                            <h1>".$row['book_name']."</h1>
+                            <h3>".$row['author']."</h3>
+                            <p>".$row['description']."</p>
+                            <div class='user-date-page'><p>Добавил: <b>".$row['login']."</b> Дата: <b>".$row['date']."</b></p></div>";
+                    if (isset($_SESSION['stat_log']))
+                    {
+                        if (checkBookFav() == TRUE)
+                        {
+                            print "<form action='fav-book-add.php' method='post'>
+                                    <input type='hidden' value='".$_GET['id']."' name='book_id'>
+                                    <input type='submit' value='Добавить в Избранное'>
+                                   </form>";
+                        } else print "<form action='fav-book-del.php' method='post'>
+                                        <input type='hidden' value='".$_SESSION['login']."' name='fav-login'>
+                                        <input type='hidden' value='".$_GET['id']."' name='fav-b-id'>
+                                        <input type='submit' value='Удалить'>
+                                      </form>";
+                    }
+                    print  "</div>
+                            <div class='page-comments-output'>";
+                    if (!empty($messages)) { displayErr($messages); }
+                    $num = 3; //<--- для смены кол-ва выводимых комментариев изменять это
+                    $query = "SELECT * FROM book_comments WHERE book_id=".$_GET['id']." ORDER BY id DESC";
+                    $page_review = new GetResults($num, $query, $mdb2);
+                    $page_review->getReview();
+                    $query = "SELECT * FROM book_comments WHERE book_id ='".$_GET['id']."'";
+                    $page_pb = new PageButtons($num, $query, $mdb2);
+                    $page_pb->getBookPageButtons();
                     if ($_SESSION['stat_log'] == TRUE) 
                     {
                         print "</div>

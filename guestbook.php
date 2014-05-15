@@ -14,8 +14,10 @@ if (isset($_POST['submit']))
         $messages[] = "Не указан логин";
     } else if (isset($_POST['login']))
     {
+        $_POST['login'] = securityCheck($_POST['login']);
         if (checkName($_POST['login']) == TRUE)
         {
+            field_validator("'Логин'", $_POST["login"], "alphanumeric", 4, 32);
             $name = $_POST['login'];
         } else $messages[] = "Такой логин уже есть";
     } else $name = $_SESSION['login'];
@@ -23,13 +25,12 @@ if (isset($_POST['submit']))
     {
         $review = $_POST['review'];
         $review = securityCheck($review);
-        $name = securityCheck($name);
         $date = date("d-m-Y");
-        $query = "INSERT INTO кумшуц (login, content, date) VALUES ('$name', '$review', '$date')";
+        $query = "INSERT INTO review (login, content, date) VALUES ('$name', '$review', '$date')";
         if (Input($query) == TRUE)
         {
             header("Location: guestbook.php");
-        } else $messages[] = "Такой логин уже есть";
+        } else $messages[] = "Ошибка! Невозможно добавить в БД";
     }
 }
 ?>

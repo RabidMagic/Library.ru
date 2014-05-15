@@ -3,13 +3,6 @@ require_once 'MDB2.php';
 //Проверка имени на занятость
 function checkName($login) {
     global $messages, $mdb2;
-    $check = preg_match('/^[a-zA-Z0-9]+$/', $login);
-    if (!$check)
-    {
-        $messages[] = "Введите верный логин";
-    }
-    $login = mysql_real_escape_string($login);
-    $login = htmlspecialchars($login);
     $query = "SELECT login FROM users WHERE login='$login'";
     $result = $mdb2->query($query);
     if ($result->numRows() > 0)
