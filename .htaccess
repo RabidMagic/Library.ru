@@ -2,11 +2,11 @@ AddDefaultCharset utf-8
 <IfModule dir_module>
     DirectoryIndex index.php
 </IfModule>
-<Files ~ "^(addbook|header|footer|connect|nav|mainmenu|func)\.php$">
+<Files ~ "^(addbook|header|footer|connect|nav|mainmenu|func|classes|fav)\.php$">
 	Order Deny,Allow
 	Deny from all
 </Files>
-<Files ~ "^(mysql)\.rar$">
+<Files ~ "^(mysql|PEAR)\.rar$">
 	Order Deny,Allow
 	Deny from all
 </Files>

@@ -4,29 +4,6 @@ require_once 'connect.php';
 require_once 'classes.php';
 session_start(); 
 $_GET['id'] = securityCheck($_GET['id']);
-if (isset($_POST['page-com-input']))
-{
-    if (empty($_SESSION['login']))
-    {
-        $messages[] = "Не указан логин";
-    } else $login = $_SESSION['login'];
-    if (empty($_POST['page-content']))
-    {
-        $messages[] = "Поле отзыва не должно быть пустым";
-    }
-    if (empty($messages))
-    {
-        $content = $_POST['page-content'];
-        $content = securityCheck($content);
-        $login = securityCheck($login);
-        $date = date("d-m-Y");
-        $query = "INSERT INTO book_comments (login, content, date, book_id) VALUES ('$login', '$content', '$date', '$book_id')";
-        if (Input() == TRUE)
-        {
-            header("Location: page.php?id=".$_POST['page-b-id']);
-        } 
-    }
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,12 +58,12 @@ if (isset($_POST['page-com-input']))
                     {
                         print "</div>
                                <div class='page-comments-input'>
-                                   <form action='' method='post'>
+                                   <form action='page_com_input_scr.php' method='post'>
                                         Ваш логин:".$_SESSION['login']."                
                                         <textarea class='page-comments-input-textarea' name='page-content'></textarea>
                                         <input type='hidden' name='page-b-id' value='".$_GET['id']."'>
                                         <input type='reset' value='Сбросить'>
-                                        <input type='submit' name='page-com-input' value='Отправить'>
+                                        <input type='submit' value='Отправить'>
                                    </form>
                                </div>";
                     } else print "<br>Авторизируйтесь, чтобы оставлять комментарии";

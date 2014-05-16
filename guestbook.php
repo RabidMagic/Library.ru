@@ -25,8 +25,7 @@ if (isset($_POST['submit']))
     {
         $review = $_POST['review'];
         $review = securityCheck($review);
-        $date = date("d-m-Y");
-        $query = "INSERT INTO review (login, content, date) VALUES ('$name', '$review', '$date')";
+        $query = "INSERT INTO review (login, content) VALUES ('$name', '$review')";
         if (Input($query) == TRUE)
         {
             header("Location: guestbook.php");

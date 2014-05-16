@@ -3,13 +3,6 @@ require_once 'func.php';
 require_once 'connect.php';
 session_start(); 
 checkLogIn();
-if (isset($_POST['logout']))
-{
-    if (flushSession())
-    {
-        header("Location: index.php");
-    }
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,8 +18,8 @@ if (isset($_POST['logout']))
                 <?php
                 require_once 'addbook.php';
                 ?>
-                <form action="" method="post">
-                    <input type="submit" value="Выйти" name="logout">
+                <form action="logout.php" method="post">
+                    <input type="submit" value="Выйти" name="logout-acc">
                 </form>
                 <a href='index.php'><button>Главная</button></a><br>
                 <?php require_once 'fav.php'; ?>
