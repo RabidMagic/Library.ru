@@ -1,8 +1,8 @@
 <?php
 session_start();
-include_once 'func.php';
-if (clearSess() == TRUE)
+require_once 'func.php';
+if (flushSession() == TRUE)
 {
-    $referer = $_SERVER['HTTP_REFERER'];
-    header("Location: $referer");
+    if (isset($_POST['logout-acc'])) header ("Location: index.php");
+    header("Location: ".$_SERVER['HTTP_REFERER']);
 }

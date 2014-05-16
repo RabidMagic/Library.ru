@@ -1,15 +1,8 @@
 <?php 
+require_once 'func.php';
+require_once 'connect.php';
 session_start(); 
-include_once 'func.php';
-include_once 'connect.php';
 checkLogIn();
-if (isset($_POST['logout']))
-{
-    if (clearSess())
-    {
-        header("Location: index.php");
-    }
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,15 +16,15 @@ if (isset($_POST['logout']))
         <section id="container">
             <article id="main">
                 <?php
-                include_once 'addbook.php';
+                require_once 'addbook.php';
                 ?>
-                <form action="" method="post">
-                    <input type="submit" value="Выйти" name="logout">
+                <form action="logout.php" method="post">
+                    <input type="submit" value="Выйти" name="logout-acc">
                 </form>
                 <a href='index.php'><button>Главная</button></a><br>
-                <?php include_once 'fav.php'; //вывод избранных книг пользователя ?>
+                <?php require_once 'fav.php'; ?>
             </article>
         </section>
-        <?php include 'footer.php' ?> 
+        <?php require_once 'footer.php' ?> 
     </body>
 </html>

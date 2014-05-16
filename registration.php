@@ -1,59 +1,6 @@
 <?php
+require_once 'func.php';
 session_start();
-include_once 'func.php';
-include_once 'connect.php';
-if (isset($_POST['reg']))
-{
-    $messages = array();
-    field_validator("'Логин'", $_POST["login"], "alphanumeric", 4, 32);
-    field_validator("'Пароль'", $_POST["password"], "string", 4, 16);
-    field_validator("'Подтверждение пароля'", $_POST["password2"], "string", 4, 16);
-    field_validator("e-mail", $_POST['email'], "email");
-    $login = securityCheck($login);
-    $result = mysql_query("SELECT login FROM users WHERE login = '$login'", $link);
-    if (mysql_num_rows($result) != 0)
-    {
-        $messages[] = "Такой логин уже есть";
-    }
-    if (strcmp($_POST['password'], $_POST['password2']))
-    {
-        $messages[] = "Ваши пароли не совпадают";
-    }
-    if (empty($_POST['gender']))
-    {
-        $messages[] = "Вы не выбрали пол";
-    }
-    if (!empty($_POST['reg-b-month']) && !empty($_POST['reg-b-day']) && !empty($_POST['reg-b-year']))
-    {
-        if (!checkdate($_POST['reg-b-month'], $_POST['reg-b-day'], $_POST['reg-b-year']))
-        {
-            $messages[] = "Введена некорректная дата";
-        }
-    } else $messages[] = "Вы не ввели дату рождения";
-    if (isset($_POST['email']))
-    {
-        $email = securityCheck($email);
-        $result = mysql_query("SELECT email FROM users WHERE email = '$email'", $link);
-        if (mysql_num_rows($result) != 0)
-        {
-            $messages[] = "Этот e-mail уже занят";
-        }
-    } else {
-        $messages[] = "Вы не ввели e-mail";
-    }
-    if ($_POST['checkbot'] == 'yes')
-    {
-        $messages[] = "Проверка показала, что вы робот :)";
-    }
-    if (empty($messages))
-    {
-        $birthdate = array($_POST['reg-b-day'], $_POST['reg-b-month'], $_POST['reg-b-year']);
-        $birthdate = implode("-", $birthdate);
-        newUser($_POST['login'], $_POST['password'], $_POST['gender'], $birthdate, $_POST['email']);
-        reMemberSess($_POST['login'], $_POST['password']);
-        header("Location: index.php");
-    }    
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -66,12 +13,13 @@ if (isset($_POST['reg']))
     <body>
         <section id="container">
             <article id="main">
-                <form action='' method='post'>
+                <form action='reg_scr.php' method='post'>
                     <h1>Регистрация</h1>
                     <?php
-                    if (!empty($messages))
+                    if (!empty($_SESSION['messages']))
                     {
-                        displayErr($messages);
+                        displayErr($_SESSION['messages']);
+                        unset($_SESSION['messages']);
                     }
                     ?>
                     <table>

@@ -1,7 +1,8 @@
 <?php 
+require_once 'func.php';
+require_once 'connect.php';
+require_once 'classes.php';
 session_start();
-include_once 'func.php';
-include_once 'connect.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,7 @@ include_once 'connect.php';
     </head>
     <body>
         <section id="container">
-            <?php include 'header.php'; ?>
+            <?php require 'header.php'; ?>
             <article id="main">
                 <div id="about">
                     <h1>О нас</h1>
@@ -23,16 +24,20 @@ include_once 'connect.php';
                 <div id="newblebox">
                     <h1>Обновления</h1>
                     <?php
-                    showNews('1');
+                    $query = "SELECT * FROM upload_books ORDER BY id DESC";
+                    $show_books = new ShowNews($query, $mdb2);
+                    $show_books->ShowBooks();
                     ?>
                 </div>
                 <div id="newsbox">
                     <?php
-                    showNews('2');
+                    $query = "SELECT * FROM news ORDER BY id DESC";
+                    $show_news = new ShowNews($query, $mdb2);
+                    $show_news->ShowNews();
                     ?>
                 </div>
             </article>
-            <?php include 'footer.php'; ?>
+            <?php require_once 'footer.php'; ?>
         </section>  
     </body>
 </html>

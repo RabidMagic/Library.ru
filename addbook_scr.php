@@ -1,7 +1,7 @@
 <?php
+require_once 'func.php';
+require_once 'connect.php';
 session_start();
-include_once 'func.php';
-include_once 'connect.php';
 if (empty($_POST['book']))
 {
     $messages[] = "Вы не указали название книги";
@@ -37,16 +37,15 @@ if (empty($messages))
     $desc = mb_ucfirst($desc);
     $genre = $_POST['genre'];
     $query = "SELECT * FROM upload_books WHERE book_name = '$book' && author = '$author' && genre = '$genre'";
-    $result = mysql_query($query, $link);
-    $rows = mysql_num_rows($result);
-    if ($rows === 0)
+    $result = $mdb2->query($query);
+    if ($result->numRows() == 0)
     {    
         if (uploadFile('img', 'image/jpeg', 2097152, "uploads/") === TRUE)
         {
             $login = $_SESSION['login'];
             $date = date("d - m - Y");
             $query = "INSERT INTO upload_books SET book_name = '$book', author = '$author', description = '$desc', genre = '$genre', login = '$login', date = '$date', img = '$uploadfile'";
-            $result = mysql_query($query, $link);
+            $result = $mdb2->exec($query);
             $messages[] = "Книга была успешно добавлена";
             $_SESSION['messages'] = $messages;
             header("Location: account.php");
