@@ -46,5 +46,5 @@ if (empty($messages))
     {
         header("Location: index.php");
     } else $messages[] = "Не удалось зарегистрироваться и/или залогиниться";
-}
+} else header("Location: registration.php");
 $_SESSION['messages'] = $messages;
