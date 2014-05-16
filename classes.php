@@ -64,6 +64,21 @@ class PageButtons {
         if ($this->page + 1 <= $this->total) $this->pageright[] = ' | <a href=?search='.$_GET['search'].'&page='. ($this->page + 1) .'>'. ($this->page + 1) .'</a>';
         $this->setPageButtons();
     }
+    public function getCatalogPageButtons() {
+        if ($this->page != 1) $this->pervpage = '<a href=?genre='.$_GET['genre'].'&page=1>Первая</a> | <a href=?genre='.$_GET['genre'].'&page='. ($this->page - 1) .'>Предыдущая</a> | ';
+        if ($this->page != $this->total) $this->nextpage = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 1) .'>Следующая</a> | <a href=?genre='.$_GET['genre'].'&page=' .$this->total. '>Последняя</a>';
+        if ($this->page - 5 > 0) $this->pageleft[] = ' <a href=?genre='.$_GET['genre'].'&page='. ($this->page - 5) .'>'. ($this->page - 5) .'</a> | ';
+        if ($this->page - 4 > 0) $this->pageleft[] = ' <a href=?genre='.$_GET['genre'].'&page='. ($this->page - 4) .'>'. ($this->page - 4) .'</a> | ';
+        if ($this->page - 3 > 0) $this->pageleft[] = ' <a href=?genre='.$_GET['genre'].'&page='. ($this->page - 3) .'>'. ($this->page - 3) .'</a> | ';
+        if ($this->page - 2 > 0) $this->pageleft[] = ' <a href=?genre='.$_GET['genre'].'&page='. ($this->page - 2) .'>'. ($this->page - 2) .'</a> | ';
+        if ($this->page - 1 > 0) $this->pageleft[] = '<a href=?genre='.$_GET['genre'].'&page='. ($this->page - 1) .'>'. ($this->page - 1) .'</a> | ';
+        if ($this->page + 5 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 5) .'>'. ($this->page + 5) .'</a>';
+        if ($this->page + 4 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 4) .'>'. ($this->page + 4) .'</a>';
+        if ($this->page + 3 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 3) .'>'. ($this->page + 3) .'</a>';
+        if ($this->page + 2 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 2) .'>'. ($this->page + 2) .'</a>';
+        if ($this->page + 1 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 1) .'>'. ($this->page + 1) .'</a>';
+        $this->setPageButtons();
+    }
     private function setPageButtons() { //Формирования вывода кнопок
         if ($this->total > 1)
         {
@@ -86,7 +101,6 @@ class PageButtons {
 class GetResults {
     private $page;
     private $start;
-    private $num;
     private $result;
     private $row;
     private $query;
