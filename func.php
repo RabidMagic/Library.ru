@@ -187,12 +187,14 @@ function Input($query) {
 //Вывод формы выбора даты рождения
 function setBirthdate() {
     echo "<select name='reg-b-day'>";
+    echo "<option disabled selected>ДД</option>";
     for ($d = 1; $d < 32; $d++)
     {
         echo "<option>".(strlen($d)==1 ? '0'.$d : $d)."</option>";
     }
     echo "</select>
-           <select name='reg-b-month'>";
+           <select name='reg-b-month'> 
+           <option disabled selected>ММ</option>";
     for ($m = 1; $m < 13; $m++)
     {
         echo "<option>".(strlen($m)==1 ? '0'.$m : $m)."</option>";
@@ -201,7 +203,8 @@ function setBirthdate() {
     $date = date("Y");
     $miny = $date - 80;
     $maxy = $date - 10;
-    echo "<select name='reg-b-year'>";
+    echo "<select name='reg-b-year'>
+            <option disabled selected>ГГГГ</option>";
     for ($miny; $miny <= $maxy; $miny++)
     {
         echo "<option>$miny</option>";
