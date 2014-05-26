@@ -10,10 +10,10 @@ if (checkUser($_POST['login'], $_POST['password']) === TRUE)
 {
     $messages[] = "Такого пользователя не существует";
 } else $fetch = checkUser($_POST['login'], $_POST['password']);
-$_SESSION['messages'] = $messages;
+if (isset($messages)) $_SESSION['messages'] = $messages;
 if (empty($messages))
 {
-    if (!setSession($fetch['login'], $fetch['password']))
+    if (!setSession($fetch['login'], $fetch['password'], $fetch['us_group']))
     {
         $messages[] = "Ошибка при подключении";
         $_SESSION['messages'] = $messages;

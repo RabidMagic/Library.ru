@@ -9,6 +9,7 @@
 #container {
     margin: 0 auto;
     min-width: 1200px;
+    //float: left;
 }
 /*Фон страницы*/
 body {
@@ -51,19 +52,11 @@ footer {
     margin: 0 auto;
     padding: 30px 40px 30px 40px;
 }
-/*Таинственная псевдораспорка. Прячется в тени и носит шляпу.*/ 
-/*Не трогайте её, позязя :3*/
+/*Таинственная псевдораспорка. Прячется в тени и носит шляпу.*/
 .clearfix::after {
     content: '';
     display: block;
     clear: both;
-}
-/*Авторизация/регистрация в header.php*/
-#reg_auth {
-    float: left;
-    width: 200px;
-    background-color: yellow;
-    padding-top: 0px;
 }
 /*--------------------------------------*/
 
@@ -247,7 +240,14 @@ form > h1 {
 /*-----------------------------------------------*/
 
 /*----------------Шапка-----------------*/
-/**/
+/*Поиск*/
 .header-search {
     float: right;
+}
+/*Авторизация/регистрация*/
+#reg_auth {
+    float: left;
+    width: 200px;
+    background-color: yellow;
+    padding-top: 0px;
 }

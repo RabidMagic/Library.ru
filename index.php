@@ -38,6 +38,7 @@ session_start();
                 </div>
             </article>
             <?php require_once 'footer.php'; ?>
+            <div class="clearfix"></div>
         </section>  
     </body>
 </html>
