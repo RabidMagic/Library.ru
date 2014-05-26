@@ -1,7 +1,6 @@
 <?php
 require_once 'func.php';
 require_once 'connect.php';
-require_once 'classes.php';
 session_start();
 field_validator("'Логин'", $_POST["login"], "alphanumeric", 4, 32);
 field_validator("'Пароль'", $_POST["password"], "string", 4, 16);
@@ -42,9 +41,11 @@ if (empty($messages))
 {
     $birthdate = array($_POST['reg-b-day'], $_POST['reg-b-month'], $_POST['reg-b-year']);
     $birthdate = implode("-", $birthdate);
-    if (newUser($_POST['login'], $_POST['password'], $_POST['gender'], $birthdate, $_POST['email']) && setSession($_POST['login'], $_POST['password']))
+    if (newUser($_POST['login'], $_POST['password'], $_POST['gender'], $birthdate, $_POST['email']) && setSession($_POST['login'], $_POST['password'], 'user'))
     {
         header("Location: index.php");
     } else $messages[] = "Не удалось зарегистрироваться и/или залогиниться";
-} else header("Location: registration.php");
-$_SESSION['messages'] = $messages;
+} else {
+    $_SESSION['messages'] = $messages;
+    header("Location: registration.php");
+}

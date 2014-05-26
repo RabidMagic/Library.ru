@@ -22,17 +22,19 @@
         <tr>
             <td>Выберите жанр: </td>
             <td>
-                <select name="genre">
-                    <option selected>Выберите жанр</option>
-                    <?php
-                    outputGenres();
-                    ?>
-                </select>
+                <?php
+                $query = "SELECT genre FROM genres";
+                $genres = new OutputSelect($query, $mdb2, 'genres');
+                ?>  
             </td>
         </tr>
         <tr>
-            <td>Выберите файл для загрузки(.jpg): </td>
+            <td>Выберите файл обложки для загрузки(.jpg): </td>
             <td><input type="file" name="img"></td>
+        </tr>
+        <tr>
+            <td>Введите ссылку на скачку файла: </td>
+            <td><input type="url" name="url"></td>
         </tr>
     </table>
     <input type='submit' value='Отправить'>

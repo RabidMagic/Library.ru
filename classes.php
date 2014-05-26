@@ -27,11 +27,11 @@ class PageButtons {
         if ($this->page - 3 > 0) $this->pageleft[] = ' <a href=?page='. ($this->page - 3) .'>'. ($this->page - 3) .'</a> | ';
         if ($this->page - 2 > 0) $this->pageleft[] = ' <a href=?page='. ($this->page - 2) .'>'. ($this->page - 2) .'</a> | ';
         if ($this->page - 1 > 0) $this->pageleft[] = '<a href=?page='. ($this->page - 1) .'>'. ($this->page - 1) .'</a> | ';
-        if ($this->page + 5 <= $this->total) $this->pageright[] = ' | <a href=?page='. ($this->page + 5) .'>'. ($this->page + 5) .'</a>';
-        if ($this->page + 4 <= $this->total) $this->pageright[] = ' | <a href=?page='. ($this->page + 4) .'>'. ($this->page + 4) .'</a>';
-        if ($this->page + 3 <= $this->total) $this->pageright[] = ' | <a href=?page='. ($this->page + 3) .'>'. ($this->page + 3) .'</a>';
-        if ($this->page + 2 <= $this->total) $this->pageright[] = ' | <a href=?page='. ($this->page + 2) .'>'. ($this->page + 2) .'</a>';
         if ($this->page + 1 <= $this->total) $this->pageright[] = ' | <a href=?page='. ($this->page + 1) .'>'. ($this->page + 1) .'</a>';
+        if ($this->page + 2 <= $this->total) $this->pageright[] = ' | <a href=?page='. ($this->page + 2) .'>'. ($this->page + 2) .'</a>';
+        if ($this->page + 3 <= $this->total) $this->pageright[] = ' | <a href=?page='. ($this->page + 3) .'>'. ($this->page + 3) .'</a>';
+        if ($this->page + 4 <= $this->total) $this->pageright[] = ' | <a href=?page='. ($this->page + 4) .'>'. ($this->page + 4) .'</a>';
+        if ($this->page + 5 <= $this->total) $this->pageright[] = ' | <a href=?page='. ($this->page + 5) .'>'. ($this->page + 5) .'</a>';
         $this->setPageButtons();
     }
     public function getBookPageButtons() { //Страница page.php
@@ -42,11 +42,11 @@ class PageButtons {
         if ($this->page - 3 > 0) $this->pageleft[] = ' <a href=?id='.$_GET['id'].'&page='. ($this->page - 3) .'>'. ($this->page - 3) .'</a> | ';
         if ($this->page - 2 > 0) $this->pageleft[] = ' <a href=?id='.$_GET['id'].'&page='. ($this->page - 2) .'>'. ($this->page - 2) .'</a> | ';
         if ($this->page - 1 > 0) $this->pageleft[] = '<a href=?id='.$_GET['id'].'&page='. ($this->page - 1) .'>'. ($this->page - 1) .'</a> | ';
-        if ($this->page + 5 <= $this->total) $this->pageright[] = ' | <a href=?id='.$_GET['id'].'&page='. ($this->page + 5) .'>'. ($this->page + 5) .'</a>';
-        if ($this->page + 4 <= $this->total) $this->pageright[] = ' | <a href=?id='.$_GET['id'].'&page='. ($this->page + 4) .'>'. ($this->page + 4) .'</a>';
-        if ($this->page + 3 <= $this->total) $this->pageright[] = ' | <a href=?id='.$_GET['id'].'&page='. ($this->page + 3) .'>'. ($this->page + 3) .'</a>';
-        if ($this->page + 2 <= $this->total) $this->pageright[] = ' | <a href=?id='.$_GET['id'].'&page='. ($this->page + 2) .'>'. ($this->page + 2) .'</a>';
         if ($this->page + 1 <= $this->total) $this->pageright[] = ' | <a href=?id='.$_GET['id'].'&page='. ($this->page + 1) .'>'. ($this->page + 1) .'</a>';
+        if ($this->page + 2 <= $this->total) $this->pageright[] = ' | <a href=?id='.$_GET['id'].'&page='. ($this->page + 2) .'>'. ($this->page + 2) .'</a>';
+        if ($this->page + 3 <= $this->total) $this->pageright[] = ' | <a href=?id='.$_GET['id'].'&page='. ($this->page + 3) .'>'. ($this->page + 3) .'</a>';
+        if ($this->page + 4 <= $this->total) $this->pageright[] = ' | <a href=?id='.$_GET['id'].'&page='. ($this->page + 4) .'>'. ($this->page + 4) .'</a>';
+        if ($this->page + 5 <= $this->total) $this->pageright[] = ' | <a href=?id='.$_GET['id'].'&page='. ($this->page + 5) .'>'. ($this->page + 5) .'</a>';
         $this->setPageButtons();
     }
     public function getSearchPageButtons() { //Страница results.php
@@ -57,11 +57,11 @@ class PageButtons {
         if ($this->page - 3 > 0) $this->pageleft[] = ' <a href=?search='.$_GET['search'].'&page='. ($this->page - 3) .'>'. ($this->page - 3) .'</a> | ';
         if ($this->page - 2 > 0) $this->pageleft[] = ' <a href=?search='.$_GET['search'].'&page='. ($this->page - 2) .'>'. ($this->page - 2) .'</a> | ';
         if ($this->page - 1 > 0) $this->pageleft[] = '<a href=?search='.$_GET['search'].'&page='. ($this->page - 1) .'>'. ($this->page - 1) .'</a> | ';
-        if ($this->page + 5 <= $this->total) $this->pageright[] = ' | <a href=?search='.$_GET['search'].'&page='. ($this->page + 5) .'>'. ($this->page + 5) .'</a>';
-        if ($this->page + 4 <= $this->total) $this->pageright[] = ' | <a href=?search='.$_GET['search'].'&page='. ($this->page + 4) .'>'. ($this->page + 4) .'</a>';
-        if ($this->page + 3 <= $this->total) $this->pageright[] = ' | <a href=?search='.$_GET['search'].'&page='. ($this->page + 3) .'>'. ($this->page + 3) .'</a>';
-        if ($this->page + 2 <= $this->total) $this->pageright[] = ' | <a href=?search='.$_GET['search'].'&page='. ($this->page + 2) .'>'. ($this->page + 2) .'</a>';
         if ($this->page + 1 <= $this->total) $this->pageright[] = ' | <a href=?search='.$_GET['search'].'&page='. ($this->page + 1) .'>'. ($this->page + 1) .'</a>';
+        if ($this->page + 2 <= $this->total) $this->pageright[] = ' | <a href=?search='.$_GET['search'].'&page='. ($this->page + 2) .'>'. ($this->page + 2) .'</a>';
+        if ($this->page + 3 <= $this->total) $this->pageright[] = ' | <a href=?search='.$_GET['search'].'&page='. ($this->page + 3) .'>'. ($this->page + 3) .'</a>';
+        if ($this->page + 4 <= $this->total) $this->pageright[] = ' | <a href=?search='.$_GET['search'].'&page='. ($this->page + 4) .'>'. ($this->page + 4) .'</a>';
+        if ($this->page + 5 <= $this->total) $this->pageright[] = ' | <a href=?search='.$_GET['search'].'&page='. ($this->page + 5) .'>'. ($this->page + 5) .'</a>';
         $this->setPageButtons();
     }
     public function getCatalogPageButtons() {
@@ -72,14 +72,14 @@ class PageButtons {
         if ($this->page - 3 > 0) $this->pageleft[] = ' <a href=?genre='.$_GET['genre'].'&page='. ($this->page - 3) .'>'. ($this->page - 3) .'</a> | ';
         if ($this->page - 2 > 0) $this->pageleft[] = ' <a href=?genre='.$_GET['genre'].'&page='. ($this->page - 2) .'>'. ($this->page - 2) .'</a> | ';
         if ($this->page - 1 > 0) $this->pageleft[] = '<a href=?genre='.$_GET['genre'].'&page='. ($this->page - 1) .'>'. ($this->page - 1) .'</a> | ';
-        if ($this->page + 5 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 5) .'>'. ($this->page + 5) .'</a>';
-        if ($this->page + 4 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 4) .'>'. ($this->page + 4) .'</a>';
-        if ($this->page + 3 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 3) .'>'. ($this->page + 3) .'</a>';
-        if ($this->page + 2 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 2) .'>'. ($this->page + 2) .'</a>';
         if ($this->page + 1 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 1) .'>'. ($this->page + 1) .'</a>';
+        if ($this->page + 2 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 2) .'>'. ($this->page + 2) .'</a>';
+        if ($this->page + 3 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 3) .'>'. ($this->page + 3) .'</a>';
+        if ($this->page + 4 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 4) .'>'. ($this->page + 4) .'</a>';
+        if ($this->page + 5 <= $this->total) $this->pageright[] = ' | <a href=?genre='.$_GET['genre'].'&page='. ($this->page + 5) .'>'. ($this->page + 5) .'</a>';
         $this->setPageButtons();
     }
-    private function setPageButtons() { //Формирования вывода кнопок
+    private function setPageButtons() { //Формирование вывода кнопок
         if ($this->total > 1)
         {
             $this->content = "<div class='pstrnav'>";
@@ -94,6 +94,8 @@ class PageButtons {
             $this->content .= $this->nextpage;
             $this->content .= "</div>";
             echo $this->content;
+            $this->pageleft = array();
+            $this->pageright = array();
         }
     }
 }
@@ -173,25 +175,70 @@ class ShowNews {
         } else print "<h3>Новых книг пока нет</h3>";
     }
 }
-////Регистрация - авторизация( для работы нужен func.php)
-//class Authentication {
-//    static function CheckLogedIn() {
-//        if (empty($_SESSION['stat_log']))
-//        {
-//            header("Location: auth.php");
-//        }
-//    }
-//    static function SetSession($login, $password) {
-//        $_SESSION['login'] = $login;
-//        $_SESSION['password'] = $password;
-//        $_SESSION['stat_log'] = TRUE;
-//        return TRUE;
-//    }
-//    static function FlushSession() {
-//        unset($_SESSION['login']);
-//        unset($_SESSION['password']);
-//        unset($_SESSION['stat_log']);
-//        session_destroy();
-//        return TRUE;
-//    }
-//}
+//Вывод с тегами select;
+class OutputSelect {
+    protected $row;
+    protected $result;
+    protected $value;
+    protected $case;
+    public function __construct($query, $mdb2, $case) {
+        $this->result = $mdb2->query($query);
+        switch ($case) {
+            case 'genres':
+                $this->outputGenres();
+                break;
+            case 'users':
+                $this->outputUsers();
+                break;
+            case 'groups';
+                $this->outputGroups();
+                break;
+            default:
+                print "Ошибка! Неверно указан оператор";
+                break;
+        }
+    }
+    protected function outputGenres() { //Вывод жанров
+        if ($this->result->numRows() > 0)
+        {
+            print '<select name="genre">';
+            print '<option selected>Выберите жанр</option>';
+            while ($this->row = $this->result->fetchRow())
+            {
+                foreach ($this->row as $this->value)
+                {
+                    print "<option>$this->value</option>\n";
+                }
+            }
+            print '</select>';
+        }
+    }
+    protected function outputUsers() {  //Вывод списка пользователей
+        if ($this->result->numRows() > 0)
+        {
+            print '<select name=\'user\'>';
+            while ($this->row = $this->result->fetchRow())
+            {
+                foreach ($this->row as $this->value)
+                {
+                    print "<option>$this->value</option>\n";
+                }
+            }
+            print '</select>';
+        } else "Ошибка! Не найден ни один пользователь";
+    }
+    protected function outputGroups() { //Вывод списка групп пользователей
+        if ($this->result->numRows() > 0)
+        {
+            print '<select name=\'group\'>';
+            while ($this->row = $this->result->fetchRow())
+            {
+                foreach ($this->row as $this->value)
+                {
+                    print "<option>$this->value</option>\n";
+                }
+            }
+            print '</select>';
+        } else "Ошибка! Не найдены группы";
+    }
+}

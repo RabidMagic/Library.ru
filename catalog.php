@@ -23,13 +23,16 @@ session_start();
             <?php
             if (isset($_GET['genre']))
             {
-                $num = 3; //<--- для смены кол-ва выводимых комментариев изменять это
+                $num = 1; //<--- для смены кол-ва выводимых книг изменять это
+                $query_cpb = "SELECT * FROM upload_books WHERE genre = '".$_GET['genre']."'";
+                $catalog_buttons = new PageButtons($num, $query_cpb, $mdb2);
                 $_GET['genre'] = securityCheck($_GET['genre']);
                 if(empty($_GET['page']) or $_GET['page'] < 0) $_GET['page'] = 1;
                 $start = $_GET['page'] * $num - $num;
                 $result = $mdb2->query("SELECT * FROM upload_books WHERE genre = '".$_GET['genre']."' LIMIT $start, $num");
                 if ($result->numRows() > 0)
                 {
+                    $catalog_buttons->getCatalogPageButtons();
                     while ($row = $result->fetchRow())
                     {
                         print "<a class='catalog-links' href='page.php?id=".$row['id']."'><div class='catalog-content'>
@@ -38,9 +41,7 @@ session_start();
                                 <p>".$row['author']."</p>
                               </div></a>";
                     }
-                $query = "SELECT * FROM upload_books WHERE genre = '".$_GET['genre']."'";
-                $catalog_buttons = new PageButtons($num, $query, $mdb2);
-                $catalog_buttons->getCatalogPageButtons();
+                    $catalog_buttons->getCatalogPageButtons();
                 } else print "<h1>В данной категории пока ничего нет</h1>";
             } else print "<h1>Выберите категорию</h1>";
             ?>

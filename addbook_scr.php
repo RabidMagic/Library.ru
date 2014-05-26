@@ -18,6 +18,7 @@ if ($_POST['genre'] === "Выберите жанр")
 {
     $messages[] = "Вы не выбрали жанр";
 }
+field_validator("'Ссылка'", $_POST['url'], "url");
 if (empty($messages))
 {
     mb_internal_encoding("UTF-8");
@@ -39,18 +40,24 @@ if (empty($messages))
     $query = "SELECT * FROM upload_books WHERE book_name = '$book' && author = '$author' && genre = '$genre'";
     $result = $mdb2->query($query);
     if ($result->numRows() == 0)
-    {    
-        if (uploadFile('img', 'image/jpeg', 2097152, "uploads/") === TRUE)
+    {
+        $uploadfile = setRandomString('upload_books', 'img');
+        if (uploadFile('img', 'image/jpeg', 2097152, "uploads") == FALSE)
+        {
+            $messages[] = "Не удалось загрузить обложку";
+        } else $img = $uploadfile;
+        if (!strstr($_POST['url'], "://")) $_POST['url'] = "http://" . $_POST['url'];
+        if (isset($img))
         {
             $login = $_SESSION['login'];
-            $date = date("d - m - Y");
-            $query = "INSERT INTO upload_books SET book_name = '$book', author = '$author', description = '$desc', genre = '$genre', login = '$login', date = '$date', img = '$uploadfile'";
+            $query = "INSERT INTO upload_books SET book_name = '$book', author = '$author', description = '$desc', genre = '$genre', login = '$login', img = '$img', url = '".$_POST['url']."'";
             $result = $mdb2->exec($query);
             $messages[] = "Книга была успешно добавлена";
             $_SESSION['messages'] = $messages;
             header("Location: account.php");
-        } else $messages[] = "Не удалось загрузить файл";
+        }
     } else $messages[] = "Такая книга уже есть";
 }
 $_SESSION['messages'] = $messages;
+header("Location: account.php");
 ?>

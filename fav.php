@@ -17,5 +17,5 @@ if ($result->numRows() > 0)
                 </form>
                </div>";
     }
-}
+} else print 'Увы, у Вас нет Избранных книг :-(';
 ?>
