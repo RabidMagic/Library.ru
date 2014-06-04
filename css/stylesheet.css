@@ -221,9 +221,6 @@ a {
 }
 /*Блоки внутри артикля*/
 .catalog-span {
-    position: absolute;
-    left: 0;
-    top: 250px;
     height: 1100px;
     float: left;
 }
