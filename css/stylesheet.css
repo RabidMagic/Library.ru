@@ -7,14 +7,13 @@
 /*-----Общие стили для всех страниц-----*/
 /*Минимальный размер страницы*/
 #container {
-    margin: 0 auto;
-    min-width: 1200px;
-    //float: left;
+    display: inline-table;
+    min-width: 1300px;
 }
 /*Фон страницы*/
 body {
     background-image: url(/img/background.jpg);
-    background-size: cover;
+    background-size: auto;
     margin: 0;
     height: 1510px;
     //width: 1000px;
@@ -22,7 +21,8 @@ body {
 /*Заголовок*/
 header {
     height: 250px;
-    width: 100%;
+    position: relative;
+    margin: 0 auto 0 0;
 }
 /*Текс заголовка*/
 #logo {
@@ -30,7 +30,9 @@ header {
     font-family: arial;
     font-size: 100px;
     text-align: center;
-    color: white
+    color: white;
+    float: left;
+    margin: 60px 50px 0 50px;
 }
 /*Погреб*/
 footer {
@@ -44,50 +46,42 @@ footer {
 }
 /*Основной лист*/
 #main {
-    max-width: 1500px;
     height: 1100px;
     border-radius: 20px;
     background-image: url(/img/main_background.jpg);
     background-size: cover;
-    margin: 0 auto;
+    margin-left: 20px;
     padding: 30px 40px 30px 40px;
 }
-/*Таинственная псевдораспорка. Прячется в тени и носит шляпу.*/
+/*Таинственная псевдораспорка. Прячется в тени и носит шляпу.*/ 
+/*Не трогайте её, позязя :3*/
 .clearfix::after {
     content: '';
     display: block;
     clear: both;
 }
+/*Авторизация/регистрация в header.php*/
+#reg_auth {
+    float: left;
+    width: 200px;
+    background-color: yellow;
+    padding-top: 0px;
+}
 /*--------------------------------------*/
 
 /*-------------Кнопки-------------------*/
-/*Выдвижение кнопок при наведении*/
-.button:hover {
-    margin-top: 0;
-    height: 60px;
-}
 /*Кнопки в покое*/
 .button {
-    background: url(/img/tap.jpg);    
-    width: 210px;
+    display: inline-block;
+    background: url(/img/nav_current.png);    
+    width: 111px;
+    height: 82px;
     text-align: center;
-    height: 40px;
+    color: white;
     font-family: cursive;
-    font-size: 25px; 
-    margin-top: 20px;
-    padding: 0px 15px 0px 15px;   
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-}
-/*Положение кнопок*/
-#topmenu {
-    height: 60px;
-    margin: 0 auto;
-    width: 1000px;
-}
-/*Лучше не трогать*/
-#topmenu div{
-    display: inline-table;  
+    font-size: 15px;
+    padding-top: 50px;
+    position: absolute;
 }
 /*Ссылки на кнопках*/
 a {
@@ -108,11 +102,17 @@ a {
     width: 300px;
     float: right;
     width: 240px;
-    padding: 10px auto;
+    padding: 10px auto;    
+    background: rgba(255,255,255,0.5);
+    border-radius: 20px;
+}
+
+#newblebox h1 {
+    text-align: center;
 }
 /*Книги*/
 .newble {
-    border: 5px darkseagreen solid;
+    border-top: 3px solid black;
     margin-bottom: 30px;
     height: 300px;
 }
@@ -166,31 +166,60 @@ a {
 /*--------------------------------------------*/
 
 /*--------------------Каталог-----------------*/
-/*Блок, содержащий картинку, название и автора книги. Краткая инфа*/
-.catalog-content {
-    float: left;
-    border: 5px darkseagreen solid;
-    margin-left: 50px;
-    margin-bottom: 50px;
-    text-align: center;
-   // background-image: url(/img/001.jpg);
-    background-size: contain;
-    width: 320px;
-    height: 413px;
+/*Основной лист для каталога*/
+#catalog_main {
+    height: 1005px;
+    background-image: url(/img/catalog.png);
+    background-size: cover;
+    margin: 0 35px 0 150px;
+    padding: 30px 40px 30px 40px;
 }
-/*Картинка внутри краткой инфы о книге*/
-.catalog-content img {
+
+.bookbox {
+    display: inline-block;
+    position: relative;
     width: 185px;
     height: 250px;
+    margin: 66px 31px;
+}
+
+/*Картинка внутри краткой инфы о книге*/
+.bookbox img {
+    width: 150px;
+    height: 205px;
+    box-shadow: 10px -2px 20px;
+    border-radius: 5px;  
+}
+
+/*Описание книги*/
+.description_pop-up {
+    display: block;
+    position: absolute;
+    width: 130px;
+    height: 188px;
+    color: #fff;
+    padding: 10px;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.7);
+    text-align: center;    
+    border-radius: 5px; 
+}
+
+.bookbox h6 {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:30px;
+    margin: 130px 0 0 0;
     
+}
+.bookbox span {
+    font-size:15px; 
+    margin: 0;
 }
 /*Блоки внутри артикля*/
 .catalog-span {
     height: 1100px;
     float: left;
-}
-.catalog-links {
-    
 }
 /*Навигационное меню "Жанры"*/
 #navmenu {
@@ -218,6 +247,90 @@ a {
 }
 /*--------------------------------------------*/
 
+/*----------------Страница книги-----------------*/
+#page_main {
+    height: 1148px;
+    border-radius: 20px;
+    background-image: url(/img/main_background.jpg);
+    background-size: cover;
+    margin: 0 35px 0 165px;
+    padding: 30px 40px 30px 40px;
+}
+/*Обложка книги*/
+.page_img {
+    width: 250px;
+    height: 385px;
+}
+/*Поле описания*/
+#description {
+    float: right;
+    width: 70%;
+}
+/*Название*/
+#description h1 {
+    text-align: center;
+    font-size: 50px;
+}
+/*Автор*/
+#description h3 {
+    text-align: center;
+    font-size: 25px;
+}
+/*Имя оправителя и дата отправки*/
+.user-date-page {
+    float: right;
+}
+/*-----------------------------------------------*/
+
+/*----------------Комментарии--------------------*/
+/*Поле комментария*/
+.comment {
+    margin: 20px 0 20px 0;
+}
+/*Заголоок комментария*/
+.comment_head {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background: #9f7b00;
+    height: 40px;
+    padding: auto;
+    opacity: 0.9;
+}
+/*Автор комментария*/
+.user {
+    font-size: 15px;
+    float: left;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+/*Врямя создания комментария*/
+.date {
+    font-size: 15px;
+    float: right;
+    margin-top: 10px;
+    margin-right: 30px;
+}
+/*Тело комментария*/
+.comment_body {
+    background: #ffcc1e;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    min-height: 50px;
+    padding: 10px 0 10px 20px;
+    opacity: 0.9;
+}
+
+.page-comments-input-textarea {
+    resize: none;
+    width: 100%;
+    height: 100px;
+}
+
+.page-comments-input-textarea p {
+    font-size: 15px;
+}
+/*-----------------------------------------------*/
+
 /*----------------Регистрация-----------------*/
 /*Заголовок*/
 form > h1 {
@@ -239,15 +352,71 @@ form > h1 {
 }
 /*-----------------------------------------------*/
 
-/*----------------Шапка-----------------*/
-/*Поиск*/
+/*----------------------Шапка--------------------*/
+/**/
 .header-search {
+    position: absolute;
     float: right;
+    bottom: 0;
+    right: 0;
+    width: 500px;
+    color: rgb(255, 255, 255); 
+    border: 2px solid rgb(100, 117, 134); 
+    padding: 5px 2px 5px 30px; 
+    background: url(../img/lpDemoBuscador.png) no-repeat scroll 5px 50% rgb(68, 85, 102);
 }
-/*Авторизация/регистрация*/
-#reg_auth {
-    float: left;
-    width: 200px;
-    background-color: yellow;
-    padding-top: 0px;
+
+/*----------------Всплывающие окно----------------*/
+#login_pop-up {
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    background-color: rgba(172,183,142,0.7);
+    position: fixed;
+    visibility: hidden;
+}
+
+#login_pop-up div{
+    background-color: white;
+    border-radius: 10px;
+    width: 300px;
+    margin: 20% auto;
+}
+
+#login_pop-up div div {
+    margin: -5px -10px 0 0;
+    float: right;
+    width: 40px;
+    background-color: antiquewhite;
+    cursor: pointer;
+}
+
+#reg_pop-up {
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    background-color: rgba(172,183,142,0.7);
+    position: fixed;
+    visibility: hidden;
+}
+
+#reg_pop-up div{
+    background-color: white;
+    border-radius: 10px;
+    width: 500px;
+    margin: 10% auto;
+}
+
+#reg_pop-up div div {
+    margin: -5px -10px 0 0;
+    float: right;
+    width: 40px;
+    background-color: antiquewhite;
+    cursor: pointer;
+}
+/*------------------------------------------------*/
+
+#message {
+    visibility: hidden;
+    position: absolute;
 }

@@ -13,23 +13,25 @@ $_GET['id'] = securityCheck($_GET['id']);
         <meta name="viewport" content="width=device-width">
         <link rel="icon" href="img/logo.ico">
         <link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
+        <script type="text/javascript" src="javascript/main_scripts.js"></script>
     </head>
-    <body>
+    <body onload="pageLoaded();">
+        <?php        include_once 'login_pop-up.php'; ?>
         <section id="container">
             <?php require_once 'header.php'; ?>
             <?php require_once 'nav.php'; ?>
-            <article id="main">
+            <article id="page_main">
                 <?php
                 $result = $mdb2->query("SELECT * FROM upload_books WHERE id = '".$_GET['id']."'");
                 if ($result->numRows() == 1)
                 {
                     $row = $result->fetchRow();
-                    print "<img src='uploads/".$row['img']."' alt='картинка'>
-                           <div>
+                    print "<img class='page_img' src='uploads/".$row['img']."' alt='картинка'>
+                           <div id='description'>
                             <h1>".$row['book_name']."</h1>
                             <h3>".$row['author']."</h3>
                             <p>".$row['description']."</p>
-                            <a href='".$row['url']."'>Скачка файла</a>
+                            <p><a href='".$row['url']."'>Скачка файла</a></p>
                             <div class='user-date-page'><p>Добавил: <b>".$row['login']."</b> Дата: <b>".$row['date']."</b></p></div>";
                     if (isset($_SESSION['stat_log']))
                     {

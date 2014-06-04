@@ -118,9 +118,10 @@ class GetResults {
         {
             while ($this->row = $this->result->fetchRow())
             {
-                print "<div>
-                        Имя: ".  $this->row['login']." Дата: ".  $this->row['date']."
-                        <p>".  $this->row['content']."</p>
+                print "<div class='comment'>
+                            <div class='comment_head'>
+                                <div class='user'>Пользователь: <b>".  $this->row['login']."</b></div> <div class='date'>Дата: <b>".  $this->row['date']."</b></div></div>
+                            <div class='comment_body'>".  $this->row['content']."</div>
                        </div>";
             } 
                

@@ -41,8 +41,10 @@ if (isset($_POST['submit']))
         <meta name="viewport" content="width=device-width">
         <link rel="icon" href="img/logo.ico">
         <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+        <script type="text/javascript" src="javascript/main_scripts.js"></script>
     </head>
-    <body>
+    <body onload="pageLoaded();">
+        <?php        include_once 'login_pop-up.php'; ?>
         <section id="container">
             <?php require_once 'header.php'; ?>
             <article id="main">
