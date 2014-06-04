@@ -15,6 +15,7 @@ checkLogIn();
         <script type="text/javascript" src="javascript/main_scripts.js"></script>
     </head>
     <body>
+        <div id="popUp">
         <div id="adminPanel" class="accountPopup">
             <div onclick="accountPopDown();">Close</div>
             <?php include_once 'adminpanel.php'; ?>
@@ -24,6 +25,7 @@ checkLogIn();
             <div onclick="accountPopDown();">Close</div>
             <?php include_once 'addbook.php';?>
         </div>
+        </div>    
         
         <section id="container">
             <a href="catalog.php"><img id="tocatalog" src="img/tocatalog.png" alt="catalog"></a>

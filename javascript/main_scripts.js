@@ -36,9 +36,11 @@ function popUp(choice) {
             getEl("reg_pop-up").style.visibility = "visible";
             break
         case "adminPanel" :
+            getEl("popUp").style.visibility = "visible";    
             getEl("adminPanel").style.visibility = 'visible';
             break
         case "addbookPanel" :
+            getEl("popUp").style.visibility = "visible";
             getEl("addbookPanel").style.visibility = 'visible';
             break
     }
@@ -50,6 +52,7 @@ function popDown() {
 }
 
 function accountPopDown() {
+    getEl("popUp").style.visibility = "hidden";
     getEl("adminPanel").style.visibility = "hidden";
     getEl("addbookPanel").style.visibility = "hidden";
 }
