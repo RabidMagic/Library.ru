@@ -6,7 +6,7 @@ if ($result->numRows() > 0)
 {
     while ($row = $result->fetchRow())
     {
-        print "<div>
+        print "<div class='book'>
                 <a href='page.php?id=".$row['id']."'><img src='uploads/".$row['img']."' alt='картинка'>
                 <h1>".$row['author']."</h1>
                 <h3>".$row['book_name']."</h3></a>

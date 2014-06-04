@@ -1,0 +1,125 @@
+body {
+    background-image: url(/img/account_bg.jpg);
+    background-size: cover;
+    margin: 0;
+    height: 1510px;
+}
+
+#container {
+    margin: 0 auto;
+    min-width: 1200px;
+}
+
+#tocatalog {
+    width: 250px;
+    height: 200px;
+    display: block;
+    float: left;
+    margin: 0;
+}
+
+#addbook {
+    width: 300px;
+    position: absolute;
+    left: -30px;
+    top: 550px;
+    cursor: pointer;
+}
+
+#toguest {
+    position: absolute;
+    right: -70px;
+    top: 500px
+}
+
+#toindex {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+}
+
+#toindex img{
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+}
+
+#coffee {
+    width: 250px;
+    height: 250px;
+    display: block;
+    float: right;
+    cursor: pointer;
+    margin: -20px -30px 0 0;
+}
+
+#main {
+    background-image: url(/img/account_main.jpg);
+    background-size: cover;
+    width: 900px;
+    height: 1100px;
+    border-radius: 20px;
+    margin: 0 auto;
+    box-shadow: 15px -5px 30px #000000;   
+}
+
+.book {
+    display: inline-table;
+    margin: 0 15px 0 15px;
+    text-align: center;
+}
+
+.book img {
+    width: 150px;
+    height: 200px;
+}
+
+.book h1 {
+    font-size: 15px;
+}
+
+.book h3 {
+    font-size: 25px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#main h2 {
+    font-size: 40px;
+    text-align: center;
+    text-decoration: underline;
+    margin: 20px;
+}
+
+.accountPopup {
+    background-color: white;
+    border-radius: 10px;
+    width: 500px;
+    margin: 20% 35%;
+    z-index: 20;
+    position: fixed;    
+    visibility: hidden;
+}
+
+.accountPopup div {
+    margin: -5px -10px 0 0;
+    float: right;
+    width: 40px;
+    background-color: antiquewhite;
+    cursor: pointer;
+}
+
+#popUp {
+    position: absolute;
+    visibility: hidden;
+    background: rgba(200,200,200,0.9);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 90;
+}

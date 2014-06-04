@@ -11,24 +11,40 @@ checkLogIn();
         <meta charset="UTF-8">
         <title>Личный кабинет</title>
         <link rel="icon" href="img/logo.ico">
-        <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+        <link rel="stylesheet" type="text/css" href="css/account.css">
+        <script type="text/javascript" src="javascript/main_scripts.js"></script>
     </head>
     <body>
+        <div id="popUp">
+        <div id="adminPanel" class="accountPopup">
+            <div onclick="accountPopDown();">Close</div>
+            <?php include_once 'adminpanel.php'; ?>
+        </div>
+        
+        <div id="addbookPanel" class="accountPopup">
+            <div onclick="accountPopDown();">Close</div>
+            <?php include_once 'addbook.php';?>
+        </div>
+        </div>    
+        
         <section id="container">
+            <a href="catalog.php"><img id="tocatalog" src="img/tocatalog.png" alt="catalog"></a>
+            <?php 
+            if ($_SESSION['us_group'] == 'admin') {
+                echo '<img id="coffee" src="img/account_coffee.png" alt="coffee" onclick="popUp(\'adminPanel\');">';
+            } else {
+                echo '<img id="coffee" src="img/account_coffee.png" alt="coffee">';
+            }
+            ?>
+            <div id="toindex"><a href="index.php"><img src="img/tomain.png" alt="main"></a></div>
             <article id="main">
+                <h2>Избранные книги</h2>
                 <?php
-                if ($_SESSION['us_group'] == 'admin' || $_SESSION['us_group'] == 'moder') include_once 'addbook.php';
-                ?>
-                <form action="logout.php" method="post">
-                    <input type="submit" value="Выйти" name="logout-acc">
-                </form>
-                <a href='index.php'><button>Главная</button></a><br>
-                <?php
-                if ($_SESSION['us_group'] == 'admin') include_once 'adminpanel.php';
                 require_once 'fav.php'; 
                 ?>
             </article>
+            <img id="addbook" src="img/account_feather.png" alt="feather" onclick="popUp('addbookPanel');">
+            <a href="guestbook.php"><img id="toguest" src="img/toguest.png" alt="gueast"></a>
         </section>
-        <?php require_once 'footer.php' ?> 
     </body>
 </html>

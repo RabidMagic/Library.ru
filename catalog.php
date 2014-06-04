@@ -12,14 +12,16 @@ session_start();
     <meta name="viewport" content="width=device-width">
     <link rel="icon" href="img/logo.ico">
     <link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
+    <script type="text/javascript" src="javascript/main_scripts.js"></script>
 </head>
-<body>
+<body onload="pageLoaded();">
+    <?php        include_once 'login_pop-up.php'; ?>
     <section id="container">
         <?php
         require_once 'header.php';
         require_once 'nav.php'; 
         ?>
-        <article id='main'>
+        <article id='catalog_main'>
             <?php
             if (isset($_GET['genre']))
             {
@@ -35,13 +37,16 @@ session_start();
                     $catalog_buttons->getCatalogPageButtons();
                     while ($row = $result->fetchRow())
                     {
-                        print "<a class='catalog-links' href='page.php?id=".$row['id']."'><div class='catalog-content'>
-                                <img src='uploads/".$row['img']."' alt='картинка'>
-                                <p>".$row['book_name']."</p>
-                                <p>".$row['author']."</p>
-                              </div></a>";
+                        print "<a href='page.php?id=".$row['id']."'>
+                                <div class='bookbox' onmouseenter='descriptionPopUp(".$row['id'].");' onmouseleave='descriptionPopDown(".$row['id'].");'>
+                                    <img src='uploads/".$row['img']."' alt='картинка'>
+                                    <div class='description_pop-up' id='".$row['id']."' style='visibility:hidden'>
+                                        <h6>".$row['book_name']."</h6>
+                                        <span>".$row['author']."</span>
+                                    </div>
+                                </div>
+                               </a>";
                     }
-                    $catalog_buttons->getCatalogPageButtons();
                 } else print "<h1>В данной категории пока ничего нет</h1>";
             } else print "<h1>Выберите категорию</h1>";
             ?>
