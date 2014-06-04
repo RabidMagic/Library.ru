@@ -291,11 +291,16 @@ a {
 
 /*----------------Комментарии--------------------*/
 /*Поле комментария*/
+.page-comments-output {
+    clear: both;
+}
+
 .comment {
     margin: 20px 0 20px 0;
 }
 /*Заголоок комментария*/
 .comment_head {
+    clear: both;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     background: #9f7b00;
