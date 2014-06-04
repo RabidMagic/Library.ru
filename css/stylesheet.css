@@ -295,6 +295,12 @@ a {
     clear: both;
 }
 
+#catalog_main h1 {
+    text-align: center;
+    font-size: 30px;
+    margin: 0;
+}
+
 .comment {
     margin: 20px 0 20px 0;
 }
