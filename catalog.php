@@ -23,7 +23,7 @@ session_start();
             <?php
             if (isset($_GET['genre']))
             {
-                $num = 1; //<--- для смены кол-ва выводимых книг изменять это
+                $num = 10; //<--- для смены кол-ва выводимых книг изменять это
                 $query_cpb = "SELECT * FROM upload_books WHERE genre = '".$_GET['genre']."'";
                 $catalog_buttons = new PageButtons($num, $query_cpb, $mdb2);
                 $_GET['genre'] = securityCheck($_GET['genre']);
