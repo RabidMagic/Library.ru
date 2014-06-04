@@ -35,12 +35,23 @@ function popUp(choice) {
         case "Регистрация":
             getEl("reg_pop-up").style.visibility = "visible";
             break
+        case "adminPanel" :
+            getEl("adminPanel").style.visibility = 'visible';
+            break
+        case "addbookPanel" :
+            getEl("addbookPanel").style.visibility = 'visible';
+            break
     }
 }
 
 function popDown() {
     getEl("login_pop-up").style.visibility = "hidden";
     getEl("reg_pop-up").style.visibility = "hidden";
+}
+
+function accountPopDown() {
+    getEl("adminPanel").style.visibility = "hidden";
+    getEl("addbookPanel").style.visibility = "hidden";
 }
 
 function checkTags() {
