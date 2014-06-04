@@ -96,7 +96,9 @@ a {
 #about {
     width: 70%;
     float: left;
-    border: 1px darkseagreen solid;
+    background: #fff;
+    border-radius: 30px;
+    text-align: center;
 }
 /*Колонка обновлений книг*/
 #newblebox {
@@ -127,7 +129,8 @@ a {
 #newsbox {
     width: 70%;
     float: left;
-    border: 1px darkseagreen solid;
+    border-top: 5px #000000 solid;
+    text-align: center;
 }
 /*Новости*/
 .news {
@@ -218,6 +221,9 @@ a {
 }
 /*Блоки внутри артикля*/
 .catalog-span {
+    position: absolute;
+    left: 0;
+    top: 250px;
     height: 1100px;
     float: left;
 }
@@ -285,11 +291,16 @@ a {
 
 /*----------------Комментарии--------------------*/
 /*Поле комментария*/
+.page-comments-output {
+    clear: both;
+}
+
 .comment {
     margin: 20px 0 20px 0;
 }
 /*Заголоок комментария*/
 .comment_head {
+    clear: both;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     background: #9f7b00;
