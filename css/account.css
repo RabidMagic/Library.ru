@@ -19,9 +19,9 @@ body {
 }
 
 #addbook {
-    width: 400px;
+    width: 300px;
     position: absolute;
-    left: 0px;
+    left: -30px;
     top: 550px;
     cursor: pointer;
 }
@@ -33,6 +33,13 @@ body {
 }
 
 #toindex {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+}
+
+#toindex img{
     display: block;
     margin: 0 auto;
     width: 150px;
@@ -55,11 +62,11 @@ body {
     height: 1100px;
     border-radius: 20px;
     margin: 0 auto;
-    box-shadow: 15px -5px 30px #000000;
+    box-shadow: 15px -5px 30px #000000;   
 }
 
 .book {
-    display: inline-block;
+    display: inline-table;
     margin: 0 15px 0 15px;
     text-align: center;
 }

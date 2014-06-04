@@ -34,7 +34,7 @@ checkLogIn();
                 echo '<img id="coffee" src="img/account_coffee.png" alt="coffee">';
             }
             ?>
-            <a href="index.php"><img id="toindex" src="img/tomain.png" alt="main"></a>
+            <div id="toindex"><a href="index.php"><img src="img/tomain.png" alt="main"></a></div>
             <article id="main">
                 <h2>Избранные книги</h2>
                 <?php

@@ -11,7 +11,7 @@ if ($result->numRows() > 0)
                 <h1>".$row['author']."</h1>
                 <h3>".$row['book_name']."</h3></a>
                 <form action='fav-book-del.php' method='post'>
-                    <input type='hidden' value='$login' name='fav-login'>
+                    <input type='hidden' value='".$_SESSION['login']."' name='fav-login'>
                     <input type='hidden' value='".$row['id']."' name='fav-b-id'>
                     <input type='submit' value='Удалить'>
                 </form>

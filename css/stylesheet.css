@@ -64,8 +64,9 @@ footer {
 #reg_auth {
     float: left;
     width: 200px;
-    background-color: yellow;
+    background: linear-gradient(to top, #ffff00, #ffcc00);
     padding-top: 0px;
+    border-bottom-right-radius: 15px;
 }
 /*--------------------------------------*/
 
@@ -167,10 +168,10 @@ a {
 /*--------------------Каталог-----------------*/
 /*Основной лист для каталога*/
 #catalog_main {
-    height: 1005px;
+    height: 1150px;
     background-image: url(/img/catalog.png);
     background-size: cover;
-    margin: 0 35px 0 150px;
+    margin: 0 0 0 150px;
     padding: 30px 40px 30px 40px;
 }
 
@@ -179,7 +180,7 @@ a {
     position: relative;
     width: 185px;
     height: 250px;
-    margin: 66px 31px;
+    margin: 105px 31px;
 }
 
 /*Картинка внутри краткой инфы о книге*/
@@ -207,13 +208,13 @@ a {
 
 .bookbox h6 {
     font-family:Arial, Helvetica, sans-serif;
-    font-size:30px;
-    margin: 130px 0 0 0;
+    font-size:20px;
+    margin: 0;
     
 }
 .bookbox span {
     font-size:15px; 
-    margin: 0;
+    margin: 30px 0 0 0;
 }
 /*Блоки внутри артикля*/
 .catalog-span {
@@ -232,6 +233,7 @@ a {
 /*Заголовок "Жанров"*/
 #navmenu h1 {
     text-align: center;
+    font-size: 30px;
     background-image: url(/img/navmenuh1.jpg);
     background-size: contain;
     margin-top: 0px;
@@ -291,6 +293,7 @@ a {
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     background: #9f7b00;
+    background: linear-gradient(to top, #9f7b00, #fff367);
     height: 40px;
     padding: auto;
     opacity: 0.9;
@@ -312,6 +315,7 @@ a {
 /*Тело комментария*/
 .comment_body {
     background: #ffcc1e;
+    background: linear-gradient(to top, #fff367, #ffcc1e);
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     min-height: 50px;

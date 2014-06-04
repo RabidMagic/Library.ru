@@ -117,10 +117,10 @@ function pageLoaded(){
     checkJavaScript();
 }
 
-function messageUp(way) {
-    alert('ахтунг');
-    if (way === 'up') {
-        getEl('message').style.visibility = 'visible';
-    } else {getEl('message').style.visibility = 'hidden';
-    }
+function descriptionPopDown(id){
+    getEl(id).style.visibility = 'hidden';
+}
+
+function descriptionPopUp(id){
+    getEl(id).style.visibility = "visible";
 }
