@@ -96,7 +96,9 @@ a {
 #about {
     width: 70%;
     float: left;
-    border: 1px darkseagreen solid;
+    background: #fff;
+    border-radius: 30px;
+    text-align: center;
 }
 /*Колонка обновлений книг*/
 #newblebox {
@@ -127,7 +129,8 @@ a {
 #newsbox {
     width: 70%;
     float: left;
-    border: 1px darkseagreen solid;
+    border-top: 5px #000000 solid;
+    text-align: center;
 }
 /*Новости*/
 .news {
