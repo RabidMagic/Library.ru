@@ -221,9 +221,6 @@ a {
 }
 /*Блоки внутри артикля*/
 .catalog-span {
-    position: absolute;
-    left: 0;
-    top: 250px;
     height: 1100px;
     float: left;
 }
@@ -293,6 +290,12 @@ a {
 /*Поле комментария*/
 .page-comments-output {
     clear: both;
+}
+
+#catalog_main h1 {
+    text-align: center;
+    font-size: 30px;
+    margin: 0;
 }
 
 .comment {
