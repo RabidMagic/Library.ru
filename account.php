@@ -17,12 +17,12 @@ checkLogIn();
     <body>
         <div id="popUp">
         <div id="adminPanel" class="accountPopup">
-            <div onclick="accountPopDown();">Close</div>
+            <div onclick="accountPopDown();">X</div>
             <?php include_once 'adminpanel.php'; ?>
         </div>
         
         <div id="addbookPanel" class="accountPopup">
-            <div onclick="accountPopDown();">Close</div>
+            <div onclick="accountPopDown();">X</div>
             <?php include_once 'addbook.php';?>
         </div>
         </div>    

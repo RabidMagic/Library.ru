@@ -1,6 +1,6 @@
         <div id="login_pop-up">
             <div>
-                <div onclick="popDown();">Close</div>
+                <div onclick="popDown();">X</div>
                 <form action="login.php" method="post">
                     <table>
                         <tr>

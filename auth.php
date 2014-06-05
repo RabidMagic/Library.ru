@@ -15,10 +15,13 @@ if ($_SESSION['count'] == 1)
         <title>Авторизация</title>
         <link rel="icon" href="img/logo.ico">
         <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+        <style>
+            body { background-image: url(/img/background.jpg); background-size: cover; }
+        </style>
     </head>
     <body>
         <section id="container">
-            <article id="main">
+            <article id="auth_main">
                 <h1>Требуется авторизация!</h1>
                 <?php
                 if (!empty($_SESSION['messages']))
@@ -41,10 +44,9 @@ if ($_SESSION['count'] == 1)
                     </table>
                     <input type="submit" value="Войти">
                 </form>
-                <a href="registration.php">Регистрация</a><br>
-                <a href='index.php'>Главная</a><br>
+                <a href="registration.php"><button>Регистрация</button></a><br>
+                <a href='index.php'><button>Главная</button></a><br>
             </article>
         </section>
-        <?php require_once 'footer.php' ?> 
     </body>
 </html>
