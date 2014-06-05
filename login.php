@@ -10,6 +10,7 @@ if (checkUser($_POST['login'], $_POST['password']) === TRUE)
 {
     $messages[] = "Такого пользователя не существует";
 } else $fetch = checkUser($_POST['login'], $_POST['password']);
+$referer = $_SERVER['HTTP_REFERER'];
 if (isset($messages)) $_SESSION['messages'] = $messages;
 if (empty($messages))
 {
@@ -19,7 +20,7 @@ if (empty($messages))
         $_SESSION['messages'] = $messages;
         header("Location: auth.php");
     } else {
-        $referer = $_SESSION['referer'];
+        if (!empty($_SESSION['referer'])) $referer = $_SESSION['referer'];
         unset($_SESSION['referer']);
         unset($_SESSION['count']);
         if ($referer == NULL) { $referer = 'index.php'; }

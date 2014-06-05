@@ -14,9 +14,17 @@ $_GET['id'] = securityCheck($_GET['id']);
         <link rel="icon" href="img/logo.ico">
         <link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
         <script type="text/javascript" src="javascript/main_scripts.js"></script>
+        <style>
+            #description p a { color: blue; text-decoration: underline; }
+            h4 { text-align: center; }
+            h1 { text-align: center; }
+        </style>
     </head>
     <body onload="pageLoaded();">
-        <?php        include_once 'login_pop-up.php'; ?>
+        <?php
+            include_once 'login_pop-up.php'; 
+            include_once 'reg_pop-up.php';
+        ?>
         <section id="container">
             <?php require_once 'header.php'; ?>
             <?php require_once 'nav.php'; ?>
@@ -62,16 +70,16 @@ $_GET['id'] = securityCheck($_GET['id']);
                         print "</div>
                                <div class='page-comments-input'>
                                    <form action='page_com_input_scr.php' method='post'>
-                                        Ваш логин:".$_SESSION['login']."                
+                                        Ваш логин:<b>".$_SESSION['login']."<b>                
                                         <textarea class='page-comments-input-textarea' name='page-content'></textarea>
                                         <input type='hidden' name='page-b-id' value='".$_GET['id']."'>
                                         <input type='reset' value='Сбросить'>
                                         <input type='submit' value='Отправить'>
                                    </form>
                                </div>";
-                    } else print "<br>Авторизируйтесь, чтобы оставлять комментарии";
+                    } else print "<br><h4>Авторизируйтесь, чтобы оставлять комментарии</h4>";
                         print "<div class='clearfix'></div>";
-                } else print "Искомой книги найдено не было";
+                } else print "<h1>Искомой книги найдено не было</h1>";
                 ?>
             </article>
             <?php require_once 'footer.php'; ?>

@@ -44,13 +44,16 @@ if (isset($_POST['submit']))
         <script type="text/javascript" src="javascript/main_scripts.js"></script>
     </head>
     <body onload="pageLoaded();">
-        <?php        include_once 'login_pop-up.php'; ?>
+        <?php        
+            include_once 'login_pop-up.php'; 
+            include_once 'reg_pop-up.php';
+            require_once 'header.php';
+        ?>
         <section id="container">
-            <?php require_once 'header.php'; ?>
             <article id="main">
                 <div class="gb-output">
                     <?php
-                    $num = 3; //<--- для смены кол-ва выводимых комментариев изменять это
+                    $num = 6; //<--- для смены кол-ва выводимых комментариев изменять это
                     $query = "SELECT * FROM review ORDER BY id DESC";
                     $get_review = new GetResults($num, $query, $mdb2);
                     $get_review->getReview();
@@ -67,7 +70,7 @@ if (isset($_POST['submit']))
                     }
                     ?>
                     <form action="" method="post">
-                        <?php (isset($_SESSION['login']) ? print "Ваше имя: ".$_SESSION['login'] : print "Ваше имя: <input type='text' name='login'>") ?>
+                        <?php (isset($_SESSION['login']) ? print "Ваше имя: <b>".$_SESSION['login']."</b>" : print "Ваше имя: <input type='text' name='login'>") ?>
                         <textarea class="gb-input-textarea" name="review"></textarea>
                         <input class="gb-buttons" type="reset" value="Сбросить">
                         <input class="gb-buttons" type="submit" name="submit" value="Отправить отзыв">

@@ -82,7 +82,7 @@ class PageButtons {
     private function setPageButtons() { //Формирование вывода кнопок
         if ($this->total > 1)
         {
-            $this->content = "<div class='pstrnav'>";
+            $this->content = "<div class='pg_buttons'>";
             $this->content .= $this->pervpage;
             foreach ($this->pageleft as $value) {
                 $this->content .= $value;
@@ -125,16 +125,20 @@ class GetResults {
                        </div>";
             } 
                
-        } else print "Пока здесь нет отзывов, но Вы можете быть первым";
+        } else print "<h3 style='text-align: center;'>Пока здесь нет отзывов, но Вы можете быть первым</h3>";
     }
     public function getSearchResults() { //страница results.php
         if ($this->result->numRows() > 0)
         {
             while ($this->row = $this->result->fetchRow())
             {
-                print "<div>
-                        ".$this->row['author'].$this->row['book_name'].$this->row['desc']."
-                       </div>";
+                print "<a href='page.php?id=".$this->row['id']."'>
+                        <div id='search'>
+                            <div><h1>".$this->row['author']."</h1></div>
+                            <div><h3>".$this->row['book_name']."</h3></div>
+                            <div>".$this->row['description']."</div>
+                        </div>
+                        </a>";
             }     
         }
     }

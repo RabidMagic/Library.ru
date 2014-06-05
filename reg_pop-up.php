@@ -1,6 +1,6 @@
         <div id="reg_pop-up">
             <div>
-                <div onclick="popDown();">Close</div>
+                <div onclick="popDown();">X</div>
                 <form action='reg_scr.php' method='post'>
                     <h1>Регистрация</h1>
                     <table>

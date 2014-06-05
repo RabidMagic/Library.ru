@@ -1,6 +1,6 @@
 <?php
 //$login = $_SESSION['login'];
-$query = "SELECT * FROM favourites,upload_books WHERE favourites.book_id=upload_books.id && favourites.login='".$_SESSION['login']."' ORDER BY favourites.book_id DESC";
+$query = "SELECT * FROM favourites,upload_books WHERE favourites.book_id=upload_books.id && favourites.login='".$_SESSION['login']."' ORDER BY favourites.book_id DESC LIMIT 0, 6";
 $result = $mdb2->query($query);
 if ($result->numRows() > 0)
 {
@@ -17,5 +17,6 @@ if ($result->numRows() > 0)
                 </form>
                </div>";
     }
-} else print 'Увы, у Вас нет Избранных книг :-(';
+    if ($result->numRows() > 6) print "У Вас так много Избранных книг, что они не помещаются";
+} else print '<h3 style="text-align: center">Увы, у Вас нет Избранных книг :-(</h3>';
 ?>
