@@ -289,7 +289,7 @@ a {
 /*----------------Комментарии--------------------*/
 /*Поле комментария*/
 .page-comments-output {
-    clear: both;
+    margin: 100px 0 0 0;
 }
 
 #catalog_main h1 {
@@ -303,7 +303,6 @@ a {
 }
 /*Заголоок комментария*/
 .comment_head {
-    clear: both;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     background: #9f7b00;
