@@ -1,4 +1,4 @@
-<form action='test.php' method='post' enctype="multipart/form-data">
+<form action='addbook_scr.php' method='post' enctype="multipart/form-data">
     <table>
         <?php
         if (!empty($_SESSION['messages']))
