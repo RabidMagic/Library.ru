@@ -34,12 +34,11 @@ $_GET['id'] = securityCheck($_GET['id']);
                 if ($result->numRows() == 1)
                 {
                     $row = $result->fetchRow();
-                    print "<img class='page_img' src='uploads/".$row['img']."' alt='картинка'>
+                    print "<img class='page_img' src='uploads/".$row['img'].'.jpeg'."' alt='картинка'>
                            <div id='description'>
                             <h1>".$row['book_name']."</h1>
                             <h3>".$row['author']."</h3>
                             <p>".$row['description']."</p>
-                            <p><a href='".$row['url']."'>Скачка файла</a></p>
                             <div class='user-date-page'><p>Добавил: <b>".$row['login']."</b> Дата: <b>".$row['date']."</b></p></div>";
                     if (isset($_SESSION['stat_log']))
                     {

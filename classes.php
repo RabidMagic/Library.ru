@@ -169,7 +169,7 @@ class ShowNews {
             while ($this->row = $this->result->fetchRow())
             {
                 print "<div class='newble'>
-                            <a href='page.php?id=".  $this->row['id']."'><img src='uploads/".  $this->row['img']."' alt='картинка'>
+                            <a href='page.php?id=".  $this->row['id']."'><img src='uploads/".  $this->row['img'].'.jpeg'."' alt='картинка'>
                             <div class='description'>
                                 <h1>".  $this->row['book_name']."</h1>
                                 <h3>".  $this->row['author']."</h3>

@@ -18,16 +18,17 @@ if ($_POST['genre'] == "Выберите жанр")
 {
     $messages[] = "Вы не выбрали жанр";
 }
-//field_validator("URL", $_POST['url'], "url");
+field_validator("'Название книги'", $_POST['book'], 'cyrillic');
+field_validator('Имя автора', $_POST['author-fname'], 'cyrillic');
+field_validator('Фамилия автора', $_POST['author-sname'], 'cyrillic');
+field_validator('Описание', $_POST['desc'], 'cyrillic_text');
 if (empty($messages))
 {
     mb_internal_encoding("UTF-8");
     $sname = mb_ucfirst($_POST['author-sname']);
     $fname = mb_ucfirst($_POST['author-fname']);
     $author = $fname . ' ' . $sname;
-    $author = securityCheck($author);
     $book = $_POST['book'];
-    $book = securityCheck($book);
     $book = mb_ucfirst($book);
     $desc = $_POST['desc'];
     $desc = securityCheck($desc);
@@ -40,19 +41,17 @@ if (empty($messages))
         $max = 20;
         restart:
         $uploadfile = setRandomString(5, $max);
-        //$result = $mdb2->query("SELECT img FROM uploads_books WHERE img = '$uploadfile'");
-        if ($mdb2->query("SELECT img FROM uploads_books WHERE img = '$uploadfile'")->numRows() != 0)
+        $result = $mdb2->query("SELECT img FROM upload_books WHERE img = '$uploadfile'");
+        if ($result->numRows() != 0)
         {
-            //unset($uploadfile);
             $max++;
             goto restart;
         }
         if (uploadFile('img', $uploadfile) == FALSE)
         {
-            $messages[] = "Не удалось загрузить обложку";
+            $log .= ' upload failed: array messages;';
         } else $img = $uploadfile;
-        if (!strstr($_POST['url'], "://")) $_POST['url'] = "http://" . $_POST['url'];
-        if (!empty($img))
+        if (!empty($img) && empty($messages) && $log == NULL)
         {
             $login = $_SESSION['login'];
             $query = "INSERT INTO upload_books SET book_name = '$book', author = '$author', description = '$desc', genre = '$genre', login = '$login', img = '$img', url = '".$_POST['url']."'";

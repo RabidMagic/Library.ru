@@ -93,11 +93,12 @@ function field_validator($field_descr, $field_data, $field_type, $min_length="",
         "alphanumeric_space"=>"/^[a-zA-Z0-9 ]+$/",
         "string"=>"",
         "cyrillic"=>"/^[а-яА-Я]+$/u",
+        "cyrillic_text"=>"/^[а-яА-Я ]+$/u",
         "url"=>$url
     );
     if ($field_required && empty($field_data))
     {    
-        $messages[] = "Поле является обязательным: $field_descr";
+        $messages[] = "Поле является обязательным: '$field_descr'";
         return;
     }
     if ($field_type == "string")
@@ -108,7 +109,7 @@ function field_validator($field_descr, $field_data, $field_type, $min_length="",
     }
     if (!$field_ok)
     {
-        $messages[] = "Неверно введено значение: $field_descr.";
+        $messages[] = "Неверно введено значение: '$field_descr'";
         return;
     }
     if ($field_ok && ($min_length > 0))   
@@ -183,6 +184,7 @@ function uploadFile($name, $uploadfile) {
     switch ($mime[0]) {
         case 'image':
             $uploaddir = 'uploads/';
+            $uploadfile .= '.jpeg';
             if ($_FILES[$name]['size'] > 3000000)
             {
                 $messages[] = "Недопустимый размер файла";
@@ -212,7 +214,7 @@ function uploadFile($name, $uploadfile) {
                 }
             }
             if (empty($log) && empty($messages)) {
-                @imagejpeg($img, $uploaddir.$uploadfile.'.jpeg');
+                imagejpeg($img, $uploaddir.$uploadfile);
                 return TRUE;
             }
             break;

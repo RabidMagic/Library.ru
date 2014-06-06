@@ -42,7 +42,7 @@ session_start();
                     {
                         print "<a href='page.php?id=".$row['id']."'>
                                 <div class='bookbox' onmouseenter='descriptionPopUp(".$row['id'].");' onmouseleave='descriptionPopDown(".$row['id'].");'>
-                                    <img src='uploads/".$row['img']."' alt='картинка'>
+                                    <img src='uploads/".$row['img'].'.jpeg'."' alt='картинка'>
                                     <div class='description_pop-up' id='".$row['id']."' style='visibility:hidden'>
                                         <h6>".$row['book_name']."</h6>
                                         <span>".$row['author']."</span>
