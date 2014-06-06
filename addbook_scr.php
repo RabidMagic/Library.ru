@@ -21,7 +21,6 @@ if ($_POST['genre'] == "Выберите жанр")
 field_validator("'Название книги'", $_POST['book'], 'cyrillic');
 field_validator('Имя автора', $_POST['author-fname'], 'cyrillic');
 field_validator('Фамилия автора', $_POST['author-sname'], 'cyrillic');
-field_validator('Описание', $_POST['desc'], 'cyrillic_text');
 if (empty($messages))
 {
     mb_internal_encoding("UTF-8");
