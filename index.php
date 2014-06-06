@@ -1,7 +1,7 @@
 <?php 
 require_once 'func.php';
 require_once 'connect.php';
-require_once 'classes.php';
+require_once 'ShowNews.php';
 session_start();
 ?>
 <!DOCTYPE html>

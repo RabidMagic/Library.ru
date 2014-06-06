@@ -19,9 +19,11 @@ session_start();
         <?php        
             include_once 'login_pop-up.php'; 
             include_once 'reg_pop-up.php';
-            require_once 'header.php';
         ?>
         <section id="container">
+            <?php
+            require_once 'header.php';
+            ?>
             <article id="main">
                 <div class="gb-output">
                     <?php
