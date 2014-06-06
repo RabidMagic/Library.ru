@@ -1,6 +1,7 @@
 <?php
 //Кнопки пролистывания
 class PageButtons {
+    private $query;
     private $content;
     private $page;
     private $result;
@@ -10,10 +11,13 @@ class PageButtons {
     private $pageright = array();
     private $pervpage;
     private $nextpage;
-    public function __construct($num, $query, $mdb2) {
+    public function __construct($num, $query, $mdb2 = NULL) {
         $this->page = $_GET['page'];
-        $this->result = $mdb2->query($query);
-        $this->posts = $this->result->numRows();
+        if (is_string($query) && $mbd2 != NULL) {
+            $this->result = $mdb2->query($query);
+            $this->posts = $this->result->numRows();
+        } else
+            $this->posts = $query;
         $this->total = (($this->posts - 1) / $num) + 1;
         $this->total = intval($this->total);
         if (empty($this->page) || $this->page < 0) $this->page = 1;
