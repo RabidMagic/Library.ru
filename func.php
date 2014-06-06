@@ -22,6 +22,7 @@ function checkBookFav() {
 function securityCheck($var) {
     $var = trim($var);
     $var = htmlspecialchars($var);
+    $var = addslashes($var);
     return $var;
 }
 //Создание нового пользователя
@@ -91,11 +92,12 @@ function field_validator($field_descr, $field_data, $field_type, $min_length="",
         "alphanumeric"=>"/^[a-zA-Z0-9]+$/",
         "alphanumeric_space"=>"/^[a-zA-Z0-9 ]+$/",
         "string"=>"",
+        "cyrillic"=>"/^[а-яА-Я]+$/u",
         "url"=>$url
     );
     if ($field_required && empty($field_data))
     {    
-        $messages[] = "Поле $field_descr является обязательным";
+        $messages[] = "Поле является обязательным: $field_descr";
         return;
     }
     if ($field_type == "string")
@@ -106,14 +108,14 @@ function field_validator($field_descr, $field_data, $field_type, $min_length="",
     }
     if (!$field_ok)
     {
-        $messages[] = "Пожалуйста, введите нормальное значение $field_descr.";
+        $messages[] = "Неверно введено значение: $field_descr.";
         return;
     }
     if ($field_ok && ($min_length > 0))   
     {
         if (strlen($field_data) < $min_length)
         {
-            $messages[] = "$field_descr должен быть не короче $min_length символов.";
+            $messages[] = "Поле '$field_descr' должно быть не короче $min_length символов.";
             return;
         }
     }
@@ -121,7 +123,7 @@ function field_validator($field_descr, $field_data, $field_type, $min_length="",
     {
         if (strlen($field_data) > $max_length)
         {
-            $messages[] = "$field_descr не должен быть длиннее $max_length символов.";
+            $messages[] = "Поле '$field_descr' не должно быть длиннее $max_length символов.";
             return;
         }
     }
@@ -136,24 +138,16 @@ function displayErr($messages) {
     print "</ul>";
 }
 //Создание случайной строки;
-function setRandomString($table, $field, $min = 5, $max = 20) {
+function setRandomString($min, $max = 20) {
     global $mdb2;
     $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    restart:
     $length = rand($min, $max);
     $numChars = strlen($chars);
     for ($i = 0; $i < $length; $i++) 
     {
         $string .= substr($chars, rand(1, $numChars) - 1, 1);
     }
-    $result = $mdb2->query("SELECT $field FROM $table WHERE $field = '$string'");
-    if ($result->numRows() == 0)
-    {
-        return $string;
-    } else {
-        unset($string);
-        goto restart;
-    }
+    return $string;
 }
 //Перевод русских символов в транслит;
 function getStrTranslit($string) {
@@ -166,7 +160,7 @@ function getStrTranslit($string) {
             'о' => 'o', 'п' => 'p', 'р' => 'r',
             'с' => 's', 'т' => 't', 'у' => 'u',
             'ф' => 'f', 'х' => 'h', 'ц' => 'c',
-            'ч' => 'ch', 'ш' => 'sh', 'щ' => 'shh',
+            'ч' => 'ch', 'ш' => 'sh', 'щ' => 'sch',
             'ь' => "'", 'ы' => 'y', 'ъ' => '',
             'э' => "e'", 'ю' => 'yu', 'я' => 'ya',
             'А' => 'A', 'Б' => 'B', 'В' => 'V',
@@ -177,35 +171,59 @@ function getStrTranslit($string) {
             'О' => 'O', 'П' => 'P', 'Р' => 'R',
             'С' => 'S', 'Т' => 'T', 'У' => 'U',
             'Ф' => 'F', 'Х' => 'H', 'Ц' => 'C',
-            'Ч' => 'CH', 'Ш' => 'SH', 'Щ' => 'SHH',
+            'Ч' => 'CH', 'Ш' => 'SH', 'Щ' => 'SCH',
             'Ь' => "'", 'Ы' => "Y'", 'Ъ' => '',
             'Э' => "E'", 'Ю' => 'YU', 'Я' => 'YA');
-    return $str=iconv("UTF-8", "UTF-8//IGNORE", strtr($string, $translit));
+    return $str = iconv("UTF-8", "UTF-8//IGNORE", strtr($string, $translit));
 }
 //Проверка файла и загрузка его на сервер
-//$name - имя поля в форме(обязательно указывать в одинарных кавычках!);
-//$type - MIME-тип для проверки(string-тип);
-//$size - орграничение на размер файла;
-//$uploaddir - директория для хранения файла;
-function uploadFile($name, $type, $size, $uploaddir) {
-    global $messages, $uploadfile, $mdb2;
-    if (!($_FILES[$name]['type'] == $type))
-    {
-        $messages[] = "Неверное расширение файла";
-    }
-    if ($_FILES[$name]['size'] > $size)
-    {
-        $messages[] = "Недопустимый размер файла";
-    }
-    if (empty($messages))
-    {
-        if (move_uploaded_file($_FILES[$name]['tmp_name'], $uploaddir . "/" . $uploadfile))
-        {
-            return TRUE;
-        } else {
+function uploadFile($name, $uploadfile) {
+    global $messages, $mdb2, $log;
+    $mime = explode('/', $_FILES[$name]['type']);
+    switch ($mime[0]) {
+        case 'image':
+            $uploaddir = 'uploads/';
+            if ($_FILES[$name]['size'] > 3000000)
+            {
+                $messages[] = "Недопустимый размер файла";
+                return FALSE;;
+            }
+            $size = getimagesize($_FILES[$name]['tmp_name']);
+            if ($size[0] != 0 && $size[1] != 0) {
+                $img = imagecreatetruecolor(250, 385);
+                switch ($mime[1]) {
+                    case 'png':
+                        $fp = imagecreatefrompng($_FILES[$name]['tmp_name']);
+                        break;
+                    case 'jpeg':
+                        $fp = imagecreatefromjpeg($_FILES[$name]['tmp_name']);
+                        break;
+                    default:
+                        $messages[] = 'Неверное расширение файла';
+                        break;
+                }
+                if ($img) {
+                    if (!imagecopyresampled($img, $fp, 0, 0, 0, 0, 250, 385, $size[0], $size[1])) {
+                        $log .= ' failed imagecopyresampled;';
+                    }
+                } else {
+                    $log .= ' failed imagecreatetruecolor;';
+                    $messages[] = '<h2 style="color: red">Внимание! Ошибка загрузки!</h2>';
+                }
+            }
+            if (empty($log) && empty($messages)) {
+                @imagejpeg($img, $uploaddir.$uploadfile.'.jpeg');
+                return TRUE;
+            }
+            break;
+//        case 'text':
+//            //для текста
+//            break;
+        default:
+            $messages[] = "Неверный тип файла";
             return FALSE;
-        }
     }
+    return FALSE;
 }
 //Отправка комментария/отзыва в базу
 function Input($query) {

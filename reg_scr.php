@@ -2,9 +2,9 @@
 require_once 'func.php';
 require_once 'connect.php';
 session_start();
-field_validator("'Логин'", $_POST["login"], "alphanumeric", 4, 32);
-field_validator("'Пароль'", $_POST["password"], "string", 4, 16);
-field_validator("'Подтверждение пароля'", $_POST["password2"], "string", 4, 16);
+field_validator("Логин", $_POST["login"], "alphanumeric", 4, 32);
+field_validator("Пароль", $_POST["password"], "string", 4, 16);
+field_validator("Подтверждение пароля", $_POST["password2"], "string", 4, 16);
 field_validator("e-mail", $_POST['email'], "email");
 if (!checkName($_POST['login']))
 {

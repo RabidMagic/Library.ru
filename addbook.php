@@ -29,13 +29,13 @@
             </td>
         </tr>
         <tr>
-            <td>Выберите файл обложки для загрузки(.jpg): </td>
+            <td>Выберите файл обложки для загрузки(.jpg/.png): </td>
             <td><input type="file" name="img"></td>
         </tr>
-        <tr>
+<!--        <tr>
             <td>Введите ссылку на скачку файла: </td>
             <td><input type="url" name="url"></td>
-        </tr>
+        </tr>-->
     </table>
     <input type='submit' value='Отправить'>
     <input type='reset' value='Сбросить'>            

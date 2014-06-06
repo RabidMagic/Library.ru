@@ -4,8 +4,8 @@ require_once 'connect.php';
 session_start();
 $_POST['login'] = securityCheck($_POST['login']);
 $_POST['password'] = securityCheck($_POST['password']);
-field_validator("'Логин'", $_POST['login'], "alphanumeric", 4, 32);
-field_validator("'Пароль'", $_POST['password'], "string", 4, 16);
+field_validator("Логин", $_POST['login'], "alphanumeric", 4, 32);
+field_validator("Пароль", $_POST['password'], "string", 4, 16);
 if (checkUser($_POST['login'], $_POST['password']) === TRUE)
 {
     $messages[] = "Такого пользователя не существует";

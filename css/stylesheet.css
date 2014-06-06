@@ -452,6 +452,7 @@ header {
     width: 20px;
     background-color: antiquewhite;
     cursor: pointer;
+    padding: 0;
 }
 
 #login_pop-up div div:hover {
@@ -482,6 +483,7 @@ header {
     width: 20px;
     background-color: antiquewhite;
     cursor: pointer;
+    padding: 0;
 }
 
 #reg_pop-up div div:hover {

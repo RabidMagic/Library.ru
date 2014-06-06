@@ -177,15 +177,15 @@ class ShowNews {
                             <div class='clearfix'></div></a>
                         </div>";
             }
-        } else print "<h3>Новых книг пока нет</h3>";
+        } else print "<h3 style='text-align: center'>Новых книг пока нет</h3>";
     }
 }
 //Вывод с тегами select;
 class OutputSelect {
-    protected $row;
-    protected $result;
-    protected $value;
-    protected $case;
+    private $row;
+    private $result;
+    private $value;
+    private $case;
     public function __construct($query, $mdb2, $case) {
         $this->result = $mdb2->query($query);
         switch ($case) {
@@ -203,7 +203,7 @@ class OutputSelect {
                 break;
         }
     }
-    protected function outputGenres() { //Вывод жанров
+    private function outputGenres() { //Вывод жанров
         if ($this->result->numRows() > 0)
         {
             print '<select name="genre">';
@@ -218,7 +218,7 @@ class OutputSelect {
             print '</select>';
         }
     }
-    protected function outputUsers() {  //Вывод списка пользователей
+    private function outputUsers() {  //Вывод списка пользователей
         if ($this->result->numRows() > 0)
         {
             print '<select name=\'user\'>';
@@ -232,7 +232,7 @@ class OutputSelect {
             print '</select>';
         } else "Ошибка! Не найден ни один пользователь";
     }
-    protected function outputGroups() { //Вывод списка групп пользователей
+    private function outputGroups() { //Вывод списка групп пользователей
         if ($this->result->numRows() > 0)
         {
             print '<select name=\'group\'>';

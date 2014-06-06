@@ -13,7 +13,6 @@ $query = "SELECT author,description,book_name,id,genre FROM upload_books WHERE a
     <head>
         <meta charset="UTF-8">
         <title>Библиотека | Результаты поиска</title>
-        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link rel="icon" href="img/logo.ico">
         <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
@@ -31,7 +30,8 @@ $query = "SELECT author,description,book_name,id,genre FROM upload_books WHERE a
             <?php require_once 'header.php'; ?>
             <article id="main">
                 <?php
-                print "<h2>По Вашему запросу '$search' было найдено совпадений: ".$mdb2->query($query)->numRows()."</h2>";
+                $search = stripslashes($search);
+                print "<h2>По Вашему запросу '$search' было найдено совпадений: ". $mdb2->query($query)->numRows()."</h2>";
                 $num = 3; //<--- для смены кол-ва выводимых комментариев изменять это
                 $get_search = new GetResults($num, $query, $mdb2);
                 $get_search->getSearchResults();
