@@ -33,6 +33,6 @@ class ShowNews {
                             <div class='clearfix'></div></a>
                         </div>";
             }
-        } else print "<h3 style='text-align: center'>Новых книг пока нет</h3>";
+        } else print "<h3>Новых книг пока нет</h3>";
     }
 }
