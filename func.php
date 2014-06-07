@@ -225,11 +225,36 @@ function uploadFile($name, $uploadfile) {
                 $messages[] = 'Недопустимый размер файла';
                 return FALSE;
             }
-            
+            switch ($mime[1]) {
+                case 'plain':
+                    $filename = $_FILES[$name]['tmp_name'];
+                    $fp = fopen($filename, 'r');
+                    while (!feof($fp)) {
+                        $buff[] = fgetss($fp);
+                    }
+                    if (fclose($fp)) {
+                        $newfp = fopen('uploads/'.$uploadfile, 'a');
+                        foreach ($buff as $value) {
+                            fwrite($newfp, $value);
+                        }
+                        if (fclose($newfp)) {
+                            return TRUE;
+                        }
+                    } else {
+                        $messages[] = 'Ошибка! Невозможно загрузить файл!';
+                        return FALSE;
+                    }
+                    break;
+                default:
+                    $messages[] = 'Неверное расширение файла';
+                    return FALSE;
+                    break;
+            }
             break;
         default:
             $messages[] = "Неверный тип файла";
             return FALSE;
+            break;
     }
     return FALSE;
 }

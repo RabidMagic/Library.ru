@@ -40,7 +40,7 @@ if (empty($messages))
         $max = 20;
         restart:
         $uploadfile = setRandomString(5, $max);
-        $result = $mdb2->query("SELECT img,txt FROM upload_books WHERE img = '$uploadfile' && txt = '$uploadfile'");
+        $result = $mdb2->query("SELECT img FROM upload_books WHERE img = '$uploadfile'");
         if ($result->numRows() != 0)
         {
             $max++;
@@ -52,10 +52,10 @@ if (empty($messages))
         if (uploadFile('txt', $uploadfile) == FALSE) {
             $log .= ' upload failed: array messages;';
         } else $txt = $uploadfile;
-        if (!empty($img) && empty($messages) && $log == NULL)
+        if (!empty($img) && !empty($txt) && empty($messages) && $log == NULL)
         {
             $login = $_SESSION['login'];
-            $query = "INSERT INTO upload_books SET book_name = '$book', author = '$author', description = '$desc', genre = '$genre', login = '$login', img = '$img', txt = '$txt'";
+            $query = "INSERT INTO upload_books SET book_name = '$book', author = '$author', description = '$desc', genre = '$genre', login = '$login', img = '$img'";// txt = '$txt'";
             $result = $mdb2->exec($query);
             header("Location: account.php");
         }
