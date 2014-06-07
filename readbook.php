@@ -3,6 +3,10 @@ require_once 'connect.php';
 require_once 'PageButtons.php';
 require_once 'func.php';
 session_start();
+header("Cache-Control: private, must-revalidate");
+header("Vary: Content-ID");
+header("Content-ID: " . md5($_GET['id']).'-'.$_GET['page']);
+//header("Content-type: ");
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,8 +22,8 @@ session_start();
         <?php
         $num = 100;
         $_GET['page'] = intval($_GET['page']);
-        $_GET['id'] = securityCheck($_GET['id']);
-        @$content = file("uploads/".$_GET['id']);
+        $_GET['b'] = securityCheck($_GET['id']);
+        @$content = file("uploads/".$_GET['b'].".txt");
         $totpag = count($content);
         $page = new PageButtons($num, $totpag);
         $page->getBookPageButtons();
