@@ -40,6 +40,7 @@ $_GET['id'] = securityCheck($_GET['id']);
                             <h1>".$row['book_name']."</h1>
                             <h3>".$row['author']."</h3>
                             <p>".$row['description']."</p>
+                            <a href='readbook.php?id=".$row['id']."'><button>Читать на сайте</button></a>
                             <div class='user-date-page'><p>Добавил: <b>".$row['login']."</b> Дата: <b>".$row['date']."</b></p></div>";
                     if (isset($_SESSION['stat_log']))
                     {

@@ -32,6 +32,10 @@
             <td>Выберите файл обложки для загрузки(.jpg/.png): </td>
             <td><input type="file" name="img"></td>
         </tr>
+        <tr>
+            <td>Выберите .txt файл: </td>
+            <td><input type="file" name="txt"></td>
+        </tr>
 <!--        <tr>
             <td>Введите ссылку на скачку файла: </td>
             <td><input type="url" name="url"></td>

@@ -218,9 +218,15 @@ function uploadFile($name, $uploadfile) {
                 return TRUE;
             }
             break;
-//        case 'text':
-//            //для текста
-//            break;
+        case 'text':
+            $uploaddir = 'uploads/';
+            $uploadfile .= '.txt';
+            if ($_FILES[$name]['size'] > 3000000) {
+                $messages[] = 'Недопустимый размер файла';
+                return FALSE;
+            }
+            
+            break;
         default:
             $messages[] = "Неверный тип файла";
             return FALSE;
