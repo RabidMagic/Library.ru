@@ -13,7 +13,7 @@ class PageButtons {
     private $nextpage;
     public function __construct($num, $query, $mdb2 = NULL) {
         $this->page = $_GET['page'];
-        if (is_string($query) && $mbd2 != NULL) {
+        if (is_string($query) && $mdb2 != NULL) {
             $this->result = $mdb2->query($query);
             $this->posts = $this->result->numRows();
         } else
@@ -22,6 +22,9 @@ class PageButtons {
         $this->total = intval($this->total);
         if (empty($this->page) || $this->page < 0) $this->page = 1;
         if ($this->page > $this->total) $this->page = $this->total;
+    }
+    public function getTotalPosts() {
+        return $this->total;
     }
     public function getGBPageButtons() { //Страница guestbook.php
         if ($this->page != 1) $this->pervpage = '<a href=?page=1>Первая</a> | <a href=?page='. ($this->page - 1) .'>Предыдущая</a> | ';
