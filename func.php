@@ -233,7 +233,7 @@ function uploadFile($name, $uploadfile) {
                         $buff[] = fgetss($fp);
                     }
                     if (fclose($fp)) {
-                        $newfp = fopen('uploads/'.$uploadfile, 'a');
+                        $newfp = fopen($uploaddir.$uploadfile, 'a');
                         foreach ($buff as $value) {
                             fwrite($newfp, $value);
                         }

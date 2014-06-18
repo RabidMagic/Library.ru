@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'func.php';
 require_once 'connect.php';
 if (isset($_POST['submit']))
@@ -26,9 +27,10 @@ if (isset($_POST['submit']))
         $query = "INSERT INTO review (login, content) VALUES ('$name', '$review')";
         if (Input($query) == TRUE)
         {
-            $_SESSION['messages'] = $messages;
             header("Location: guestbook.php");
         } else $messages[] = "Ошибка! Невозможно добавить в БД";
     }
     $_SESSION['messages'] = $messages;
+    var_dump($messages);
+    header("Location: guestbook.php");
 }

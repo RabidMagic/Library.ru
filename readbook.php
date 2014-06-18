@@ -26,16 +26,16 @@ header("Content-ID: " . md5($_GET['id']).'-'.$_GET['page']);
         @$content = file("uploads/".$_GET['b'].".txt");
         $totpag = count($content);
         $page = new PageButtons($num, $totpag);
+//        $p = $page->getTotalPosts();
         $page->getBookPageButtons();
         if ($_GET['page'] == 0 || $_GET['page'] == 1) {
             $i = 0; 
         } else
-            $i = (intval($_GET['page']) - 1) * $num;
+            $i = ($_GET['page'] - 1) * $num;
         $end = $i + 100;
         print '<div style="width: 30%; float: left; height: 100%;">
                 <form method="get" action="" style="position: fixed; margin-top: 200px;">
                     <input type="hidden" value='.$_GET['id'].' name="id">'.
-                    //<input type="range" name="page" min="1" max='.$totpag.'>
                     '<input type="text" name="page" size="3" maxlength="3">
                     <input type="submit" value="ОК">
                 </form>

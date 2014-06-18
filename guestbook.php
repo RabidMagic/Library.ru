@@ -38,17 +38,18 @@ session_start();
                 </div>
                 <div class="gb-input">
                     <?php
-                    if (!empty($messages))
+                    if (!empty($_SESSION['messages']))
                     {
-                        displayErr($messages);
+                        displayErr($_SESSION['messages']);
+                        unset($_SESSION['messages']);
                     }
                     ?>
-                    <form action="" method="post">
+                    <form action="guestbook_scr.php" method="post">
                         <?php (isset($_SESSION['login']) ? print "Ваше имя: <b>".$_SESSION['login']."</b>" : print "Ваше имя: <input type='text' name='login'>") ?>
                         <textarea class="gb-input-textarea" name="review"></textarea>
                         <input class="gb-buttons" type="reset" value="Сбросить">
                         <input class="gb-buttons" type="submit" name="submit" value="Отправить отзыв">
-                    </form>";
+                    </form>
                 </div>             
             </article>
             <?php require_once 'footer.php'; ?>
