@@ -11,12 +11,13 @@ function checkName($login) {
 }
 //Проверка нахождения книги в Избранном
 function checkBookFav() {
-    global $mdb2;
-    $result = $mdb2->query("SELECT * FROM favourites WHERE book_id='".$_GET['id']."' && login='".$_SESSION['login']."'");
-    if ($result->numRows() == 0)
-    {
-        return TRUE;
-    } else return FALSE;
+    $xml = @simplexml_load_file('xml/fav/'.$_SESSION['login'].'.xml');
+    if ($xml == FALSE) return FALSE;
+    foreach ($xml->book as $value) {
+        $id = $value->attributes();
+        if ($id['id'] == $_GET['id']) return TRUE;
+    }
+    return FALSE;
 }
 //Удаление всего лишнего
 function securityCheck($var) {

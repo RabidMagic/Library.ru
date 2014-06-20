@@ -44,7 +44,7 @@ $_GET['id'] = securityCheck($_GET['id']);
                             <div class='user-date-page'><p>Добавил: <b>".$row['login']."</b> Дата: <b>".$row['date']."</b></p></div>";
                     if (isset($_SESSION['stat_log']))
                     {
-                        if (checkBookFav() == TRUE) {
+                        if (checkBookFav() == FALSE) {
                             print "<form action='fav-book-add.php' method='post'>
                                     <input type='hidden' value='".$_GET['id']."' name='book_id'>
                                     <input type='hidden' value='".$row['img']."' name='book_img'>
