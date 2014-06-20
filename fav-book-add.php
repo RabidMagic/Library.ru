@@ -1,13 +1,16 @@
 <?php
-require_once 'func.php';
-require_once 'connect.php';
 session_start();
-$query = "SELECT * FROM favourites WHERE book_id='".$_POST['book_id']."'";
-$result = $mdb2->query($query);
-if ($result->numRows() == 0)
-{
-    $query = "INSERT INTO favourites (login,book_id) VALUES ('".$_SESSION['login']."', '".$_POST['book_id']."')";
-    $result = $mdb2->exec($query);
+$xml = @simplexml_load_file('xml/fav/'.$_SESSION['login'].'.xml');
+if ($xml == FALSE) {
+    $string = '<?xml version="1.0" encoding="windows-1251" standalone="yes"?>
+                <books>
+                </books>';
+    $xml = simplexml_load_string($string);
 }
-header("Location: page.php?id=".$_POST['book_id']);
-?>
+$book = $xml->addChild('book');
+$book->addAttribute('id', $_POST['book_id']);
+$book->addChild('title', $_POST['book_name']);
+$book->addChild('author', $_POST['book_author']);
+$book->addChild('img', $_POST['book_img']);
+$xml->asXML('xml/fav/'.$_SESSION['login'].'.xml');
+header('Location: page.php?id='.$_POST['book_id']);

@@ -44,10 +44,12 @@ $_GET['id'] = securityCheck($_GET['id']);
                             <div class='user-date-page'><p>Добавил: <b>".$row['login']."</b> Дата: <b>".$row['date']."</b></p></div>";
                     if (isset($_SESSION['stat_log']))
                     {
-                        if (checkBookFav() == TRUE)
-                        {
+                        if (checkBookFav() == TRUE) {
                             print "<form action='fav-book-add.php' method='post'>
                                     <input type='hidden' value='".$_GET['id']."' name='book_id'>
+                                    <input type='hidden' value='".$row['img']."' name='book_img'>
+                                    <input type='hidden' value='".$row['book_name']."' name='book_name'>
+                                    <input type='hidden' value='".$row['author']."' name='book_author'>
                                     <input type='submit' value='Добавить в Избранное'>
                                    </form>";
                         } else print "<form action='fav-book-del.php' method='post'>
