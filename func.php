@@ -15,7 +15,7 @@ function checkBookFav() {
     if ($xml == FALSE) return FALSE;
     foreach ($xml->book as $value) {
         $id = $value->attributes();
-        if ($id['id'] == $_GET['id']) return TRUE;
+        if ($id['name'] == $_GET['id']) return TRUE;
     }
     return FALSE;
 }
