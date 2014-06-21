@@ -5,17 +5,21 @@ $xml = @simplexml_load_file($filename);
 if ($xml == FALSE) {
     echo $print;
 } else {
-    foreach ($xml->book as $value) {
-        $id = $value->attributes();
+    $length = $xml->count();
+    $book = $xml->book;
+    $i = $length - 1;
+    for ($length; $length > 0; $length--) {
+        $id = $book[$i]->attributes();
         echo "<div class='book'>
-            <a href='page.php?id=".$id."'><img src='uploads/".$value->img.'.jpeg'."' alt='картинка'>
-            <h1>".$value->author."</h1>
-            <h3>".$value->title."</h3></a>
+            <a href='page.php?id=".$id."'><img src='uploads/".$book[$i]->img.'.jpeg'."' alt='картинка'>
+            <h1>".$book[$i]->author."</h1>
+            <h3>".$book[$i]->title."</h3></a>
             <form action='fav-book-del.php' method='post'>
                 <input type='hidden' value='".$id."' name='book_id'>
                 <input type='submit' value='Удалить'>
             </form>
            </div>";
+        $i--;
     }
 }
 ?>
