@@ -8,7 +8,7 @@ if ($xml == FALSE) {
     $xml = simplexml_load_string($string);
 }
 $book = $xml->addChild('book');
-$book->addAttribute('id', $_POST['book_id']);
+$book->addAttribute('name', $_POST['book_id']);
 $book->addChild('title', $_POST['book_name']);
 $book->addChild('author', $_POST['book_author']);
 $book->addChild('img', $_POST['book_img']);
