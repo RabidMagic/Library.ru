@@ -53,8 +53,7 @@ $_GET['id'] = securityCheck($_GET['id']);
                                     <input type='submit' value='Добавить в Избранное'>
                                    </form>";
                         } else print "<form action='fav-book-del.php' method='post'>
-                                        <input type='hidden' value='".$_SESSION['login']."' name='fav-login'>
-                                        <input type='hidden' value='".$_GET['id']."' name='fav-b-id'>
+                                        <input type='hidden' value='".$_GET['id']."' name='book_id'>
                                         <input type='submit' value='Удалить'>
                                       </form>";
                     }
