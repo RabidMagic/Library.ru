@@ -1,7 +1,6 @@
 <?php
 require_once 'func.php';
 require_once 'connect.php';
-require_once 'classes.php';
 session_start();
 switch ($_POST["check"]){
     case "login" :

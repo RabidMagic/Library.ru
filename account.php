@@ -32,8 +32,6 @@ checkLogIn();
             <?php 
             if ($_SESSION['us_group'] == 'admin') {
                 echo '<img id="coffee" src="img/account_coffee.png" alt="coffee" onclick="popUp(\'adminPanel\');">';
-            } else {
-                echo '<img id="coffee" src="img/account_coffee.png" alt="coffee">';
             }
             ?>
             <div id="toindex"><a href="index.php"><img src="img/tomain.png" alt="main"></a></div>
@@ -43,7 +41,11 @@ checkLogIn();
                 require_once 'fav.php'; 
                 ?>
             </article>
-            <img id="addbook" src="img/account_feather.png" alt="feather" onclick="popUp('addbookPanel');">
+            <?php
+            if ($_SESSION['us_group'] == 'admin' || $_SESSION['us_group'] == 'moder') {
+                echo '<img id="addbook" src="img/account_feather.png" alt="feather" onclick="popUp(\'addbookPanel\');">';
+            }
+            ?>
             <a href="guestbook.php"><img id="toguest" src="img/toguest.png" alt="gueast"></a>
         </section>
     </body>

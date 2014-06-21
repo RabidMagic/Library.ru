@@ -6,7 +6,9 @@ session_start();
 if (!empty($_POST['check1']))
 {
   $mdb2->exec("UPDATE users SET us_group = '".$_POST['group']."' WHERE login = '".$_POST['user']."'");
-  $_SESSION['us_group'] = $_POST['group'];
+  if ($_SESSION['login'] == $_POST['user']) {
+      $_SESSION['us_group'] = $_POST['group'];
+  }
   $messages[] = "Информация о группе успешно обновлена";
 }
 $_SESSION['messages'] = $messages;
