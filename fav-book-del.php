@@ -10,9 +10,8 @@ foreach ($gettn as $value) {
         $xml->removeChild($value);
     }
 }
-if ($xml->firstChild->tagName == NULL) { 
-    unlink($filename); 
-    } else $dom->save($filename);
-$dom->save($filename);
+if ($gettn->length != 0) {
+    $dom->save($filename);
+} else    unlink($filename);
 header("Location: ".$_SERVER['HTTP_REFERER']);
 ?>
