@@ -36,8 +36,8 @@ $query = "SELECT author,description,book_name,id,genre FROM upload_books WHERE a
                 $num = 3; //<--- для смены кол-ва выводимых комментариев изменять это
                 $get_search = new GetResults($num, $query, $mdb2);
                 $get_search->getSearchResults();
-                $search_pb = new PageButtons($num, $query, $mdb2);
-                $search_pb->getSearchPageButtons();
+                $search_pb = new PageButtons($num, $query, 'search='.$_GET['search'], $mdb2);
+                $search_pb->getButtons();
                 ?>
             </article>
             <?php require_once 'footer.php'; ?>

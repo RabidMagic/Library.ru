@@ -31,6 +31,5 @@ if (isset($_POST['submit']))
         } else $messages[] = "Ошибка! Невозможно добавить в БД";
     }
     $_SESSION['messages'] = $messages;
-    var_dump($messages);
     header("Location: guestbook.php");
 }

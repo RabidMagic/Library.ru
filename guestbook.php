@@ -32,8 +32,8 @@ session_start();
                     $get_review = new GetResults($num, $query, $mdb2);
                     $get_review->getReview();
                     $query = "SELECT * FROM review";
-                    $get_gb_pb = new PageButtons($num, $query, $mdb2);
-                    $get_gb_pb->getGBPageButtons();
+                    $get_gb_pb = new PageButtons($num, $query, NULL, $mdb2);
+                    $get_gb_pb->getButtons();
                     ?>
                 </div>
                 <div class="gb-input">

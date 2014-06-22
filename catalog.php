@@ -30,14 +30,14 @@ session_start();
             {
                 $num = 10; //<--- для смены кол-ва выводимых книг изменять это
                 $query_cpb = "SELECT * FROM upload_books WHERE genre = '".$_GET['genre']."'";
-                $catalog_buttons = new PageButtons($num, $query_cpb, $mdb2);
+                $catalog_buttons = new PageButtons($num, $query_cpb, 'genre='.$_GET['genre'], $mdb2);
                 $_GET['genre'] = securityCheck($_GET['genre']);
                 if(empty($_GET['page']) or $_GET['page'] < 0) $_GET['page'] = 1;
                 $start = $_GET['page'] * $num - $num;
                 $result = $mdb2->query("SELECT * FROM upload_books WHERE genre = '".$_GET['genre']."' LIMIT $start, $num");
                 if ($result->numRows() > 0)
                 {
-                    $catalog_buttons->getCatalogPageButtons();
+                    $catalog_buttons->getButtons();
                     while ($row = $result->fetchRow())
                     {
                         print "<a href='page.php?id=".$row['id']."'>
