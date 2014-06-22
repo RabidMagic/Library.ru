@@ -12,5 +12,6 @@ $book->addAttribute('name', $_POST['book_id']);
 $book->addChild('title', $_POST['book_name']);
 $book->addChild('author', $_POST['book_author']);
 $book->addChild('img', $_POST['book_img']);
+if (@scandir('xml/fav') == FALSE) mkdir('xml/fav');
 $xml->asXML('xml/fav/'.$_SESSION['login'].'.xml');
 header('Location: page.php?id='.$_POST['book_id']);
