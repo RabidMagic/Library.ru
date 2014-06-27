@@ -25,9 +25,6 @@ class PageButtons {
         if (empty($this->page) || $this->page < 0) $this->page = 1;
         if ($this->page > $this->total) $this->page = $this->total;
     }
-    public function getTotalPosts() {
-        return $this->total;
-    }
     public function getButtons() {
         if ($this->page != 1) $this->pervpage = '<a href=?'.$this->inset.'&page=1>Первая</a> | <a href=?'.$this->inset.'&page='. ($this->page - 1) .'>Предыдущая</a> | ';
         if ($this->page != $this->total) $this->nextpage = ' | <a href=?'.$this->inset.'&page='. ($this->page + 1) .'>Следующая</a> | <a href=?'.$this->inset.'&page=' .$this->total. '>Последняя</a>';
