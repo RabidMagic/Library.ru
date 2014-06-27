@@ -1,20 +1,126 @@
-function phpPost(param) {
-    var request = false;
-    var res;
-    if (window.XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else if (window.ActiveXObject) {
-        request = new ActiveXObject("Microsoft.HMLHTTP");
-    }  
-    request.open('POST','/test_reg.php',true);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send(param);
-    request.onreadystatechange = function () {
-        if (this.readyState === 4){
-            res = request.responseText;
-            return res;
+window.addEventListener("load", pageLoaded, false);
+
+function addEvents() {
+    if (getEl("button_login")) {
+        getEl("button_login").addEventListener("click", popUp,false);
+    }
+    if (getEl("button_reg")) {
+        getEl("button_reg").addEventListener("click", popUp, false);
+    }
+}
+
+function addLogin() {
+    var log = document.createElement("tr");
+    log.innerHTML = "<td>Логин: </td><td><input name='login' type='text'></td>";
+    var pas = document.createElement("tr");
+    pas.innerHTML = "<td>Пароль: </td><td><input type='password' name='password'></td>";
+    var table = document.createElement("table");
+    table.appendChild(log);
+    table.appendChild(pas);  
+    var but = document.createElement("input");
+    but.type = "submit";
+    but.value = "Войти";
+    var form = document.createElement("form");
+    form.action = "login.php";
+    form.method="post";
+    form.appendChild(table);
+    form.appendChild(but);
+    var close = document.createElement("div");
+    close.id = "close";
+    close.innerHTML = "X";
+    var div = document.createElement("div");
+    div.id = "log";
+    div.appendChild(close);
+    div.appendChild(form);
+    var login = document.createElement("div");
+    login.id = "pop-up";
+    login.appendChild(div);
+    var container = getEl("container");
+    document.body.insertBefore(login, container);
+    close.addEventListener("click", popDown, false);
+}
+
+function addReg() {
+    var x;
+    var log = document.createElement("tr");
+    log.innerHTML = "<td>Ваш логин:</td><td><input type='text' name='login' size='16' maxlength='16'></td>";
+    var pas = document.createElement("tr");
+    pas.innerHTML = "<td>Ваш пароль:</td><td><input type='password' name='password' size='16' maxlength='16'></td>";
+    var pas2 = document.createElement("tr");
+    pas2.innerHTML = "<td>Повторите пароль:</td><td><input type='password' name='password2' size='16' maxlength='16'></td>";
+    var birth = document.createElement("tr");
+    birth.innerHTML = "<tr>Ваша дата рождения:</tr>";
+    var td = document.createElement("td");
+    var day = "<select name='reg-b-day'><option disabled selected>ДД</option>";
+    for (var d = 1; d < 32; d++) {
+        if (d < 10) {
+            x = "0" + d;
+        } else { x = d;
         }
-    };
+        day += "<option>" + x + "</option>";
+    }
+    day += "</select>";
+    var mon = "<select name='reg-b-month'><option disabled selected>ММ</option>";
+    for (var m = 1; m < 13; m++) {
+        if (m < 10){
+            x = "0" + m;
+        } else {
+            x = m;
+        }
+        mon += "<option>" + x + "</option>";
+    }
+    mon += "</select>";
+    var date = new Date();
+    var miny = date.getFullYear() - 80;
+    var maxy = date.getFullYear() - 10;
+    var year = "<select name='reg-b-year'><option disabled selected>ГГГГ</option>";
+    for (miny; miny <= maxy; miny++) {
+        year += "<option>" + miny + "</option>";
+    }
+    year += "</select>";
+    td.innerHTML = day + mon + year;
+    birth.appendChild(td);
+    var gen = document.createElement("tr");
+    gen.innerHTML = "<td>Ваш пол</td><td><input type='radio' name='gender' value='Мужской'>Мужской<br><input type='radio' name='gender' value='Женский'>Женский</td>";
+    var mail = document.createElement("tr");
+    mail.innerHTML = "<td>Ваш e-mail</td><td><input type='text' name='email'></td>";
+    var rob = document.createElement("tr");
+    rob.innerHTML = "<td>Вы робот?</td><td><input type='radio' name='checkbot' value='yes' checked>Да<br><input type='radio' name='checkbot' value='no'>Нет</td>";
+    var table = document.createElement("table");
+    table.appendChild(log);
+    table.appendChild(pas);
+    table.appendChild(pas2);
+    table.appendChild(birth);
+    table.appendChild(gen);
+    table.appendChild(mail);
+    table.appendChild(rob);
+    var h = document.createElement("h1");
+    h.innerHTML = "Регистрация";
+    var but = document.createElement("input");
+    but.type = "submit";
+    but.value = "Зарегистрироватся";
+    but.name = "reg";
+    var form = document.createElement("form");
+    form.action = "reg_scr.php";
+    form.method = "post";
+    form.name = "reg";
+    form.appendChild(h);
+    form.appendChild(table);
+    form.appendChild(but);
+    var close = document.createElement("div");
+    close.id = "close";
+    close.innerHTML = "X";
+    var div = document.createElement("div");
+    div.id = "reg";
+    div.appendChild(close);
+    div.appendChild(form);
+    var login = document.createElement("div");
+    login.id = "pop-up";
+    login.appendChild(div);
+    var container = getEl("container");
+    document.body.insertBefore(login, container);
+    close.addEventListener("click", popDown, false);
+
 }
 
 function getEl(id) {
@@ -27,34 +133,21 @@ function checkJavaScript() {
         document.getElementById("button_reg").innerHTML = "Регистрация";
     }
 }
-function popUp(choice) {
+function popUp() {
+    var choice = this.innerHTML;
     switch (choice) {
         case "Войти": 
-           getEl("login_pop-up").style.visibility = "visible";
+            addLogin();
             break
         case "Регистрация":
-            getEl("reg_pop-up").style.visibility = "visible";
-            break
-        case "adminPanel" :
-            getEl("popUp").style.visibility = "visible";    
-            getEl("adminPanel").style.visibility = 'visible';
-            break
-        case "addbookPanel" :
-            getEl("popUp").style.visibility = "visible";
-            getEl("addbookPanel").style.visibility = 'visible';
+            addReg();
             break
     }
 }
 
 function popDown() {
-    getEl("login_pop-up").style.visibility = "hidden";
-    getEl("reg_pop-up").style.visibility = "hidden";
-}
-
-function accountPopDown() {
-    getEl("popUp").style.visibility = "hidden";
-    getEl("adminPanel").style.visibility = "hidden";
-    getEl("addbookPanel").style.visibility = "hidden";
+    var el = getEl("pop-up");
+    el.parentNode.removeChild(el);
 }
 
 function checkTags() {
@@ -72,58 +165,9 @@ function checkTags() {
     }  
 }
 
-function loginCheck(choice){   
-    var yes = "<img src='img/yes.png' alt='yes'>";
-    var no = "<img src='img/no.png' alt='no' onmouseenter='message('up');' onmouseleave='message('down');'><p id='message'>";
-    var params = "";
-    var target = choice + '_message';
-    switch (choice){ 
-        case "login" :
-            params = params + 'check=login&login=' + getEl('login').value;
-            break
-        case "password" :
-            params = params + 'check=password&password=' + getEl('password').value;
-            getEl('password2_message').innerHTML = '';
-            break
-        case "password2" :
-            params = params + 'check=password2&password2=' + getEl('password2').value + '&password=' + getEl('password').value;
-            break
-        case "email" :
-            params = params + 'check=email&email=' + getEl(email).value;
-            break
-    }
-    
-    var request = false;
-    var res;
-    if (window.XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else if (window.ActiveXObject) {
-        request = new ActiveXObject("Microsoft.HMLHTTP");
-    }  
-    request.open('POST','/test_reg.php',true);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send(params);
-    request.onreadystatechange = function () {
-        if (this.readyState === 4){
-            res = request.responseText;
-            if (res == 1) {
-                getEl(target).innerHTML = yes;
-            } else {
-                getEl(target).innerHTML = res;
-            }
-        }
-    };
-}
-
 function pageLoaded(){
     checkTags();
     checkJavaScript();
-}
-
-function descriptionPopDown(id){
-    getEl(id).style.visibility = 'hidden';
-}
-
-function descriptionPopUp(id){
-    getEl(id).style.visibility = "visible";
+    getEl("button_login").addEventListener("click", popUp(this.innerHTML), false);
+    addEvents();
 }

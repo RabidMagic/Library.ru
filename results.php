@@ -23,10 +23,6 @@ $query = "SELECT author,description,book_name,id,genre FROM upload_books WHERE a
         </style>
     </head>
     <body onload="pageLoaded();">
-        <?php
-            include_once 'login_pop-up.php'; 
-            include_once 'reg_pop-up.php';
-        ?>
         <section id="container">
             <?php require_once 'header.php'; ?>
             <article id="main">
