@@ -12,13 +12,10 @@ class PageButtons {
     private $pageright = array();
     private $pervpage;
     private $nextpage;
-    public function __construct($num, $query, $inset , $mdb2 = NULL) {
+    public function __construct($num, $query, $inset , $mdb2) {
         $this->page = $_GET['page'];
-        if (is_string($query) && $mdb2 != NULL) {
-            $this->result = $mdb2->query($query);
-            $this->posts = $this->result->numRows();
-        } else
-            $this->posts = $query;
+        $this->result = $mdb2->query($query);
+        $this->posts = $this->result->numRows();
         $this->inset = $inset;
         $this->total = (($this->posts - 1) / $num) + 1;
         $this->total = intval($this->total);
