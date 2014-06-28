@@ -28,8 +28,8 @@ session_start();
             if (isset($_GET['genre']))
             {
                 $num = 10; //<--- для смены кол-ва выводимых книг изменять это
-                $query_cpb = "SELECT * FROM upload_books WHERE genre = '".$_GET['genre']."'";
                 $_GET['genre'] = securityCheck($_GET['genre']);
+                $query_cpb = "SELECT * FROM upload_books WHERE genre = '".$_GET['genre']."'";
                 if(empty($_GET['page']) or $_GET['page'] < 0) $_GET['page'] = 1;
                 $start = $_GET['page'] * $num - $num;
                 $result = $mdb2->query("SELECT * FROM upload_books WHERE genre = '".$_GET['genre']."' LIMIT $start, $num");
