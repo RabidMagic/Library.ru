@@ -14,7 +14,7 @@ session_start();
         <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
         <script type="text/javascript" src="javascript/main_scripts.js"></script>
     </head>
-    <body onload="pageLoaded();">
+    <body>
         <section id="container">
             <?php
             require_once 'header.php';

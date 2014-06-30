@@ -43,13 +43,13 @@ function addLogin() {
 function addReg() {
     var x;
     var log = document.createElement("tr");
-    log.innerHTML = "<td>Ваш логин:</td><td><input type='text' name='login' size='16' maxlength='16'></td>";
+    log.innerHTML = "<td>Ваш логин:</td><td><input type='text' name='login' id='login' size='16' maxlength='16'></td><td id='img_login'></td>";
     var pas = document.createElement("tr");
-    pas.innerHTML = "<td>Ваш пароль:</td><td><input type='password' name='password' size='16' maxlength='16'></td>";
+    pas.innerHTML = "<td>Ваш пароль:</td><td><input type='password' name='password' id='password' size='16' maxlength='16'></td><td id='img_password'></td>";
     var pas2 = document.createElement("tr");
-    pas2.innerHTML = "<td>Повторите пароль:</td><td><input type='password' name='password2' size='16' maxlength='16'></td>";
+    pas2.innerHTML = "<td>Повторите пароль:</td><td><input type='password' name='password2' id='password2' size='16' maxlength='16'></td><td id='img_password2'></td>";
     var birth = document.createElement("tr");
-    birth.innerHTML = "<tr>Ваша дата рождения:</tr>";
+    birth.innerHTML = "<td>Ваша дата рождения:</td>";
     var td = document.createElement("td");
     var day = "<select name='reg-b-day'><option disabled selected>ДД</option>";
     for (var d = 1; d < 32; d++) {
@@ -80,10 +80,13 @@ function addReg() {
     year += "</select>";
     td.innerHTML = day + mon + year;
     birth.appendChild(td);
+    td = document.createElement("td");
+    td.id = "img_birth";
+    birth.appendChild(td);
     var gen = document.createElement("tr");
     gen.innerHTML = "<td>Ваш пол</td><td><input type='radio' name='gender' value='Мужской'>Мужской<br><input type='radio' name='gender' value='Женский'>Женский</td>";
     var mail = document.createElement("tr");
-    mail.innerHTML = "<td>Ваш e-mail</td><td><input type='text' name='email'></td>";
+    mail.innerHTML = "<td>Ваш e-mail</td><td><input type='text' name='email' id='email'></td><td id='img_email'></td>";
     var rob = document.createElement("tr");
     rob.innerHTML = "<td>Вы робот?</td><td><input type='radio' name='checkbot' value='yes' checked>Да<br><input type='radio' name='checkbot' value='no'>Нет</td>";
     var table = document.createElement("table");
@@ -120,7 +123,10 @@ function addReg() {
     var container = getEl("container");
     document.body.insertBefore(login, container);
     close.addEventListener("click", popDown, false);
-
+    var inputs = document.getElementsByTagName("input");
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener("change", checkReg, false);
+    }
 }
 
 function getEl(id) {
@@ -152,8 +158,11 @@ function popDown() {
 
 function checkTags() {
     var page = window.location.pathname;
+    if (page == "/") {
+        page = "/index.php";
+    }
     switch (page) {
-        case "/index.php" :
+        case "/index.php":
             getEl("link1").style.margin = "0 0 0 0";
             break
         case "/catalog.php" :
@@ -170,4 +179,49 @@ function pageLoaded(){
     checkJavaScript();
     getEl("button_login").addEventListener("click", popUp(this.innerHTML), false);
     addEvents();
+}
+
+function checkReg() {    
+    var yes = "img/yes.img";
+    var no = "img/no.png";
+    var loading = "img/loading.gif";
+    var answer;
+    var obj = this;
+    var name = obj.getAttribute("name");
+    var target = obj.parentNode;
+    var img = "img_" + name;
+    if (document.getEl(img) !== "undefined"){
+        answer = target.getEl(img);
+        answer.src = loading;
+    } else {
+        answer = document.createElement("img");
+        answer.id = "img_" + name;
+        answer.src = "loading.gif";
+        target.appendChild(answer);
+    }
+    var params = "check=" + name + "&" + name + "=" + obj.value;
+    var request = false;
+    var res;
+    if (window.XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        request = new ActiveXObject("Microsoft.HMLHTTP");
+    }
+    request.open('POST','/ajax_reg.php',true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(params);
+    request.onreadystatechange = function () {
+        if (this.readyState === 4){
+            res = request.responseText;
+            if (res == 1) {
+                
+            } else {
+                
+            }
+        }
+    };
+}
+
+function upMessage() {
+    
 }
