@@ -1,6 +1,6 @@
 <?php
 require_once 'MDB2.php';
-$dsn = 'mysql://user:d8YAEwatyCB7JNB2@lib/library';
+$dsn = 'mysql://user:d8YAEwatyCB7JNB2@library.ru/library';
 $mdb2 = MDB2::connect($dsn);
 if (PEAR::isError($mdb2))
 {
