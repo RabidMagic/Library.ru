@@ -1,17 +1,9 @@
 <?php
+include_once 'FavBook.php';
 session_start();
-$filename = 'xml/fav/'.$_SESSION['login'].'.xml';
-$dom = new DOMDocument();
-$dom->load($filename);
-$xml = $dom->documentElement;
-$gettn = $xml->getElementsByTagName('book');
-foreach ($gettn as $value) {
-    if ($value->getAttribute('name') == $_POST['book_id']) {
-        $xml->removeChild($value);
-    }
-}
-if ($gettn->length != 0) {
-    $dom->save($filename);
-} else    unlink($filename);
-header("Location: ".$_SERVER['HTTP_REFERER']);
+$ref = $_SERVER['HTTP_REFERER'];
+$options = array ('id'=>$_POST['id']);
+$fav_del = new FavBook('del', $options);
+if ($fav_del->getStat() == FALSE) $_SESSION['messages'] = '<p>Не удалось удалить книгу в Избранное</p>';
+header('Location: '.$ref);
 ?>
