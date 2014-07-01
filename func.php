@@ -9,16 +9,6 @@ function checkName($login) {
         return FALSE;
     } else return TRUE;
 }
-//Проверка нахождения книги в Избранном
-function checkBookFav() {
-    $xml = @simplexml_load_file('xml/fav/'.$_SESSION['login'].'.xml');
-    if ($xml == FALSE) return FALSE;
-    foreach ($xml->book as $value) {
-        $id = $value->attributes();
-        if ($id['name'] == $_GET['id']) return TRUE;
-    }
-    return FALSE;
-}
 //Удаление всего лишнего
 function securityCheck($var) {
     $var = trim($var);

@@ -3,6 +3,7 @@ require_once 'func.php';
 require_once 'connect.php';
 require_once 'GetResults.php';
 require_once 'PageButtons.php';
+require_once 'FavBook.php';
 session_start(); 
 $_GET['id'] = securityCheck($_GET['id']);
 ?>
@@ -44,7 +45,9 @@ $_GET['id'] = securityCheck($_GET['id']);
                             <div class='user-date-page'><p>Добавил: <b>".$row['login']."</b> Дата: <b>".$row['date']."</b></p></div>";
                     if (isset($_SESSION['stat_log']))
                     {
-                        if (checkBookFav() == FALSE) {
+                        $options = array();
+                        $check_fav = new FavBook('check', $options);
+                        if ($check_fav->getStat() === FALSE) {
                             print "<form action='fav-book-add.php' method='post'>
                                     <input type='hidden' value='".$_GET['id']."' name='id'>
                                     <input type='hidden' value='".$row['img']."' name='img'>

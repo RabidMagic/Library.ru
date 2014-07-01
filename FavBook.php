@@ -9,6 +9,7 @@ class FavBook {
     protected $stat = FALSE;
     protected $gettn;
     protected $dom;
+    protected $id;
             function __construct($case, $options, $filepath = 'xml/fav/') {
                 $this->filename = $filepath . $_SESSION['login'] . '.xml';
                 $this->xml = @simplexml_load_file($this->filename);
@@ -32,7 +33,7 @@ class FavBook {
                 }
             }
             private function addFav() {
-                if ($this->xml == FALSE) {
+                if ($this->xml === FALSE) {
                     $this->string = '<?xml version="1.0" encoding="windows-1251" standalone="yes"?>';
                     $this->string .= '<books></books>';
                     $this->xml = simplexml_load_string($this->string);
@@ -48,7 +49,7 @@ class FavBook {
             private function delFav() {
                 $this->dom = new DOMDocument();
                 $this->dom->load($this->filename);
-                $this->xml = dom_import_simplexml($this->xml);
+                $this->xml = $this->dom->documentElement;
                 $this->gettn = $this->xml->getElementsByTagName('book');
                 foreach ($this->gettn as $value) {
                     if ($value->getAttribute('name') == $this->options['id']) {
@@ -63,7 +64,14 @@ class FavBook {
                 }
             }
             private function checkFav() {
-
+                if ($this->xml === FALSE) return;
+                foreach ($this->xml->book as $value) {
+                    $this->id = $value->attributes();
+                    if ($this->id['name'] == $_GET['id']) {
+                        $this->stat = TRUE;
+                        return;
+                    }
+                }
             }
             public function getStat() {
                 return $this->stat;
