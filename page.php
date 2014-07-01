@@ -56,6 +56,14 @@ $_GET['id'] = securityCheck($_GET['id']);
                                         <input type='hidden' value='".$_GET['id']."' name='book_id'>
                                         <input type='submit' value='Удалить'>
                                       </form>";
+                        if ($_SESSION['us_group'] == 'admin') {
+                            echo '<form method="post" action="bookdel.php">
+                                <input type="hidden" name="id" value="'.$_GET['id'].'">
+                                <input type="hidden" name="name" value="'.$row['img'].'">
+                                <input type="hidden" name="genre" value="'.$row['genre'].'">
+                                <input type="submit" value="Удалить">
+                                </form>';
+                        }
                     }
                     print  "</div>
                             <div class='page-comments-output'>";
