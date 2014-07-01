@@ -211,7 +211,7 @@ function checkReg() {
                 img.innerHTML = yes;
             } else {
                 img.innerHTML = no + "<p class='message'>" + res + "</p>";
-                img.addEventListener("mouseenter", upMessage, false);
+                img.childNodes[0].addEventListener("mouseenter", upMessage, false);
             }
         }
     };
@@ -244,12 +244,49 @@ function checkBirth() {
                 img.innerHTML = yes;
             } else {
                 img.innerHTML = no + "<p class='message'>" + res + "</p>";
-                img.addEventListener("mouseenter", upMessage, false);
+                img.childNodes[0].addEventListener("mouseenter", upMessage, false);
             }
         }
     };
 }
 
 function upMessage() {
-    
+    var mes = this.parentNode;
+    mes.removeEventListener("mouseenter",upMessage);
+    mes.childNodes[0].addEventListener("mouseout", downMessage, false);
+    mes.childNodes[0].addEventListener("mousemove", moveMessage, false);
+    mes.childNodes[1].style.display = "block";
+    var mouse_x = 0;
+    var mouse_y = 0;
+    if (document.attachEvent != null) {
+        mouse_x = window.event.clientX;
+        mouse_y = window.event.clientY;
+    } else if (!document.attachEvent && document.addEventListener) {
+        mouse_x = event.clientX;
+        mouse_y = event.clientY;
+    }
+    mes.childNodes[1].style.left = mouse_x + "px";
+    mes.childNodes[1].style.top = mouse_y + "px";
+}
+
+function downMessage() {
+    var mes = this.parentNode;
+    mes.childNodes[0].removeEventListener("mousemove", moveMessage);
+    mes.addEventListener("mouseenter", upMessage, false);
+    mes.childNodes[1].style.display = "none";
+}
+
+function moveMessage() {
+    var target = this.parentNode.childNodes[1];
+    var mouse_x = 0;
+    var mouse_y = 0;
+    if (document.attachEvent != null) {
+        mouse_x = window.event.clientX;
+        mouse_y = window.event.clientY;
+    } else if (!document.attachEvent && document.addEventListener) {
+        mouse_x = event.clientX;
+        mouse_y = event.clientY;
+    }
+    target.style.left = mouse_x + "px";
+    target.style.top = mouse_y + "px";
 }
