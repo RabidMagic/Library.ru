@@ -7,6 +7,7 @@ $options = array ('id'=>$_POST['id'],
         'img'=>$_POST['img'],
         'author'=>$_POST['author']
         );
-$fav_add = new FavBook('add', $options);
+$fav_add = new FavBook($_SESSION['login'], $options);
+$fav_add->addFav();
 if ($fav_add->getStat() == FALSE) $_SESSION['messages'] = '<p>Не удалось добавить книгу в Избранное</p>';
 header('Location: '.$ref);
