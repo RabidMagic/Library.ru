@@ -46,10 +46,10 @@ $_GET['id'] = securityCheck($_GET['id']);
                     {
                         if (checkBookFav() == FALSE) {
                             print "<form action='fav-book-add.php' method='post'>
-                                    <input type='hidden' value='".$_GET['id']."' name='book_id'>
-                                    <input type='hidden' value='".$row['img']."' name='book_img'>
-                                    <input type='hidden' value='".$row['book_name']."' name='book_name'>
-                                    <input type='hidden' value='".$row['author']."' name='book_author'>
+                                    <input type='hidden' value='".$_GET['id']."' name='id'>
+                                    <input type='hidden' value='".$row['img']."' name='img'>
+                                    <input type='hidden' value='".$row['book_name']."' name='title'>
+                                    <input type='hidden' value='".$row['author']."' name='author'>
                                     <input type='submit' value='Добавить в Избранное'>
                                    </form>";
                         } else print "<form action='fav-book-del.php' method='post'>
