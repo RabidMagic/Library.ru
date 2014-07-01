@@ -51,7 +51,7 @@ function addReg() {
     var birth = document.createElement("tr");
     birth.innerHTML = "<td>Ваша дата рождения:</td>";
     var td = document.createElement("td");
-    var day = "<select name='reg-b-day'><option disabled selected>ДД</option>";
+    var day = "<select name='reg-b-day' id='reg-b-day'><option disabled selected>ДД</option>";
     for (var d = 1; d < 32; d++) {
         if (d < 10) {
             x = "0" + d;
@@ -60,7 +60,7 @@ function addReg() {
         day += "<option>" + x + "</option>";
     }
     day += "</select>";
-    var mon = "<select name='reg-b-month'><option disabled selected>ММ</option>";
+    var mon = "<select name='reg-b-month' id='reg-b-month'><option disabled selected>ММ</option>";
     for (var m = 1; m < 13; m++) {
         if (m < 10){
             x = "0" + m;
@@ -73,7 +73,7 @@ function addReg() {
     var date = new Date();
     var miny = date.getFullYear() - 80;
     var maxy = date.getFullYear() - 10;
-    var year = "<select name='reg-b-year'><option disabled selected>ГГГГ</option>";
+    var year = "<select name='reg-b-year' id='reg-b-year'><option disabled selected>ГГГГ</option>";
     for (miny; miny <= maxy; miny++) {
         year += "<option>" + miny + "</option>";
     }
@@ -127,6 +127,10 @@ function addReg() {
     for (var i = 0; i < inputs.length; i++) {
         inputs[i].addEventListener("change", checkReg, false);
     }
+    var opt = document.getElementsByTagName("select");
+    for (var i = 0; i < opt.length; i++) {
+        opt[i].addEventListener("change", checkBirth, false);
+    }
 }
 
 function getEl(id) {
@@ -177,28 +181,18 @@ function checkTags() {
 function pageLoaded(){
     checkTags();
     checkJavaScript();
-    getEl("button_login").addEventListener("click", popUp(this.innerHTML), false);
     addEvents();
 }
 
 function checkReg() {    
-    var yes = "img/yes.img";
-    var no = "img/no.png";
-    var loading = "img/loading.gif";
-    var answer;
+    var yes = "<img src='img/yes.png'>";
+    var no = "<img src='img/no.png'>";
+    var loading = "<img src='img/loading.gif'>";
     var obj = this;
     var name = obj.getAttribute("name");
-    var target = obj.parentNode;
     var img = "img_" + name;
-    if (document.getEl(img) !== "undefined"){
-        answer = target.getEl(img);
-        answer.src = loading;
-    } else {
-        answer = document.createElement("img");
-        answer.id = "img_" + name;
-        answer.src = "loading.gif";
-        target.appendChild(answer);
-    }
+    img = getEl(img);
+    img.innerHTML = loading;
     var params = "check=" + name + "&" + name + "=" + obj.value;
     var request = false;
     var res;
@@ -214,9 +208,43 @@ function checkReg() {
         if (this.readyState === 4){
             res = request.responseText;
             if (res == 1) {
-                
+                img.innerHTML = yes;
             } else {
-                
+                img.innerHTML = no + "<p class='message'>" + res + "</p>";
+                img.addEventListener("mouseenter", upMessage, false);
+            }
+        }
+    };
+}
+
+function checkBirth() {
+    var yes = "<img src='img/yes.png'>";
+    var no = "<img src='img/no.png'>";
+    var loading = "<img src='img/loading.gif'>";
+    var img = getEl("img_birth");
+    img.innerHTML = loading;
+    var day = getEl("reg-b-day").options[getEl("reg-b-day").selectedIndex].value | "";
+    var month = getEl("reg-b-month").options[getEl("reg-b-month").selectedIndex].value | "";
+    var year = getEl("reg-b-year").options[getEl("reg-b-year").selectedIndex].value | "";
+    var params = "check=birth&reg-b-month=" + month + "&reg-b-day=" + day + "&reg-b-year=" + year;
+    var request = false;
+    var res;
+    if (window.XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        request = new ActiveXObject("Microsoft.HMLHTTP");
+    }
+    request.open('POST','/ajax_reg.php',true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send(params);
+    request.onreadystatechange = function () {
+        if (this.readyState === 4){
+            res = request.responseText;
+            if (res == 1) {
+                img.innerHTML = yes;
+            } else {
+                img.innerHTML = no + "<p class='message'>" + res + "</p>";
+                img.addEventListener("mouseenter", upMessage, false);
             }
         }
     };

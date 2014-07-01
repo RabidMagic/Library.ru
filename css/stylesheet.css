@@ -470,12 +470,14 @@ header {
     padding: 10px;
 }
 
-/*------------------------------------------------*/
-
-#message {
-    visibility: hidden;
+.message {
+    display: none;
     position: absolute;
+    text-align: center;
+    border: 2px solid #000000;
+    background: #fff;
 }
+/*------------------------------------------------*/
 
 /*----------------Результаты поиска----------------*/
 
