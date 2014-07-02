@@ -41,7 +41,7 @@ session_start();
                         </tr>
                         <tr>
                             <td>Ваш пол:</td>
-                            <td><input type='radio' name='gender' value='Мужской'>Мужской<br><input type='radio' name='gender' value='Женский'>Женский</td>
+                            <td><input type='radio' name='gender' value='male'>Мужской<br><input type='radio' name='gender' value='female'>Женский</td>
                         </tr>
                         <tr>
                             <td>Ваш e-mail:</td>

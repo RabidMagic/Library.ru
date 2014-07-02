@@ -16,39 +16,6 @@ function securityCheck($var) {
     $var = addslashes($var);
     return $var;
 }
-//Создание нового пользователя
-function newUser($login, $password, $gender, $birthdate, $email, $group=user) {
-    global $mdb2;
-    $password = md5(md5($password));
-    $mdb2->exec("INSERT INTO users (login, password, gender, birthdate, email, us_group) VALUES ('$login', '$password', '$gender', '$birthdate', '$email', '$group')");
-    return TRUE;
-}
-//Процесс логина
-function setSession($login, $password, $us_group) {
-    $_SESSION['login'] = $login;
-    $_SESSION['password'] = $password;
-    $_SESSION['us_group'] = $us_group;
-    $_SESSION['stat_log'] = TRUE;
-    return TRUE;
-}
-//Процесс логаута
-function flushSession() {
-    session_unset();
-    session_destroy();
-    return TRUE;
-}
-//Проверка пользователя по БД
-function checkUser($login, $password) {
-    global $mdb2;
-    $password = md5(md5($password));
-    $result = $mdb2->query("SELECT login, password,us_group FROM users WHERE login='$login' && password='$password'");
-    if ($result->numRows() == 1)
-    {
-        $fetch =& $result->fetchRow();
-        return $fetch;
-    }
-    return TRUE;
-}
 //Проверка введённой информации
 //$field_descr - описание поля, которое будет выводиться при ошибках;
 //$field_data - передаваемая для проверки переменная;
