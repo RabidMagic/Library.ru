@@ -7,8 +7,8 @@
             print "Вы вошли как ".$_SESSION['login']."<br>";
             print "<a href='logout.php'><button>Выйти</button></a>";
         } else print "Вы вошли как гость<br>
-                     <button id='button_login' onclick='popUp(this.innerHTML);'><a href='auth.php'>Войти</a></button>
-                     <button id='button_reg' onclick='popUp(this.innerHTML);'><a href='registration.php'>Регистрация</a></button>";
+                     <button id='button_login'><a href='auth.php'>Войти</a></button>
+                     <button id='button_reg'><a href='registration.php'>Регистрация</a></button>";
         ?>
         <div class="clearfix"></div>
     </div>
