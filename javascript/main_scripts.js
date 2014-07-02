@@ -3,10 +3,22 @@ window.addEventListener("load", pageLoaded, false);
 function addEvents() {
     if (getEl("button_login")) {
         getEl("button_login").addEventListener("click", popUp,false);
+        getEl("button_login").innerHTML = "Войти";
     }
     if (getEl("button_reg")) {
         getEl("button_reg").addEventListener("click", popUp, false);
+        getEl("button_reg").innerHTML = "Регистрация";
     }
+    if (getEl("coffee")  ){
+        getEl("coffee").addEventListener("click", popUp, false);
+    }
+    if (getEl("addbook")){
+        getEl("addbook").addEventListener("click", popUp, false);
+    }
+    
+        
+                    
+                
 }
 
 function addLogin() {
@@ -104,7 +116,7 @@ function addReg() {
     but.value = "Зарегистрироватся";
     but.name = "reg";
     var form = document.createElement("form");
-    form.action = "reg_scr.php";
+    form.action = "reg_src.php";
     form.method = "post";
     form.name = "reg";
     form.appendChild(h);
@@ -137,27 +149,37 @@ function getEl(id) {
     return document.getElementById(id);
 }
 
-function checkJavaScript() {
-    if (document.getElementById){
-        document.getElementById("button_login").innerHTML = "Войти";
-        document.getElementById("button_reg").innerHTML = "Регистрация";
-    }
-}
 function popUp() {
-    var choice = this.innerHTML;
+    var choice = this.getAttribute("id");
     switch (choice) {
-        case "Войти": 
+        case "button_login": 
             addLogin();
             break
-        case "Регистрация":
+        case "button_reg":
             addReg();
+            break    
+        case "coffee":
+            getEl("popUp").style.visibility = "visible";
+            getEl("adminPanel").style.visibility = "visible";
+            getEl("close_ad").addEventListener("click", popDown, false);
+            break
+        case "addbook":
+            getEl("popUp").style.visibility = "visible";
+            getEl("addbookPanel").style.visibility = "visible";
+            getEl("close_bo").addEventListener("click", popDown, false);
             break
     }
 }
 
 function popDown() {
-    var el = getEl("pop-up");
-    el.parentNode.removeChild(el);
+    if (getEl("pop-up")){
+        var el = getEl("pop-up");
+        el.parentNode.removeChild(el);
+    } else {
+        var el = this.parentNode;
+        el.style.visibility = "hidden";
+        el.parentNode.style.visibility = "hidden";
+    }
 }
 
 function checkTags() {
@@ -180,7 +202,6 @@ function checkTags() {
 
 function pageLoaded(){
     checkTags();
-    checkJavaScript();
     addEvents();
 }
 
@@ -193,7 +214,13 @@ function checkReg() {
     var img = "img_" + name;
     img = getEl(img);
     img.innerHTML = loading;
-    var params = "check=" + name + "&" + name + "=" + obj.value;
+    var params;
+    if (name == "password2") {
+        var pas = getEl("password").value;
+        params = "check=" + name + "&" + name + "=" + obj.value + "&password=" + pas;
+    } else {
+        params = "check=" + name + "&" + name + "=" + obj.value;
+    }
     var request = false;
     var res;
     if (window.XMLHttpRequest) {
@@ -272,7 +299,7 @@ function upMessage() {
 function downMessage() {
     var mes = this.parentNode;
     mes.childNodes[0].removeEventListener("mousemove", moveMessage);
-    mes.addEventListener("mouseenter", upMessage, false);
+    mes.childNodes[0].addEventListener("mouseenter", upMessage, false);
     mes.childNodes[1].style.display = "none";
 }
 
@@ -290,3 +317,4 @@ function moveMessage() {
     target.style.left = mouse_x + "px";
     target.style.top = mouse_y + "px";
 }
+

@@ -26,8 +26,7 @@ switch ($_POST["check"]){
             if (strcmp($_POST['password'], $_POST['password2']))
             {
                 $messages[] = "Ваши пароли не совпадают";
-            } 
-         if (empty($messages)) {
+            } else {
                 $messages[] = 1;
             }
         }    

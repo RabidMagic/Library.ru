@@ -22,7 +22,7 @@ $_GET['id'] = securityCheck($_GET['id']);
             h1 { text-align: center; }
         </style>
     </head>
-    <body onload="pageLoaded();">
+    <body>
         <section id="container">
             <?php require_once 'header.php'; ?>
             <?php require_once 'nav.php'; ?>
