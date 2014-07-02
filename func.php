@@ -181,7 +181,7 @@ function uploadFile($name, $uploadfile) {
     global $messages, $mdb2;
     $mime = explode('/', $_FILES[$name]['type']);
     $uploaddir = 'uploads/';
-    if (@scandir($uploaddir) == FALSE) mkdir ($uploaddir);
+    if (@scandir($uploaddir) == FALSE) { mkdir ($uploaddir); }
     switch ($mime[0]) {
         case 'image':
             $uploadfile .= '.jpeg';
