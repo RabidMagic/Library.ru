@@ -1,11 +1,23 @@
 <?php
-//Вывод результатов запросов на экран
+/**
+ * Вывод результатов
+ * 
+ * @package LibraryClasses
+ * @author tervaskanto <frolkinnikita94@gmail.com>
+ */
 class GetResults {
     private $page;
     private $start;
     private $result;
     private $row;
     private $query;
+    /**
+     * Отправка запроса на выборку
+     * 
+     * @param int Количество выводимых блоков
+     * @param string Запрос
+     * @param MDB2 Объект коннекта к БД
+     */
     public function __construct($num, $query, $mdb2) {
         $this->page = $_GET['page'];
         if(empty($this->page) or $this->page < 0) $this->page = 1;
@@ -13,7 +25,11 @@ class GetResults {
         $this->query = $query . " LIMIT $this->start, $num";
         $this->result = $mdb2->query($this->query);
     }
-    public function getReview() { //страницы page.php и guestbook.php
+    /**
+     * Вывод комментариев
+     * 
+     */
+    public function getReview() {
         if ($this->result->numRows() > 0)
         {
             while ($this->row = $this->result->fetchRow())
@@ -27,7 +43,10 @@ class GetResults {
                
         } else print "<h3 style='text-align: center;'>Пока здесь нет отзывов, но Вы можете быть первым</h3>";
     }
-    public function getSearchResults() { //страница results.php
+    /**
+     * Вывод результатов поиска
+     */
+    public function getSearchResults() {
         if ($this->result->numRows() > 0)
         {
             while ($this->row = $this->result->fetchRow())
