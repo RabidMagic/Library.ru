@@ -3,7 +3,6 @@ require_once 'connect.php';
 require_once 'func.php';
 require_once 'OutputSelect.php';
 session_start(); 
-checkLogIn();
 ?>
 <!DOCTYPE html>
 <html>
