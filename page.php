@@ -23,10 +23,6 @@ $_GET['id'] = securityCheck($_GET['id']);
         </style>
     </head>
     <body onload="pageLoaded();">
-        <?php
-            include_once 'login_pop-up.php'; 
-            include_once 'reg_pop-up.php';
-        ?>
         <section id="container">
             <?php require_once 'header.php'; ?>
             <?php require_once 'nav.php'; ?>

@@ -46,10 +46,19 @@ switch ($_POST["check"]){
             }
         }    
         break;
+    case "birth" :
+        if (!empty($_POST['reg-b-month']) && !empty($_POST['reg-b-day']) && !empty($_POST['reg-b-year']))
+        {
+            if (!checkdate($_POST['reg-b-month'], $_POST['reg-b-day'], $_POST['reg-b-year']))
+            {
+                $messages[] = "Введена некорректная дата";
+            } else  {$messages[] = 1;}
+        } else {$messages[] = "Вы не ввели дату рождения";
+        } 
+        break;
 }
 
 foreach ($messages as $value) {
     echo $value;
 }
 unset($messages);
-
