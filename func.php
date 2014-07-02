@@ -164,9 +164,10 @@ function getStrTranslit($string) {
 function uploadFile($name, $uploadfile) {
     global $messages, $mdb2, $log;
     $mime = explode('/', $_FILES[$name]['type']);
+    $uploaddir = 'uploads/';
+    if (@scandir($uploaddir) == FALSE) mkdir ($uploaddir);
     switch ($mime[0]) {
         case 'image':
-            $uploaddir = 'uploads/';
             $uploadfile .= '.jpeg';
             if ($_FILES[$name]['size'] > 3000000)
             {
@@ -202,7 +203,6 @@ function uploadFile($name, $uploadfile) {
             }
             break;
         case 'text':
-            $uploaddir = 'uploads/';
             $uploadfile .= '.txt';
             if ($_FILES[$name]['size'] > 3000000) {
                 $messages[] = 'Недопустимый размер файла';
