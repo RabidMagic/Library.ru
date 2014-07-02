@@ -23,14 +23,6 @@ function newUser($login, $password, $gender, $birthdate, $email, $group=user) {
     $mdb2->exec("INSERT INTO users (login, password, gender, birthdate, email, us_group) VALUES ('$login', '$password', '$gender', '$birthdate', '$email', '$group')");
     return TRUE;
 }
-//проверка состояния сессии
-function checkLogIn() {
-    if (empty($_SESSION['stat_log']))
-    {
-        header("Location: auth.php");
-    }
-    return FALSE;
-}
 //Процесс логина
 function setSession($login, $password, $us_group) {
     $_SESSION['login'] = $login;
