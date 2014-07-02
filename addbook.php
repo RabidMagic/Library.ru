@@ -24,7 +24,9 @@
             <td>
                 <?php
                 $query = "SELECT genre FROM genres";
-                $genres = new OutputSelect($query, $mdb2, 'genres');
+                $genres = new OutputSelect($query, $mdb2);
+                $addinset = '<option disabled selected>Выберите жанр</option>';
+                $genres->getOption('genre', $addinset);
                 ?>  
             </td>
         </tr>
@@ -36,10 +38,6 @@
             <td>Выберите .txt файл: </td>
             <td><input type="file" name="txt"></td>
         </tr>
-<!--        <tr>
-            <td>Введите ссылку на скачку файла: </td>
-            <td><input type="url" name="url"></td>
-        </tr>-->
     </table>
     <input type='submit' value='Отправить'>
     <input type='reset' value='Сбросить'>            

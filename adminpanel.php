@@ -13,20 +13,31 @@
             <td>
                 <?php
                 $query = "SELECT login FROM users";
-                $users = new OutputSelect($query, $mdb2, 'users');
+                $users = new OutputSelect($query, $mdb2);
+                $users->getOption('user');
                 ?>
             </td>
             <td>Выберите группу: </td>
             <td>
                 <?php
                 $query = "SELECT us_group FROM groups";
-                $groups = new OutputSelect($query, $mdb2, 'groups');
+                $groups = new OutputSelect($query, $mdb2);
+                $groups->getOption('group');
                 ?>
             </td>
         </tr>
         <tr>
             <td>Подтвердите изменения</td>
             <td><input type="checkbox" name="check1"></td>
+        </tr>
+        <tr><th colspan="3">Удаление книг</th></tr>
+        <tr>
+            <td>Выберите книгу: </td>
+            <td>
+                <?php
+//                $query = 'SELECT '
+                ?>
+            </td>
         </tr>
     </table>
     <button type="submit">Сохранить</button>
