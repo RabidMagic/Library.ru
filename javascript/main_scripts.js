@@ -221,8 +221,6 @@ function checkReg() {
             }
         }
     };
-    alert(params);
-    alert(res);
 }
 
 function checkBirth() {
