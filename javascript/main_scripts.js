@@ -104,7 +104,7 @@ function addReg() {
     but.value = "Зарегистрироватся";
     but.name = "reg";
     var form = document.createElement("form");
-    form.action = "reg_scr.php";
+    form.action = "reg_src.php";
     form.method = "post";
     form.name = "reg";
     form.appendChild(h);
@@ -193,7 +193,13 @@ function checkReg() {
     var img = "img_" + name;
     img = getEl(img);
     img.innerHTML = loading;
-    var params = "check=" + name + "&" + name + "=" + obj.value;
+    var params;
+    if (name == "password2") {
+        var pas = getEl("password").value;
+        params = "check=" + name + "&" + name + "=" + obj.value + "&password=" + pas;
+    } else {
+        params = "check=" + name + "&" + name + "=" + obj.value;
+    }
     var request = false;
     var res;
     if (window.XMLHttpRequest) {
@@ -215,6 +221,8 @@ function checkReg() {
             }
         }
     };
+    alert(params);
+    alert(res);
 }
 
 function checkBirth() {
