@@ -42,8 +42,7 @@ $_GET['id'] = securityCheck($_GET['id']);
                     if (isset($_SESSION['stat_log']))
                     {
                         $check_fav = new FavBook($_SESSION['login']);
-                        $check_fav->checkFav();
-                        if ($check_fav->getStat() === FALSE) {
+                        if ($check_fav->checkFav() === FALSE) {
                             print "<form action='fav-book-add.php' method='post'>
                                     <input type='hidden' value='".$_GET['id']."' name='id'>
                                     <input type='hidden' value='".$row['img']."' name='img'>
