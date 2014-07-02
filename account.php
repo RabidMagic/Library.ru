@@ -15,22 +15,28 @@ checkLogIn();
         <script type="text/javascript" src="javascript/main_scripts.js"></script>
     </head>
     <body>
+        <div id='popUp'>
+            <div id='adminPanel' class='accountPopup'>
+                <div id='close_ad'>X</div>
         <?php
-        echo "<div id='popUp'>";
         if ($_SESSION['us_group'] == 'admin') {
-            echo "<div id='adminPanel' class='accountPopup'>"
-            . "<div>X</div>";
             include_once 'adminpanel.php';
-        echo "</div>";
+        } else {
+            echo '<p>Админ панель вам не доступна</p>';
         }
-        if ($_SESSION['us_group'] == 'admin' || $_SESSION['us_group'] == 'moder') {
-            echo "<div id='addbookPanel' class='accountPopup'>
-            <div>X</div>";
-            include_once 'addbook.php';
-            echo '</div>';
-        }
-        echo '</div>';
         ?>
+              </div>
+            <div id='addbookPanel' class='accountPopup'>
+                <div id='close_bo'>X</div>    
+        <?php        
+        if ($_SESSION['us_group'] == 'admin' || $_SESSION['us_group'] == 'moder') {
+            include_once 'addbook.php';
+        } else {
+            echo '<p>Добавление книг вам не доступно</p>';
+        }    
+        ?>    
+            </div>
+        </div>
         <section id="container">
             <a href="catalog.php"><img id="tocatalog" src="img/tocatalog.png" alt="catalog"></a>
             <img id="coffee" src="img/account_coffee.png" alt="coffee">
