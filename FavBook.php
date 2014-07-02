@@ -48,7 +48,7 @@ class FavBook {
         $this->book->addChild('title', $this->options['title']);
         $this->book->addChild('author', $this->options['author']);
         $this->book->addChild('img', $this->options['img']);
-        if (@scandir('xml/fav') == FALSE) mkdir('xml/fav');
+        if (@scandir('xml/fav') === FALSE) { mkdir('xml/fav', 0777, TRUE); }
         if ($this->xml->asXML($this->filename)) $this->stat = TRUE;
     }
     /**
@@ -109,7 +109,7 @@ class FavBook {
                     <h1>".  $this->book[$this->i]->author."</h1>
                     <h3>".  $this->book[$this->i]->title."</h3></a>
                     <form action='fav-book-del.php' method='post'>
-                        <input type='hidden' value='".  $this->id."' name='book_id'>
+                        <input type='hidden' value='".  $this->id."' name='id'>
                         <input type='submit' value='Удалить из Избранного'>
                     </form>
                     </div>";
