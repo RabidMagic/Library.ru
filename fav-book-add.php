@@ -9,5 +9,5 @@ $options = array ('id'=>$_POST['id'],
         );
 $fav_add = new FavBook($_SESSION['login'], $options);
 $fav_add->addFav();
-if ($fav_add->getStat() == FALSE) $_SESSION['messages'] = '<p>Не удалось добавить книгу в Избранное</p>';
+if (!$fav_add->stat) { $_SESSION['messages'] = '<p>Не удалось добавить книгу в Избранное</p>'; }
 header('Location: '.$ref);
