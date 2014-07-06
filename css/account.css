@@ -103,7 +103,6 @@ a {
     margin: 15% 30%;
     z-index: 20;
     position: fixed;    
-    visibility: hidden;
     padding: 10px;
 }
 
@@ -119,7 +118,6 @@ a {
 
 #popUp {
     position: absolute;
-    visibility: hidden;
     background: rgba(200,200,200,0.9);
     width: 100%;
     height: 100%;

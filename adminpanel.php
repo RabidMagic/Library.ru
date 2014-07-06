@@ -1,4 +1,4 @@
-<form action="adminpanel_scr.php" method="post">
+<form id="Admin" action="adminpanel_scr.php" method="post">
     <table>
         <?php
         if (!empty($_SESSION['messages']))
