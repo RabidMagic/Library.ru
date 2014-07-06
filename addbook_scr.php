@@ -32,7 +32,7 @@ if (empty($messages))
     $desc = securityCheck($desc);
     $desc = mb_ucfirst($desc);
     $genre = $_POST['genre'];
-    $query = "SELECT * FROM 'upload_books' WHERE book_name = '$book' && author = '$author'";
+    $query = "SELECT * FROM upload_books WHERE book_name = '$book' && author = '$author'";
     $result = $mdb2->query($query);
     if ($result->numRows() == 0)
     {
@@ -40,21 +40,23 @@ if (empty($messages))
         restart:
         $uploadfile = setRandomString(5, $max);
         $result = $mdb2->query("SELECT img FROM upload_books WHERE img = '$uploadfile'");
-        if ($result->numRows() != 0)
+        if ($result->numRows() > 0)
         {
             $max++;
             goto restart;
         }
-        if (uploadFile('img', $uploadfile) == FALSE) {
-            $log .= ' upload failed: array messages;';
-        } else $img = $uploadfile;
-        if (uploadFile('txt', $uploadfile) == FALSE) {
-            $log .= ' upload failed: array messages;';
-        } else $txt = $uploadfile;
-        if (!empty($img) && !empty($txt) && empty($messages) && $log == NULL)
+        if (uploadFile('img', $uploadfile)) {
+            $img = $uploadfile;
+        }
+        if (uploadFile('txt', $uploadfile)) {
+            $txt = $uploadfile;
+        }
+        if (isset($img) && isset($txt) && empty($messages))
         {
             $login = $_SESSION['login'];
-            $query = "INSERT INTO upload_books SET book_name = '$book', author = '$author', description = '$desc', genre = '$genre', login = '$login', img = '$img'";// txt = '$txt'";
+            $query = "INSERT INTO upload_books SET book_name = '$book',";
+            $query .= " author = '$author', description = '$desc', genre = '$genre',";
+            $query .= " login = '$login', img = '$img'";
             $result = $mdb2->exec($query);
             header("Location: account.php");
         }

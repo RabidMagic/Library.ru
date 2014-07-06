@@ -96,7 +96,7 @@ function addReg() {
     td.id = "img_birth";
     birth.appendChild(td);
     var gen = document.createElement("tr");
-    gen.innerHTML = "<td>Ваш пол</td><td><input type='radio' name='gender' value='Мужской'>Мужской<br><input type='radio' name='gender' value='Женский'>Женский</td>";
+    gen.innerHTML = "<td>Ваш пол</td><td><input type='radio' name='gender' value='male'>Мужской<br><input type='radio' name='gender' value='female'>Женский</td>";
     var mail = document.createElement("tr");
     mail.innerHTML = "<td>Ваш e-mail</td><td><input type='text' name='email' id='email'></td><td id='img_email'></td>";
     var rob = document.createElement("tr");
@@ -116,7 +116,7 @@ function addReg() {
     but.value = "Зарегистрироватся";
     but.name = "reg";
     var form = document.createElement("form");
-    form.action = "reg_src.php";
+    form.action = "reg_scr.php";
     form.method = "post";
     form.name = "reg";
     form.appendChild(h);
