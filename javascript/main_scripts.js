@@ -119,9 +119,11 @@ function addReg() {
     var h = document.createElement("h1");
     h.innerHTML = "Регистрация";
     var but = document.createElement("input");
+    but.id = "reg_but"
     but.type = "submit";
     but.value = "Зарегистрироватся";
     but.name = "reg";
+    but.disabled = "true";
     var form = document.createElement("form");
     form.action = "reg_scr.php";
     form.method = "post";
@@ -227,6 +229,7 @@ function checkReg() {
             res = request.responseText;
             if (res == 1) {
                 img.innerHTML = yes;
+                checkBut();
             } else {
                 img.innerHTML = no + "<p class='message'>" + res + "</p>";
                 img.childNodes[0].addEventListener("mouseenter", upMessage, false);
@@ -260,12 +263,26 @@ function checkBirth() {
             res = request.responseText;
             if (res == 1) {
                 img.innerHTML = yes;
+                checkBut();
             } else {
                 img.innerHTML = no + "<p class='message'>" + res + "</p>";
                 img.childNodes[0].addEventListener("mouseenter", upMessage, false);
             }
         }
     };
+}
+
+function checkBut() {
+    var imgs = document.getElementsByTagName("img");
+    var count = 0;
+    for (var i = 0; i < imgs.length; i++) {
+        if (imgs[i].getAttribute("src") == "img/yes.png") {
+            count++;
+        }
+    }
+    if (count == 5) {
+        getEl("reg_but").disabled = false;
+    }
 }
 
 function upMessage() {
