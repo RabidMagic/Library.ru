@@ -123,7 +123,7 @@ function addReg() {
     but.value = "Зарегистрироватся";
     but.name = "reg";
     var form = document.createElement("form");
-    form.action = "reg_src.php";
+    form.action = "reg_scr.php";
     form.method = "post";
     form.name = "reg";
     form.appendChild(h);
