@@ -27,13 +27,12 @@ if (empty($messages))
     $sname = mb_ucfirst($_POST['author-sname']);
     $fname = mb_ucfirst($_POST['author-fname']);
     $author = $fname . ' ' . $sname;
-    $book = $_POST['book'];
-    $book = mb_ucfirst($book);
+    $book = mb_ucfirst($_POST['book']);
     $desc = $_POST['desc'];
     $desc = securityCheck($desc);
     $desc = mb_ucfirst($desc);
     $genre = $_POST['genre'];
-    $query = "SELECT * FROM upload_books WHERE book_name = '$book' && author = '$author'";
+    $query = "SELECT * FROM 'upload_books' WHERE book_name = '$book' && author = '$author'";
     $result = $mdb2->query($query);
     if ($result->numRows() == 0)
     {

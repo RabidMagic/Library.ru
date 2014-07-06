@@ -42,8 +42,8 @@ function securityCheck($var) {
  * @param string Данные для проверки
  * @param string Типы поля: email,digit,number,alpha,alpha_space,alphanumeric,alphanumeric_space,
  * string,cyrillic,cyrillic_text,url
- * @param int|string Минимальная длина
- * @param int|string Максимальная длина
+ * @param int Минимальная длина
+ * @param int Максимальная длина
  * @param int Проверка на обязательность
  * @return void
  */
