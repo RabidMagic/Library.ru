@@ -1,6 +1,19 @@
 <?php
+/**
+ * Полезные местами функции
+ * 
+ * @package Functions
+ * @author tervaskanto <frolkinnikita94@gmail.com>
+ */
 require_once 'MDB2.php';
-//Проверка имени на занятость
+/**
+ * Проверка имени на занятость
+ * 
+ * @global array Тексты ошибок
+ * @global MDB2 Объект коннекта к БД
+ * @param string Передаваемое имя
+ * @return boolean
+ */
 function checkName($login) {
     global $messages, $mdb2;
     $result = $mdb2->query("SELECT login FROM users WHERE login='$login'");
@@ -9,19 +22,31 @@ function checkName($login) {
         return FALSE;
     } else return TRUE;
 }
-//Удаление всего лишнего
+/**
+ * Обработка строк
+ * 
+ * @param string Передаваемая строка
+ * @return string
+ */
 function securityCheck($var) {
     $var = trim($var);
     $var = htmlspecialchars($var);
     $var = addslashes($var);
     return $var;
 }
-//Проверка введённой информации
-//$field_descr - описание поля, которое будет выводиться при ошибках;
-//$field_data - передаваемая для проверки переменная;
-//$field_type - тип поля. Типы описаны в массиве $data_types внутри функции;
-//$min_length и $max_length - минимальные и максимальные возможные длины полей;
-//$field_required - проверка на обязательность;
+/**
+ * Проверка данных регулярными выражениями
+ * 
+ * @global array Сообщения об ошибках
+ * @param string Описание поля, которое будет выводиться при ошибках
+ * @param string Данные для проверки
+ * @param string Типы поля: email,digit,number,alpha,alpha_space,alphanumeric,alphanumeric_space,
+ * string,cyrillic,cyrillic_text,url
+ * @param int|string Минимальная длина
+ * @param int|string Максимальная длина
+ * @param int Проверка на обязательность
+ * @return void
+ */
 function field_validator($field_descr, $field_data, $field_type, $min_length="", $max_length="", $field_required=1)  {
     global $messages;
     if(!$field_data && !$field_required){ return; }
@@ -79,7 +104,11 @@ function field_validator($field_descr, $field_data, $field_type, $min_length="",
         }
     }
 }
-//Отображение ошибок
+/**
+ * Отображения об ошибках
+ * 
+ * @param array Сообщения об ошибках
+ */
 function displayErr($messages) {
     print "<ul>\n";
     foreach ($messages as $msg)
@@ -88,7 +117,14 @@ function displayErr($messages) {
     }
     print "</ul>";
 }
-//Создание случайной строки;
+/**
+ * Создание случайной строки
+ * 
+ * @global MDB2 Объект коннекта к БД
+ * @param int Минимальная длина
+ * @param int Максимальная длина
+ * @return string
+ */
 function setRandomString($min, $max = 20) {
     global $mdb2;
     $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -100,7 +136,12 @@ function setRandomString($min, $max = 20) {
     }
     return $string;
 }
-//Перевод русских символов в транслит;
+/**
+ * Перевод кириллических символов в транслит
+ * 
+ * @param string $string
+ * @return string
+ */
 function getStrTranslit($string) {
     $translit = array(
             'а' => 'a', 'б' => 'b', 'в' => 'v',
@@ -127,12 +168,20 @@ function getStrTranslit($string) {
             'Э' => "E'", 'Ю' => 'YU', 'Я' => 'YA');
     return $str = iconv("UTF-8", "UTF-8//IGNORE", strtr($string, $translit));
 }
-//Проверка файла и загрузка его на сервер
+/**
+ * Загрузка файла на сервер
+ * 
+ * @global array Сообщения об ошибках
+ * @global MDB2 Объект коннекта к БД
+ * @param string Имя ключа в массиве $_FILES
+ * @param string Имя файла
+ * @return boolean
+ */
 function uploadFile($name, $uploadfile) {
-    global $messages, $mdb2, $log;
+    global $messages, $mdb2;
     $mime = explode('/', $_FILES[$name]['type']);
     $uploaddir = 'uploads/';
-    if (@scandir($uploaddir) == FALSE) mkdir ($uploaddir);
+    if (@scandir($uploaddir) == FALSE) { mkdir ($uploaddir); }
     switch ($mime[0]) {
         case 'image':
             $uploadfile .= '.jpeg';
@@ -208,13 +257,21 @@ function uploadFile($name, $uploadfile) {
     }
     return FALSE;
 }
-//Отправка комментария/отзыва в базу
+/**
+ * Отправка
+ * 
+ * @global MDB2 Объект коннекта к БД
+ * @param string Запрос
+ * @return boolean
+ */
 function Input($query) {
     global $mdb2;
     $mdb2->exec($query);
     return TRUE;
 }
-//Вывод формы выбора даты рождения
+/**
+ * Вывод формы выбора даты рождения
+ */
 function setBirthdate() {
     echo "<select name='reg-b-day'>";
     echo "<option disabled selected>ДД</option>";
@@ -241,7 +298,12 @@ function setBirthdate() {
     }
     echo "</select>";
 }
-//Перевод в верхний регистр первого слова строки
+/**
+ * Перевод в верхний регистр первой буквы строки(Только для кириллицы)
+ * 
+ * @param string Передаваемая строка
+ * @return string
+ */
 function mb_ucfirst($text) {
     return mb_strtoupper(mb_substr($text, 0, 1)) . mb_substr($text, 1);
 }

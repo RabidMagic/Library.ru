@@ -50,10 +50,11 @@ $_GET['id'] = securityCheck($_GET['id']);
                                     <input type='hidden' value='".$row['author']."' name='author'>
                                     <input type='submit' value='Добавить в Избранное'>
                                    </form>";
-                        } else print "<form action='fav-book-del.php' method='post'>
+                        } else { print "<form action='fav-book-del.php' method='post'>
                                         <input type='hidden' value='".$_GET['id']."' name='id'>
                                         <input type='submit' value='Удалить из Избранного'>
                                       </form>";
+                        }
                         if ($_SESSION['us_group'] == 'admin') {
                             echo '<form method="post" action="bookdel.php">
                                 <input type="hidden" name="id" value="'.$_GET['id'].'">
@@ -85,9 +86,10 @@ $_GET['id'] = securityCheck($_GET['id']);
                                         <input type='submit' value='Отправить'>
                                    </form>
                                </div>";
-                    } else print "<br><h4>Авторизируйтесь, чтобы оставлять комментарии</h4>";
+                    } else  { print "<br><h4>Авторизируйтесь, чтобы оставлять комментарии</h4>";
                         print "<div class='clearfix'></div>";
-                } else print "<h1>Искомой книги найдено не было</h1>";
+                    }
+                } else  { print "<h1>Искомой книги найдено не было</h1>"; }
                 ?>
             </article>
             <?php require_once 'footer.php'; ?>

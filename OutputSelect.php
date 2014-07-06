@@ -20,6 +20,7 @@ class OutputSelect {
         $this->result = $mdb2->query($query);
     }
     /**
+     * Формирование и вывод 'select'
      * 
      * @param string Значение аттрибута 'name'
      * @param string Допольнительные теги 'select'
