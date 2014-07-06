@@ -9,20 +9,23 @@ function addEvents() {
         getEl("button_reg").addEventListener("click", popUp, false);
         getEl("button_reg").innerHTML = "Регистрация";
     }
-    if (getEl("coffee")  ){
-        getEl("coffee").addEventListener("click", popUp, false);
-    }
-    if (getEl("addbook")){
-        getEl("addbook").addEventListener("click", popUp, false);
-    }
-    if (document.getElementsByClassName("bookbox")) {
+    if (window.location.pathname == "/catalog.php") {
         var books = document.getElementsByClassName("bookbox");
-        
         for (var i = 0; i < books.length; i++) {
-            alert(books);
-            books[i].childNodes[0].addEventListener("mouseenter", bookUp, false);
+            books[i].addEventListener("mouseenter", bookUp, false);           
         }
     }         
+}
+
+function bookUp() {
+    var target = this.childNodes[3];
+    target.style.display = "block";
+    this.addEventListener("mouseleave", bookDown, false);
+}
+
+function bookDown() {
+    var target = this.childNodes[3];
+    target.style.display = "none";
 }
 
 function addLogin() {
@@ -304,12 +307,4 @@ function moveMessage() {
     }
     target.style.left = mouse_x + "px";
     target.style.top = mouse_y + "px";
-}
-function bookUp () {
-    var id = this.parentNode;
-    alert('id');
-}
-
-function bookDown() {
-    this.childNodes[1].style.visibility = "hidden";
 }
