@@ -15,10 +15,14 @@ function addEvents() {
     if (getEl("addbook")){
         getEl("addbook").addEventListener("click", popUp, false);
     }
-    
+    if (document.getElementsByClassName("bookbox")) {
+        var books = document.getElementsByClassName("bookbox");
         
-                    
-                
+        for (var i = 0; i < books.length; i++) {
+            alert(books);
+            books[i].childNodes[0].addEventListener("mouseenter", bookUp, false);
+        }
+    }         
 }
 
 function addLogin() {
@@ -157,29 +161,13 @@ function popUp() {
             break
         case "button_reg":
             addReg();
-            break    
-        case "coffee":
-            getEl("popUp").style.visibility = "visible";
-            getEl("adminPanel").style.visibility = "visible";
-            getEl("close_ad").addEventListener("click", popDown, false);
-            break
-        case "addbook":
-            getEl("popUp").style.visibility = "visible";
-            getEl("addbookPanel").style.visibility = "visible";
-            getEl("close_bo").addEventListener("click", popDown, false);
             break
     }
 }
 
 function popDown() {
-    if (getEl("pop-up")){
-        var el = getEl("pop-up");
-        el.parentNode.removeChild(el);
-    } else {
-        var el = this.parentNode;
-        el.style.visibility = "hidden";
-        el.parentNode.style.visibility = "hidden";
-    }
+    var el = getEl("pop-up");
+    el.parentNode.removeChild(el);
 }
 
 function checkTags() {
@@ -317,4 +305,11 @@ function moveMessage() {
     target.style.left = mouse_x + "px";
     target.style.top = mouse_y + "px";
 }
+function bookUp () {
+    var id = this.parentNode;
+    alert('id');
+}
 
+function bookDown() {
+    this.childNodes[1].style.visibility = "hidden";
+}
