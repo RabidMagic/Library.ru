@@ -2,7 +2,7 @@
 /**
  * Кнопки постраничной навигации
  * 
- * @package LibraryClasses
+ * @package PageButtons
  * @author tervaskanto <frolkinnikita94@gmail.com>
  */
 class PageButtons {

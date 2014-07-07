@@ -2,7 +2,7 @@
 /**
  * Регистрация/авторизация на сайте
  *
- * @package LibraryClasses
+ * @package Authorization
  * @author tervaskanto <frolkinnikita94@gmail.com>
  */
 class Authorization {

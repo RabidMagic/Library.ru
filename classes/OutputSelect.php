@@ -2,7 +2,7 @@
 /**
  * Вывод тегов 'select'
  * 
- * @package LibraryClasses
+ * @package OutputSelect
  * @author tervaskanto <frolkinnikita94@gmail.com>
  */
 class OutputSelect {

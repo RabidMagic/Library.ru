@@ -2,7 +2,7 @@
 /**
  * Вывод результатов
  * 
- * @package LibraryClasses
+ * @package GetResults
  * @author tervaskanto <frolkinnikita94@gmail.com>
  */
 class GetResults {

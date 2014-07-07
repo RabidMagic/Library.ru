@@ -4,7 +4,7 @@
  * 
  * Класс для управления избранными книгами
  * 
- * @package LibraryClasses
+ * @package FavBook
  * @author tervaskanto <frolkinnikita94@gmail.com>
  */
 class FavBook {

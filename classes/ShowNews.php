@@ -2,7 +2,7 @@
 /**
  * Вывод новостей
  * 
- * @package LibraryClasses
+ * @package ShowNews
  * @author tervaskanto <frolkinnikita94@gmail.com>
  */
 class ShowNews {
