@@ -1,9 +1,9 @@
 <?php 
 require_once 'func.php';
 require_once 'connect.php';
-require_once 'GetResults.php';
-require_once 'PageButtons.php';
-require_once 'FavBook.php';
+require_once 'classes/GetResults.php';
+require_once 'classes/PageButtons.php';
+require_once 'classes/FavBook.php';
 session_start(); 
 $_GET['id'] = securityCheck($_GET['id']);
 ?>

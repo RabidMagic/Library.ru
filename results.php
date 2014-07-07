@@ -1,8 +1,8 @@
 <?php
 require_once 'func.php';
 require_once 'connect.php';
-require_once 'GetResults.php';
-require_once 'PageButtons.php';
+require_once 'classes/GetResults.php';
+require_once 'classes/PageButtons.php';
 session_start();
 $search = $_GET['search'];
 $search = securityCheck($search);

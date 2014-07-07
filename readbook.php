@@ -1,6 +1,6 @@
 <?php
 require_once 'connect.php';
-require_once 'PageButtons.php';
+require_once 'classes/PageButtons.php';
 require_once 'func.php';
 session_start();
 header("Cache-Control: private, must-revalidate");

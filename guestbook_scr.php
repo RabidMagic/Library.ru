@@ -1,7 +1,7 @@
 <?php
-session_start();
 require_once 'func.php';
 require_once 'connect.php';
+session_start();
 if (isset($_POST['submit']))
 {
     if (empty($_POST['review']))

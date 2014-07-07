@@ -1,8 +1,8 @@
 <?php
 require_once 'func.php';
 require_once 'connect.php';
-require_once 'PageButtons.php';
-require_once 'GetResults.php';
+require_once 'classes/PageButtons.php';
+require_once 'classes/GetResults.php';
 session_start();
 ?>
 <!DOCTYPE html>

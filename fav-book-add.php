@@ -1,5 +1,5 @@
 <?php
-include_once 'FavBook.php';
+include_once 'classes/FavBook.php';
 session_start();
 $ref = $_SERVER['HTTP_REFERER'];
 $options = array ('id'=>$_POST['id'],

@@ -1,7 +1,7 @@
 <?php
 require_once 'func.php';
 require_once 'connect.php';
-include_once 'Authorization.php';
+include_once 'classes/Authorization.php';
 session_start();
 field_validator("Логин", $_POST["login"], "alphanumeric", 4, 32);
 field_validator("Пароль", $_POST["password"], "string", 4, 16);

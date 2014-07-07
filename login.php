@@ -1,7 +1,7 @@
 <?php
 require_once 'func.php';
 require_once 'connect.php';
-include_once 'Authorization.php';
+include_once 'classes/Authorization.php';
 session_start();
 $login = securityCheck($_POST['login']);
 $password = securityCheck($_POST['password']);
@@ -15,7 +15,7 @@ $fields = array(
 $auth = new Authorization($mdb2, $fields);
 if ($auth) {
     $get_user = $auth->getUser($fields, 'users');
-    if ($get_user != FALSE) {
+    if ($get_user) {
         Authorization::setSession($login, $get_user['us_group']);
         $referer = $_SERVER['HTTP_REFERER'];
         if (!empty($_SESSION['referer'])) { $referer = $_SESSION['referer']; }
