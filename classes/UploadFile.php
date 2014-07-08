@@ -16,6 +16,15 @@ class UploadFile {
         $this->uploadfile = $uploadfile;
         $this->mdb2 = $mdb2;
     }
+    /**
+     * Перенос файлов в указанную директорию и, если надо, добавление
+     * записи в БД
+     * 
+     * @param Resource $img Ресурс картинки, созданный методом UploadIMG::setFile 
+     * @param Array $txt Массив текста, созданный методом UploadTXT::setFile
+     * @param string|null $query Запрос на добавление в БД
+     * @return boolean
+     */
     public function addFiles($img, $txt, $query = NULL) {
         if (is_array($txt) && is_resource($img)) {
             if (@!scandir($this->uploaddir)) { mkdir ($this->uploaddir); }
@@ -40,13 +49,19 @@ class UploadFile {
     }
 }
 /**
- * Создание нового объекта txt-файла из загруженного
+ * Создание и возврат текста из загруженного файла
  * 
  * @package UploadFile
  * @author tervaskanto <frolkinnikita94@gmail.com>
  */
 class UploadTXT extends Upload {
     protected $txt = array();
+    /**
+     * Создание массива текста из загруженного файла
+     * 
+     * @param string $name Имя поля загрузки
+     * @return boolean
+     */
     public function setFile($name) {
         if ($_FILES[$name]['size'] > static::MAX_SIZE) {
             $this->messages = 'Недопустимый размер файла текста';
@@ -64,12 +79,17 @@ class UploadTXT extends Upload {
         fclose($this->fp);
         return $this->txt;
     }
+    /**
+     * Возвращение ошибок
+     * 
+     * @return string
+     */
     public function getErrors() {
         return $this->messages;
     }
 }
 /**
- * Создание нового объекта jpeg-файла из загруженного
+ * Создание новой картинки из загруженного файла
  * 
  * @package UploadFile
  * @author tervaskanto <frolkinnikita94@gmail.com>
@@ -79,6 +99,12 @@ class UploadIMG extends Upload {
     protected $size;
     const WIDTH = 250;
     const HEIGHT = 385;
+    /**
+     * Создание новой картинки из загруженного файла
+     * 
+     * @param string $name Имя поля загрузки
+     * @return boolean
+     */
     public function setFile($name) {
         if ($_FILES[$name]['size'] > static::MAX_SIZE) {
             $this->messages = 'Недопустимый размер файла картинки';
@@ -99,8 +125,14 @@ class UploadIMG extends Upload {
         $this->img = imagecreatetruecolor(static::WIDTH, static::HEIGHT);
         $this->size = getimagesize($_FILES[$name]['tmp_name']);
         imagecopyresampled($this->img, $this->fp, 0, 0, 0, 0, static::WIDTH, static::HEIGHT, $this->size[0], $this->size[1]);
+        unset($this->fp);
         return $this->img;
     }
+    /**
+     * Возвращение ошибок
+     * 
+     * @return string
+     */
     public function getErrors() {
         return $this->messages;
     }
