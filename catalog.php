@@ -31,7 +31,7 @@ session_start();
                 $result = $mdb2->query("SELECT * FROM upload_books WHERE genre = '".$_GET['genre']."' LIMIT $start, $num");
                 if ($result->numRows() > 0)
                 {
-                    include_once 'PageButtons.php';
+                    include_once 'classes/PageButtons.php';
                     $catalog_buttons = new PageButtons($num, $query_cpb, 'genre='.$_GET['genre'], $mdb2);
                     $catalog_buttons->getButtons();
                     while ($row = $result->fetchRow())

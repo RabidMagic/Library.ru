@@ -45,22 +45,25 @@ if (empty($messages))
             $max++;
             goto restart;
         }
-        if (uploadFile('img', $uploadfile)) {
-            $img = $uploadfile;
-        }
-        if (uploadFile('txt', $uploadfile)) {
-            $txt = $uploadfile;
-        }
-        if (isset($img) && isset($txt) && empty($messages))
-        {
-            $login = $_SESSION['login'];
-            $query = "INSERT INTO upload_books SET book_name = '$book',";
-            $query .= " author = '$author', description = '$desc', genre = '$genre',";
-            $query .= " login = '$login', img = '$img'";
-            $result = $mdb2->exec($query);
+        include_once 'classes/UploadFile.php';
+        $upload = new UploadFile('uploads/', $uploadfile, $mdb2);
+        $uploadtxt = new UploadTXT();
+        $uploadimg = new UploadIMG();
+        $txt = $uploadtxt->setFile('txt');
+        $img = $uploadimg->setFile('img');
+        $query = "INSERT INTO upload_books SET book_name = '$book',";
+        $query .= " author = '$author', description = '$desc', genre = '$genre',";
+        $query .= " login = '".$_SESSION['login']."', img = '$uploadfile'";
+        $stat = $upload->addFiles($img, $txt, $query);
+        if (!$stat) {
+            $messages[] = $uploadimg->getErrors();
+            $messages[] = $uploadtxt->getErrors();
+        } else {
             header("Location: account.php");
         }
-    } else $messages[] = "Такая книга уже есть";
+    } else {
+        $messages[] = "Такая книга уже есть";
+    }
 }
 $_SESSION['messages'] = $messages;
 header("Location: account.php");
