@@ -18,6 +18,7 @@ class UploadFile {
     }
     public function addFiles($img, $txt, $query = NULL) {
         if (is_array($txt) && is_resource($img)) {
+            if (@!scandir($this->uploaddir)) { mkdir ($this->uploaddir); }
             imagejpeg($img, $this->uploaddir.$this->uploadfile.'.jpeg');
             $this->fp = fopen($this->uploaddir.$this->uploadfile.'.txt', 'a');
             foreach ($txt as $value) {
@@ -48,12 +49,12 @@ class UploadTXT extends Upload {
     protected $txt = array();
     public function setFile($name) {
         if ($_FILES[$name]['size'] > static::MAX_SIZE) {
-            $this->messages[] = 'Недопустимый размер файла';
+            $this->messages = 'Недопустимый размер файла текста';
             return FALSE;
         }
         $this->mime = explode('/', $_FILES[$name]['type']);
         if ($this->mime[1] != 'plain') {
-            $this->messages = 'Неверный тип файла';
+            $this->messages = 'Неверный тип файла текста';
             return FALSE;
         }
         $this->fp = fopen($_FILES[$name]['tmp_name'], 'r');
@@ -80,7 +81,7 @@ class UploadIMG extends Upload {
     const HEIGHT = 385;
     public function setFile($name) {
         if ($_FILES[$name]['size'] > static::MAX_SIZE) {
-            $this->messages[] = 'Недопустимый размер файла';
+            $this->messages = 'Недопустимый размер файла картинки';
             return FALSE;
         }
         $this->mime = explode('/', $_FILES[$name]['type']);
@@ -92,13 +93,12 @@ class UploadIMG extends Upload {
                 $this->fp = imagecreatefromjpeg($_FILES[$name]['tmp_name']);
                 break;
             default :
-                $this->messages[] = 'Неверный тип файла';
+                $this->messages = 'Неверный тип файла картинки';
                 return FALSE;
         }
         $this->img = imagecreatetruecolor(static::WIDTH, static::HEIGHT);
         $this->size = getimagesize($_FILES[$name]['tmp_name']);
         imagecopyresampled($this->img, $this->fp, 0, 0, 0, 0, static::WIDTH, static::HEIGHT, $this->size[0], $this->size[1]);
-        fclose($this->fp);
         return $this->img;
     }
     public function getErrors() {
