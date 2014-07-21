@@ -72,7 +72,8 @@ $_GET['id'] = securityCheck($_GET['id']);
                     $page_review = new GetResults($num, $query, $mdb2);
                     $page_review->getReview();
                     $query = "SELECT * FROM book_comments WHERE book_id ='".$_GET['id']."'";
-                    $page_pb = new PageButtons($num, $query, 'id='.$_GET['id'], $mdb2);
+                    $inset = array('id'=>$_GET['id']);
+                    $page_pb = new PageButtons($num, $query, $mdb2, $inset);
                     $page_pb->getButtons();
                     if ($_SESSION['stat_log'] == TRUE) 
                     {

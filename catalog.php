@@ -32,7 +32,8 @@ session_start();
                 if ($result->numRows() > 0)
                 {
                     include_once 'classes/PageButtons.php';
-                    $catalog_buttons = new PageButtons($num, $query_cpb, 'genre='.$_GET['genre'], $mdb2);
+                    $inset = array('genre'=>$_GET['genre']);
+                    $catalog_buttons = new PageButtons($num, $query_cpb, $mdb2, $inset);
                     $catalog_buttons->getButtons();
                     while ($row = $result->fetchRow())
                     {
