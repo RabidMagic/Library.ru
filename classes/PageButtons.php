@@ -21,8 +21,8 @@ class PageButtons {
      * 
      * @param int Количество выводимых блоков
      * @param string Запрос
-     * @param string Допольнительная часть GET-запроса
      * @param MDB2 Объект коннекта к БД
+     * @param array|NULL Допольнительная часть GET-запроса
      */
     public function __construct($num, $query, $mdb2, $inset = NULL) {
         $this->page = $_GET['page'];
@@ -35,7 +35,6 @@ class PageButtons {
                 $this->inset .= '&'.$key.'='.$value;
             }
         }
-//        $this->inset = $inset;
         $this->total = (($this->posts - 1) / $num) + 1;
         $this->total = intval($this->total);
         if (empty($this->page) || $this->page < 0) $this->page = 1;
