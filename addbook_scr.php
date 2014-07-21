@@ -18,7 +18,7 @@ if ($_POST['genre'] == "Выберите жанр")
 {
     $messages[] = "Вы не выбрали жанр";
 }
-field_validator("'Название книги'", $_POST['book'], 'cyrillic');
+field_validator("'Название книги'", $_POST['book'], 'cyrillic_text');
 field_validator('Имя автора', $_POST['author-fname'], 'cyrillic');
 field_validator('Фамилия автора', $_POST['author-sname'], 'cyrillic');
 if (empty($messages))

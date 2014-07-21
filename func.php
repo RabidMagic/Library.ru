@@ -68,7 +68,7 @@ function field_validator($field_descr, $field_data, $field_type, $min_length="",
         "alphanumeric_space"=>"/^[a-zA-Z0-9 ]+$/",
         "string"=>"",
         "cyrillic"=>"/^[а-яА-Я]+$/u",
-        "cyrillic_text"=>"/^[а-яА-Я ]+$/u",
+        "cyrillic_text"=>"/^[а-яА-Я, ]+$/u",
         "url"=>$url
     );
     if ($field_required && empty($field_data))
