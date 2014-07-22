@@ -18,14 +18,9 @@ class Authorization {
      * @param array Массив опций, где ключи - имена полей в БД, а значения - их значения
      * @return boolean
      */
-    public function __construct($mdb2, $fields) {
+    public function __construct(MDB2_Driver_Common $mdb2, array $fields) {
             $this->mdb2 = $mdb2;
             $this->fields = $fields;
-            if (!is_array($this->fields)) {
-                return FALSE;
-            } else {
-                return TRUE;
-            }
         }
     /**
      * Занесение пользователя в БД. В случае успеха возвращает TRUE, 
@@ -81,7 +76,7 @@ class Authorization {
      * @param string Имя таблицы БД
      * @return boolean
      */
-    public function getUser($login_f, $table) {
+    public function getUser(array $login_f, $table) {
         if (!is_array($login_f)) {
             return FALSE;
         }
