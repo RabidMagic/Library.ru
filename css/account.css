@@ -133,3 +133,10 @@ a {
     width: 250px;
     height: 400px;
 }
+
+.mes {
+    position: absolute;
+    padding: 3px;
+    border: 2px solid #000000;
+    background: #fff;
+}

@@ -147,11 +147,20 @@ function addReg() {
     var inputs = document.getElementsByTagName("input");
     for (var i = 0; i < inputs.length; i++) {
         inputs[i].addEventListener("change", checkReg, false);
+        inputs[i].addEventListener("focus", clearUp, false);
     }
     var opt = document.getElementsByTagName("select");
     for (var i = 0; i < opt.length; i++) {
         opt[i].addEventListener("change", checkBirth, false);
+        opt[i].addEventListener("focus", clearUp, false);
     }
+}
+
+function clearUp() {
+    var name = this.getAttribute("name");
+    var img = "img_" + name;
+    img = getEl(img);
+    img.innerHTML = "";
 }
 
 function getEl(id) {
